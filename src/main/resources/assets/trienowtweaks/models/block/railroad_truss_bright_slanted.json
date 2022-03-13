@@ -1,0 +1,9 @@
+{
+	"__comment": "(c) trienow 2017",
+    "parent": "trienowtweaks:block/railroad_truss_wooden_slanted",
+	"textures":
+	{
+		"particle": "trienowtweaks:block/planks_bright",
+		"texture": "trienowtweaks:block/planks_bright"
+	}
+}

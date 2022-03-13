@@ -1,0 +1,19 @@
+{
+    "parent": "block/cube",
+    "display": {
+        "firstperson_righthand": {
+            "rotation": [ 0, 135, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.40, 0.40, 0.40 ]
+        }
+    },
+    "textures": {
+        "particle": "trienowtweaks:block/compact_crafter_top",
+        "down": "trienowtweaks:block/compact_crafter_bottom",
+        "up": "trienowtweaks:block/compact_crafter_top",
+        "north": "trienowtweaks:block/compact_crafter_front",
+        "east": "trienowtweaks:block/compact_crafter_side",
+        "south": "trienowtweaks:block/compact_crafter_back",
+        "west": "trienowtweaks:block/compact_crafter_side"
+    }
+}

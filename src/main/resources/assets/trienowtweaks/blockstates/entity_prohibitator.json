@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "trienowtweaks:block/entity_prohibitator" }
+    }
+}

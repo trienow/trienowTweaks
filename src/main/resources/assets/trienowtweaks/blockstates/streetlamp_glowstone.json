@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "solamnia=top": { "model": "trienowtweaks:block/streetlamp_top_glowstone" },
+    "solamnia=middle": { "model": "trienowtweaks:block/streetlamp_middle_metal" },
+    "solamnia=bottom": { "model": "trienowtweaks:block/streetlamp_bottom_metal" }
+  }
+}

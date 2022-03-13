@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_all",
+	"textures":
+	{
+		"all": "trienowtweaks:block/entity_prohibitator"
+	}
+}

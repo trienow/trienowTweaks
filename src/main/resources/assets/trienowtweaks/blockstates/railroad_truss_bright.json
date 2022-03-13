@@ -1,0 +1,33 @@
+{
+  "variants": {
+    "display=top_ew": {
+      "model": "trienowtweaks:block/railroad_truss_bright",
+      "y": 90
+    },
+    "display=top_ns": {
+      "model": "trienowtweaks:block/railroad_truss_bright"
+    },
+    "display=middle_ns": {
+      "model": "trienowtweaks:block/railroad_truss_bright_middle"
+    },
+    "display=middle_ew": {
+      "model": "trienowtweaks:block/railroad_truss_bright_middle",
+      "y": 90
+    },
+    "display=slanted_s": {
+      "model": "trienowtweaks:block/railroad_truss_bright_slanted"
+    },
+    "display=slanted_w": {
+      "model": "trienowtweaks:block/railroad_truss_bright_slanted",
+      "y": 90
+    },
+    "display=slanted_n": {
+      "model": "trienowtweaks:block/railroad_truss_bright_slanted",
+      "y": 180
+    },
+    "display=slanted_e": {
+      "model": "trienowtweaks:block/railroad_truss_bright_slanted",
+      "y": 270
+    }
+  }
+}

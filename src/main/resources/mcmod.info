@@ -1,0 +1,16 @@
+[
+{
+  "modid": "trienowtweaks",
+  "name": "trienowTweaks",
+  "description": "Some tweaks and changes to minecraft.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://trienow.de/modpack/stats.php?pack=RHZMM",
+  "updateUrl": "",
+  "authorList": ["trienow"],
+  "credits": "trienow motivated by Solamnia, Lavinaia and Nasgo. Big thanks to McJty for his modding tutorials!",
+  "logoFile": "logo.png",
+  "screenshots": ["shot1.png", "shot2.png"],
+  "dependencies": []
+}
+]

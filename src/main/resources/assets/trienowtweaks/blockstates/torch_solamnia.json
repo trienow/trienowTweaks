@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "trienowtweaks:block/torch_solamnia"
+    },
+    "facing=down": {
+      "model": "trienowtweaks:block/torch_solamnia",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "trienowtweaks:block/torch_solamnia_wall",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "trienowtweaks:block/torch_solamnia_wall"
+    },
+    "facing=west": {
+      "model": "trienowtweaks:block/torch_solamnia_wall",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "trienowtweaks:block/torch_solamnia_wall",
+      "y": 180
+    }
+  }
+}
