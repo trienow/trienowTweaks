@@ -2,6 +2,7 @@ package de.trienow.trienowtweaks.commands.commandTreq;
 
 import de.trienow.trienowtweaks.commands.CommandUtils;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -36,12 +37,6 @@ class TeleportRequests
 			checksOk = false;
 		}
 
-		if (checksOk && !fromPlayer.level.equals(toPlayer.level))
-		{
-			CommandUtils.sendIm(fromPlayer, translation_key + "dimension", toPlayerName);
-			checksOk = false;
-		}
-
 		if (checksOk && BLOCKS.hasABlockedB(toPlayer, fromPlayer))
 		{
 			CommandUtils.sendIm(fromPlayer, translation_key + "blocked", toPlayerName);
@@ -54,6 +49,8 @@ class TeleportRequests
 			CommandUtils.sendIm(fromPlayer, translation_key + "duplicate", currentlyPortingTo);
 			checksOk = false;
 		}
+
+		checksOk = checksOk && preTeleportChecks(fromPlayer, toPlayer, toPlayerName);
 
 		if (checksOk)
 		{
@@ -144,11 +141,12 @@ class TeleportRequests
 			checksOk = false;
 		}
 
-		if (checksOk && !fromPlayer.level.equals(toPlayer.level))
-		{
-			CommandUtils.sendIm(fromPlayer, translation_key + ".dimension", toPlayerName);
-			checksOk = false;
-		}
+		//For when dimensional teleporting is not fixed yet
+		//.if (checksOk && !fromPlayer.level.equals(toPlayer.level))
+		//.{
+		//.CommandUtils.sendIm(fromPlayer, translation_key + "dimension", toPlayerName);
+		//.checksOk = false;
+		//.}
 
 		return checksOk;
 	}
@@ -167,24 +165,23 @@ class TeleportRequests
 				if (request.shouldExecuteTeleport())
 				{
 					// Let's try to teleport...
-					Player toPlayer = onlinePlayers.getPlayerByName(toPlayerName);
+					ServerPlayer toPlayer = onlinePlayers.getPlayerByName(toPlayerName);
 
 					if (preTeleportChecks(fromPlayer, toPlayer, toPlayerName))
 					{
-						// Now teleport.
 						CommandUtils.sendIm(fromPlayer, TRANSLATION_KEY + "teleport.teleporting");
 						CommandUtils.sendIm(toPlayer, TRANSLATION_KEY + "teleport.teleporting");
 						Vec3 pos = toPlayer.position();
 
-						//TO DO: Later Dimension teleporting
-						//
-						//if (fromPlayer.level != toPlayer.level)
-						//{
-						//	fromPlayer.changeDimension((ServerLevel) toPlayer.level);
-						//}
-
 						fromPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 60, 255, true, false));
-						fromPlayer.teleportTo(pos.x, pos.y + 0.5, pos.z);
+						if (fromPlayer.level.equals(toPlayer.level))
+						{
+							fromPlayer.teleportTo(pos.x, pos.y + 0.5, pos.z);
+						}
+						else
+						{
+							fromPlayer.changeDimension(toPlayer.getLevel(), new XDimTeleporter(pos));
+						}
 					}
 				}
 				else if (fromPlayer != null)
