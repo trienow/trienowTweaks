@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "trienowtweaks:entity_prohibitator",
+    "trienowtweaks:item_detector",
+    "trienowtweaks:compact_crafter",
+    "trienowtweaks:minecart_killer",
+    "trienowtweaks:invisible_wall",
+    "trienowtweaks:streetlamp_fire",
+    "trienowtweaks:streetlamp_glowstone"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NLN",
+    "WHW",
+    "LNL"
+  ],
+  "key": {
+    "H": {
+      "tag": "forge:heads"
+    },
+    "L": {
+      "item": "minecraft:deepslate_lapis_ore"
+    },
+    "W": {
+      "item": "minecraft:red_nether_brick_wall"
+    },
+    "N": {
+      "item": "minecraft:chiseled_nether_bricks"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:entity_prohibitator"
+  }
+}

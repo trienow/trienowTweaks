@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "tag": "forge:blocks/railroad_truss"
+  },
+  "result": "trienowtweaks:railroad_truss_bright",
+  "count": 1
+}
