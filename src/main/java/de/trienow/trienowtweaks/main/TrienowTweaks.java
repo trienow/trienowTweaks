@@ -1,9 +1,6 @@
 package de.trienow.trienowtweaks.main;
 
-import de.trienow.trienowtweaks.atom.AtomBlocks;
-import de.trienow.trienowtweaks.atom.AtomItemBlocks;
-import de.trienow.trienowtweaks.atom.AtomItems;
-import de.trienow.trienowtweaks.atom.AtomTiles;
+import de.trienow.trienowtweaks.atom.*;
 import de.trienow.trienowtweaks.config.Config;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +20,6 @@ import java.util.Random;
 public class TrienowTweaks
 {
 	public static final String MODID = "trienowtweaks";
-	public static final String VERSION = "3.0.0-alpha";
 
 	public static final Logger LOG = LogManager.getLogger();
 
@@ -50,6 +46,7 @@ public class TrienowTweaks
 		AtomItems.init(modEventBus);
 		AtomItemBlocks.init(modEventBus);
 		AtomTiles.init(modEventBus);
+		AtomRecipes.init(modEventBus);
 
 		StartupMessageManager.addModMessage("Hello from trienowTweaks!");
 	}
