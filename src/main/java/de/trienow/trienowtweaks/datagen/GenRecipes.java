@@ -163,5 +163,15 @@ public class GenRecipes extends RecipeProvider
 				.pattern("GSG")
 				.pattern("III")
 				.save(pFinishedRecipeConsumer);
+
+		//Fun Idea: Make a crafting recipe for all burnable ItemBlocks...
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.TORCH_SOLAMNIA.get(), 4)
+				.unlockedBy(getHasName(Items.COAL_BLOCK), has(Items.COAL_BLOCK))
+				.unlockedBy("has_log_any", has(ItemTags.LOGS))
+				.define('C', Items.COAL_BLOCK)
+				.define('L', ItemTags.LOGS)
+				.pattern("C")
+				.pattern("L")
+				.save(pFinishedRecipeConsumer);
 	}
 }

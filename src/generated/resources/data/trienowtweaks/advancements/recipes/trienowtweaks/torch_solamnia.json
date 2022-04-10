@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "trienowtweaks:torch_solamnia"
+    ]
+  },
+  "criteria": {
+    "has_coal_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:coal_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_log_any": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:logs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "trienowtweaks:torch_solamnia"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_coal_block",
+      "has_log_any",
+      "has_the_recipe"
+    ]
+  ]
+}
