@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "FFF",
+    " P "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:spruce_planks"
+    },
+    "F": {
+      "tag": "minecraft:wooden_fences"
+    },
+    "P": {
+      "tag": "forge:dyes/purple"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:railroad_truss_purple",
+    "count": 2
+  }
+}

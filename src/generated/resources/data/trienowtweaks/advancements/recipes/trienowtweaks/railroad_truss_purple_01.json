@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:stonecut_raiload_truss_any_to_railroad_truss_bright"
+      "trienowtweaks:railroad_truss_purple_01"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:stonecut_raiload_truss_any_to_railroad_truss_bright"
+        "recipe": "trienowtweaks:railroad_truss_purple_01"
       }
     }
   },

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "trienowtweaks:railroad_truss_purple_02"
+    ]
+  },
+  "criteria": {
+    "has_rail": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:rail"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "trienowtweaks:railroad_truss_purple_02"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_rail",
+      "has_the_recipe"
+    ]
+  ]
+}

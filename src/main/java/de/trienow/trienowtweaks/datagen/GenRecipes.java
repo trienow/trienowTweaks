@@ -2,8 +2,10 @@ package de.trienow.trienowtweaks.datagen;
 
 import de.trienow.trienowtweaks.atom.AtomItemBlocks;
 import de.trienow.trienowtweaks.atom.AtomTags;
+import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -112,7 +114,7 @@ public class GenRecipes extends RecipeProvider
 				.define('W', Items.WARPED_FENCE)
 				.pattern("SSS")
 				.pattern("CWC")
-				.save(pFinishedRecipeConsumer);
+				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_01"));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get(), 2)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
@@ -122,7 +124,7 @@ public class GenRecipes extends RecipeProvider
 				.pattern("SSS")
 				.pattern("FFF")
 				.pattern(" P ")
-				.save(pFinishedRecipeConsumer);
+				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_02"));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_BLACK.get(), 2)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
@@ -136,28 +138,20 @@ public class GenRecipes extends RecipeProvider
 
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_BLACK.get())
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, "stonecutting_railroad_truss_any_to_railroad_truss_black");
+				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_black"));
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_BRIGHT.get())
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, "stonecutting_railroad_truss_any_to_railroad_truss_bright");
+				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_bright"));
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get())
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, "stonecutting_railroad_truss_any_to_railroad_truss_purple");
+				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_purple"));
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_WOODEN.get())
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, "stonecutting_railroad_truss_any_to_railroad_truss_wooden");
+				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_wooden"));
 
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.STREETLAMP_FIRE.get())
-				.unlockedBy(getHasName(Items.FLINT_AND_STEEL), has(Items.FLINT_AND_STEEL))
-				.define('I', Tags.Items.INGOTS_IRON)
-				.define('P', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
-				.define('G', Tags.Items.GLASS_COLORLESS)
-				.define('F', Items.FLINT_AND_STEEL)
-				.define('N', Tags.Items.NETHERRACK)
-				.pattern("IPI")
-				.pattern("GFG")
-				.pattern("INI")
-				.save(pFinishedRecipeConsumer);
+		/*
+		  AtomItemBlocks.STREETLAMP_FIRE & AtomItemBlocks.STREETLAMP_FLESH are done in RecipeTT directly
+		 */
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.STREETLAMP_GLOWSTONE.get())
 				.unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE))
@@ -169,18 +163,5 @@ public class GenRecipes extends RecipeProvider
 				.pattern("GSG")
 				.pattern("III")
 				.save(pFinishedRecipeConsumer);
-
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.STREETLAMP_FLESH.get())
-				.unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE))
-				.define('I', Tags.Items.INGOTS_IRON)
-				.define('P', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
-				.define('G', Tags.Items.GLASS_COLORLESS)
-				.define('S', Items.CAKE)
-				.define('N', Tags.Items.NETHERRACK)
-				.pattern("IPI")
-				.pattern("GSG")
-				.pattern("INI")
-				.save(pFinishedRecipeConsumer);
-
 	}
 }
