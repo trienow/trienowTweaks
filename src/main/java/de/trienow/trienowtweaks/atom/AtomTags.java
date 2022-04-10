@@ -28,6 +28,8 @@ public class AtomTags
 		public static final TagKey<Item> COPPER_CUT = forge("blocks/copper_cut");
 		public static final TagKey<Item> RAILROAD_TRUSS = forge("blocks/railroad_truss");
 
+		public static final TagKey<Item> MEAT_RAW = forge("items/meat_raw");
+
 		private static TagKey<Item> forge(String name)
 		{
 			return ItemTags.create(new ResourceLocation("forge", name));

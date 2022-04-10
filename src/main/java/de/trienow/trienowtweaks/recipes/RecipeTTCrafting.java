@@ -1,6 +1,10 @@
 package de.trienow.trienowtweaks.recipes;
 
+import de.trienow.trienowtweaks.atom.AtomBlocks;
+import de.trienow.trienowtweaks.atom.AtomItemBlocks;
 import de.trienow.trienowtweaks.atom.AtomRecipes;
+import de.trienow.trienowtweaks.atom.AtomTags;
+import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.utils.NonNullListUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -11,25 +15,41 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.IShapedRecipe;
+
+import java.util.Map;
 
 /**
  * @author (c) trienow 2022
  */
 public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingContainer>
 {
-	private static final int width = 3;
-	private static final int height = 3;
-	private static final Ingredient[] ingredients = {
-			Ingredient.EMPTY, Ingredient.EMPTY, Ingredient.of(Items.GLOWSTONE),
-			Ingredient.EMPTY, Ingredient.EMPTY, Ingredient.of(Items.FLINT_AND_STEEL),
-			Ingredient.EMPTY, Ingredient.EMPTY, Ingredient.of(Items.REDSTONE) };
-	private static final ItemStack result = new ItemStack(Items.REDSTONE_LAMP);
+	private static final Map<ResourceLocation, RecipeTT> RECIPES = Map.ofEntries(
+			addRecipe("streetlamp_fire", new RecipeTT(3, 3, AtomItemBlocks.STREETLAMP_FIRE.get())
+					.addIngredients(0, Ingredient.of(Tags.Items.INGOTS_IRON), Ingredient.of(Items.HEAVY_WEIGHTED_PRESSURE_PLATE), Ingredient.of(Tags.Items.INGOTS_IRON))
+					.addIngredients(1, Ingredient.of(Tags.Items.GLASS_COLORLESS), Ingredient.of(Items.FLINT_AND_STEEL), Ingredient.of(Tags.Items.GLASS_COLORLESS))
+					.addIngredients(2, Ingredient.of(Tags.Items.INGOTS_IRON), Ingredient.of(Items.NETHERRACK), Ingredient.of(Tags.Items.INGOTS_IRON))
+					.addDamageable(Items.FLINT_AND_STEEL, 1)),
+			addRecipe("streetlamp_flesh", new RecipeTT(3, 3, AtomBlocks.STREETLAMP_FLESH.get())
+					.addIngredients(0, Ingredient.of(AtomTags.Items.MEAT_RAW), Ingredient.of(Items.CRIMSON_PRESSURE_PLATE), Ingredient.of(AtomTags.Items.MEAT_RAW))
+					.addIngredients(1, Ingredient.of(Tags.Items.GLASS_COLORLESS), Ingredient.of(Items.FLINT_AND_STEEL), Ingredient.of(Tags.Items.GLASS_COLORLESS))
+					.addIngredients(2, Ingredient.of(AtomTags.Items.MEAT_RAW), Ingredient.of(Items.NETHERRACK), Ingredient.of(AtomTags.Items.MEAT_RAW))
+					.addDamageable(Items.FLINT_AND_STEEL, 1))
+	);
+
+	private static Map.Entry<ResourceLocation, RecipeTT> addRecipe(String name, RecipeTT recipe)
+	{
+		return Map.entry(new ResourceLocation(TrienowTweaks.MODID, name), recipe);
+	}
+
 	private final ResourceLocation id;
+	private final RecipeTT recipe;
 
 	public RecipeTTCrafting(final ResourceLocation id)
 	{
 		this.id = id;
+		this.recipe = RECIPES.get(id);
 	}
 
 	@Override
@@ -51,13 +71,13 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	@Override
 	public int getRecipeWidth()
 	{
-		return width;
+		return recipe.width;
 	}
 
 	@Override
 	public int getRecipeHeight()
 	{
-		return height;
+		return recipe.height;
 	}
 
 	/**
@@ -71,7 +91,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	{
 		for (int i = 0; i < pContainer.getContainerSize(); i++)
 		{
-			if (!ingredients[i].test(pContainer.getItem(i)))
+			if (!recipe.ingredients[i].test(pContainer.getItem(i)))
 			{
 				return false;
 			}
@@ -89,7 +109,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	{
 		if (matches(pContainer, null))
 		{
-			return result.copy();
+			return new ItemStack(recipe.result);
 		}
 		else
 		{
@@ -106,7 +126,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	@Override
 	public boolean canCraftInDimensions(int pWidth, int pHeight)
 	{
-		return pWidth >= width && pHeight >= height;
+		return pWidth >= recipe.width && pHeight >= recipe.height;
 	}
 
 	@Override
@@ -116,12 +136,20 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 
 		for (int i = 0; i < pContainer.getContainerSize(); i++)
 		{
-			ItemStack ingredient = pContainer.getItem(i);
-			if (ingredient.is(Items.FLINT_AND_STEEL) && ingredient.getDamageValue() + 10 < ingredient.getMaxDamage())
+			ItemStack stack = pContainer.getItem(i);
+			if (stack.isDamageableItem())
 			{
-				ItemStack damagedItem = ingredient.copy();
-				damagedItem.setDamageValue(damagedItem.getDamageValue() + 10);
-				remainingItems.set(i, damagedItem);
+				int toDamage = recipe.shouldDamage(stack);
+				if (toDamage > 0)
+				{
+					int newDamage = stack.getDamageValue() + toDamage;
+					if (newDamage < stack.getMaxDamage())
+					{
+						ItemStack damagedItem = stack.copy();
+						damagedItem.setDamageValue(newDamage);
+						remainingItems.set(i, damagedItem);
+					}
+				}
 			}
 		}
 
@@ -137,12 +165,12 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	@Override
 	public ItemStack getResultItem()
 	{
-		return result;
+		return new ItemStack(recipe.result);
 	}
 
 	@Override
 	public NonNullList<Ingredient> getIngredients()
 	{
-		return NonNullListUtils.FromArray(ingredients);
+		return NonNullListUtils.FromArray(recipe.ingredients);
 	}
 }

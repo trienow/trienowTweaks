@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:stonecut_raiload_truss_any_to_railroad_truss_purple"
+      "trienowtweaks:streetlamp_flesh"
     ]
   },
   "criteria": {
-    "has_rail": {
+    "has_trienowtweaks_streetlamp_fire": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:rail"
+              "trienowtweaks:streetlamp_fire"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:stonecut_raiload_truss_any_to_railroad_truss_purple"
+        "recipe": "trienowtweaks:streetlamp_flesh"
       }
     }
   },
   "requirements": [
     [
-      "has_rail",
+      "has_trienowtweaks_streetlamp_fire",
       "has_the_recipe"
     ]
   ]
