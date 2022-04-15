@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "trienowtweaks:knight_helmet_smithing"
+    ]
+  },
+  "criteria": {
+    "has_netherite_helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_helmet"
+            ]
+          }
+        ]
+      }
+    },
+    "has_red_wool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:red_wool"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "trienowtweaks:knight_helmet_smithing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_netherite_helmet",
+      "has_red_wool",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "trienowtweaks:knight_leggings_smithing"
+    ]
+  },
+  "criteria": {
+    "has_netherite_leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_leggings"
+            ]
+          }
+        ]
+      }
+    },
+    "has_quartz": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:quartz"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "trienowtweaks:knight_leggings_smithing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_netherite_leggings",
+      "has_quartz",
+      "has_the_recipe"
+    ]
+  ]
+}

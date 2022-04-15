@@ -96,7 +96,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	{
 		if (matches(pContainer, null))
 		{
-			return new ItemStack(recipe.result);
+			return new ItemStack(recipe.result, recipe.resultCount);
 		}
 		else
 		{
@@ -152,7 +152,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	@Override
 	public ItemStack getResultItem()
 	{
-		return new ItemStack(recipe.result);
+		return new ItemStack(recipe.result, recipe.resultCount);
 	}
 
 	@Override

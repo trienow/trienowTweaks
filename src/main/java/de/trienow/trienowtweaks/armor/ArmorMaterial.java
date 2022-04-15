@@ -1,6 +1,7 @@
 package de.trienow.trienowtweaks.armor;
 
 import de.trienow.trienowtweaks.main.TrienowTweaks;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -12,10 +13,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 @SuppressWarnings("SameParameterValue")
 public enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial
 {
-	DR_TOAST("drtoast", 100, new int[] { 100, 0, 0, 0 }, 0, SoundEvents.ARMOR_EQUIP_LEATHER, 10f, Ingredient.EMPTY),
-	KNIGHT("knight", 100, new int[] { 100, 100, 100, 100 }, 100, SoundEvents.ARMOR_EQUIP_GOLD, 100f, Ingredient.EMPTY);
+	DR_TOAST("drtoast", 30, new int[] { 2, 0, 0, 0 }, 16, SoundEvents.ARMOR_EQUIP_LEATHER, 1.75f, Ingredient.EMPTY),
+	KNIGHT("knight", 35, new int[] { 3, 6, 8, 3 }, 16, SoundEvents.ARMOR_EQUIP_GOLD, 2.5f, Ingredient.EMPTY);
 
-	private static final int[] MAX_DAMAGE_ARRAY = new int[] { 13, 15, 16, 11 };
+	private static final int[] MAX_DAMAGE_ARRAY = new int[] { 12, 15, 15, 12 };
 	private final String name;
 	private final int maxDamageFactor;
 	private final int[] damageReductionAmountArray;
@@ -24,14 +25,14 @@ public enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial
 	private final float toughness;
 	private final Ingredient repairMaterial;
 
-	ArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float p_i48533_8_, Ingredient repairMaterialSupplier)
+	ArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float pToughness, Ingredient repairMaterialSupplier)
 	{
-		this.name = TrienowTweaks.MODID + ":" + nameIn;
+		this.name = new ResourceLocation(TrienowTweaks.MODID, nameIn).toString();
 		this.maxDamageFactor = maxDamageFactorIn;
 		this.damageReductionAmountArray = damageReductionAmountsIn;
 		this.enchantability = enchantabilityIn;
 		this.soundEvent = equipSoundIn;
-		this.toughness = p_i48533_8_;
+		this.toughness = pToughness;
 		this.repairMaterial = repairMaterialSupplier;
 	}
 

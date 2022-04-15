@@ -2,17 +2,29 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "trienowtweaks:railroad_truss_purple_02"
+      "trienowtweaks:drtoast_helmet_smithing"
     ]
   },
   "criteria": {
-    "has_rail": {
+    "has_bread": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:rail"
+              "minecraft:bread"
+            ]
+          }
+        ]
+      }
+    },
+    "has_golden_helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:golden_helmet"
             ]
           }
         ]
@@ -21,13 +33,14 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "trienowtweaks:railroad_truss_purple_02"
+        "recipe": "trienowtweaks:drtoast_helmet_smithing"
       }
     }
   },
   "requirements": [
     [
-      "has_rail",
+      "has_bread",
+      "has_golden_helmet",
       "has_the_recipe"
     ]
   ]

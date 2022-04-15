@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:golden_helmet"
+  },
+  "addition": {
+    "item": "minecraft:bread"
+  },
+  "result": {
+    "item": "trienowtweaks:drtoast_helmet"
+  }
+}

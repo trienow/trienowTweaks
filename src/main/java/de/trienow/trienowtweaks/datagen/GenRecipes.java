@@ -4,7 +4,6 @@ import de.trienow.trienowtweaks.atom.AtomItemBlocks;
 import de.trienow.trienowtweaks.atom.AtomItems;
 import de.trienow.trienowtweaks.atom.AtomRecipes;
 import de.trienow.trienowtweaks.atom.AtomTags;
-import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +12,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.RegistryObject;
 
+import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 /**
@@ -30,7 +31,7 @@ public class GenRecipes extends RecipeProvider
 	@Override
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer)
 	{
-		final Item INVISIBLE_LIGHT = AtomItemBlocks.GENERIC_LIGHT.get();
+		final Item invisibleLight = AtomItemBlocks.GENERIC_LIGHT.get();
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.COMPACT_CRAFTER.get())
 				.unlockedBy(getHasName(Items.STICKY_PISTON), has(Items.STICKY_PISTON))
@@ -62,10 +63,10 @@ public class GenRecipes extends RecipeProvider
 				.save(pFinishedRecipeConsumer);
 
 		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
-				.save(pFinishedRecipeConsumer, recipeId("generic_light"));
+				.save(pFinishedRecipeConsumer, recipeId(AtomItemBlocks.GENERIC_LIGHT));
 
 		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
-				.save(pFinishedRecipeConsumer, recipeId("invisible_wall"));
+				.save(pFinishedRecipeConsumer, recipeId(AtomItemBlocks.INVISIBLE_WALL));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.ITEM_DETECTOR.get())
 				.unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
@@ -117,7 +118,7 @@ public class GenRecipes extends RecipeProvider
 				.define('W', Items.WARPED_FENCE)
 				.pattern("SSS")
 				.pattern("CWC")
-				.save(pFinishedRecipeConsumer, recipeLoc(getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_01"));
+				.save(pFinishedRecipeConsumer, recipeLoc(AtomItemBlocks.RAILROAD_TRUSS_PURPLE, 1));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get(), 3)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
@@ -127,7 +128,7 @@ public class GenRecipes extends RecipeProvider
 				.pattern("SSS")
 				.pattern("FFF")
 				.pattern(" P ")
-				.save(pFinishedRecipeConsumer, recipeLoc(getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_02"));
+				.save(pFinishedRecipeConsumer, recipeLoc(AtomItemBlocks.RAILROAD_TRUSS_PURPLE, 2));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_BLACK.get(), 3)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
@@ -153,9 +154,9 @@ public class GenRecipes extends RecipeProvider
 				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_wooden"));*/
 
 		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
-				.save(pFinishedRecipeConsumer, recipeId("streetlamp_fire"));
+				.save(pFinishedRecipeConsumer, recipeId(AtomItemBlocks.STREETLAMP_FIRE));
 		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
-				.save(pFinishedRecipeConsumer, recipeId("streetlamp_flesh"));
+				.save(pFinishedRecipeConsumer, recipeId(AtomItemBlocks.STREETLAMP_FLESH));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.STREETLAMP_GLOWSTONE.get())
 				.unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE))
@@ -178,14 +179,6 @@ public class GenRecipes extends RecipeProvider
 				.pattern("L")
 				.save(pFinishedRecipeConsumer);
 
-		ShapelessRecipeBuilder.shapeless(AtomItems.DRTOAST_HEAD.get())
-				.unlockedBy(getHasName(Items.BREAD), has(Items.BREAD))
-				.requires(Items.BREAD)
-				.requires(Items.KELP)
-				.requires(Items.BEETROOT)
-				.requires(Items.COOKED_BEEF)
-				.save(pFinishedRecipeConsumer);
-
 		ShapedRecipeBuilder.shaped(AtomItems.AUTO_FOOD.get())
 				.unlockedBy(getHasName(Items.MELON_SLICE), has(Items.MELON_SLICE))
 				.define('M', Items.MELON)
@@ -204,23 +197,58 @@ public class GenRecipes extends RecipeProvider
 				.save(pFinishedRecipeConsumer);
 
 		ShapedRecipeBuilder.shaped(AtomItems.WE_WAND.get())
-				.unlockedBy(getHasName(INVISIBLE_LIGHT), has(INVISIBLE_LIGHT))
-				.define('L', INVISIBLE_LIGHT)
+				.unlockedBy(getHasName(invisibleLight), has(invisibleLight))
+				.define('L', invisibleLight)
 				.define('E', Items.ENDER_PEARL)
 				.define('I', Tags.Items.INGOTS_IRON)
 				.pattern("LEL")
 				.pattern(" I ")
 				.pattern(" I ")
 				.save(pFinishedRecipeConsumer);
+
+		UpgradeRecipeBuilder.smithing(Ingredient.of(Items.GOLDEN_HELMET), Ingredient.of((Items.BREAD)), AtomItems.DRTOAST_HEAD.get())
+				.unlocks(getHasName(Items.BREAD), has(Items.BREAD))
+				.unlocks(getHasName(Items.GOLDEN_HELMET), has(Items.GOLDEN_HELMET))
+				.save(pFinishedRecipeConsumer, recipeIdSmithing(AtomItems.DRTOAST_HEAD));
+
+		UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_HELMET), Ingredient.of(Items.RED_WOOL), AtomItems.KNIGHT_HEAD.get())
+				.unlocks(getHasName(Items.NETHERITE_HELMET), has(Items.NETHERITE_HELMET))
+				.unlocks(getHasName(Items.RED_WOOL), has(Items.RED_WOOL))
+				.save(pFinishedRecipeConsumer, recipeIdSmithing(AtomItems.KNIGHT_HEAD));
+
+		UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_CHESTPLATE), Ingredient.of(Items.LEATHER), AtomItems.KNIGHT_CHEST.get())
+				.unlocks(getHasName(Items.NETHERITE_CHESTPLATE), has(Items.NETHERITE_CHESTPLATE))
+				.unlocks(getHasName(Items.LEATHER), has(Items.LEATHER))
+				.save(pFinishedRecipeConsumer, recipeIdSmithing(AtomItems.KNIGHT_CHEST));
+
+		UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_LEGGINGS), Ingredient.of(Items.QUARTZ), AtomItems.KNIGHT_LEGS.get())
+				.unlocks(getHasName(Items.NETHERITE_LEGGINGS), has(Items.NETHERITE_LEGGINGS))
+				.unlocks(getHasName(Items.QUARTZ), has(Items.QUARTZ))
+				.save(pFinishedRecipeConsumer, recipeIdSmithing(AtomItems.KNIGHT_LEGS));
+
+		UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_BOOTS), Ingredient.of(Items.GOLD_INGOT), AtomItems.KNIGHT_FEET.get())
+				.unlocks(getHasName(Items.NETHERITE_BOOTS), has(Items.NETHERITE_BOOTS))
+				.unlocks(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
+				.save(pFinishedRecipeConsumer, recipeIdSmithing(AtomItems.KNIGHT_FEET));
 	}
 
-	private static String recipeId(String name)
+	private static String recipeIdSmithing(@Nonnull RegistryObject<?> ro)
 	{
-		return recipeLoc(name).toString();
+		return ro.getId().toString() + "_smithing";
 	}
 
-	private static ResourceLocation recipeLoc(String name)
+	private static String recipeId(@Nonnull RegistryObject<?> ro)
 	{
-		return new ResourceLocation(TrienowTweaks.MODID, name);
+		return ro.getId().toString();
+	}
+
+	private static String recipeId(@Nonnull RegistryObject<?> ro, int index)
+	{
+		return recipeId(ro) + "_" + index;
+	}
+
+	private static ResourceLocation recipeLoc(@Nonnull RegistryObject<?> ro, int index)
+	{
+		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + index);
 	}
 }

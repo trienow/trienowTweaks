@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "trienowtweaks:railroad_truss_purple_01"
+      "trienowtweaks:railroad_truss_purple_2"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "trienowtweaks:railroad_truss_purple_01"
+        "recipe": "trienowtweaks:railroad_truss_purple_2"
       }
     }
   },
