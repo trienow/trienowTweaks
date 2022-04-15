@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "NLN",
+    "LBL",
     "WHW",
-    "LNL"
+    "BLB"
   ],
   "key": {
     "H": {
@@ -13,13 +13,14 @@
       "item": "minecraft:deepslate_lapis_ore"
     },
     "W": {
-      "item": "minecraft:red_nether_brick_wall"
+      "item": "minecraft:deepslate_brick_wall"
     },
-    "N": {
-      "item": "minecraft:chiseled_nether_bricks"
+    "B": {
+      "item": "minecraft:deepslate_bricks"
     }
   },
   "result": {
-    "item": "trienowtweaks:entity_prohibitator"
+    "item": "trienowtweaks:entity_prohibitator",
+    "count": 5
   }
 }

@@ -13,15 +13,22 @@ class RecipeTT
 	final int width;
 	final int height;
 	final Ingredient[] ingredients;
-	private final Map<Item, Integer> damageableItems = new HashMap<>();
 	final ItemLike result;
+	final int resultCount;
+	private final Map<Item, Integer> damageableItems = new HashMap<>();
 
-	RecipeTT(int width, int height, ItemLike result)
+	RecipeTT(int width, int height, ItemLike result, int resultCount)
 	{
 		this.width = width;
 		this.height = height;
 		this.result = result;
 		this.ingredients = new Ingredient[width * height];
+		this.resultCount = resultCount;
+	}
+
+	RecipeTT(int width, int height, ItemLike result)
+	{
+		this(width, height, result, 1);
 	}
 
 	/**

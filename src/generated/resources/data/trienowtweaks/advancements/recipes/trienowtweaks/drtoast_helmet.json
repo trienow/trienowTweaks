@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_purple"
+      "trienowtweaks:drtoast_helmet"
     ]
   },
   "criteria": {
-    "has_rail": {
+    "has_bread": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:rail"
+              "minecraft:bread"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_purple"
+        "recipe": "trienowtweaks:drtoast_helmet"
       }
     }
   },
   "requirements": [
     [
-      "has_rail",
+      "has_bread",
       "has_the_recipe"
     ]
   ]

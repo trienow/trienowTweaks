@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_wooden"
+      "trienowtweaks:fake_fire"
     ]
   },
   "criteria": {
-    "has_rail": {
+    "has_magma_block": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:rail"
+              "minecraft:magma_block"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_wooden"
+        "recipe": "trienowtweaks:fake_fire"
       }
     }
   },
   "requirements": [
     [
-      "has_rail",
+      "has_magma_block",
       "has_the_recipe"
     ]
   ]

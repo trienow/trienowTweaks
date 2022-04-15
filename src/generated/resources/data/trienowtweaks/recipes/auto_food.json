@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "MDM"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:melon"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:auto_food"
+  }
+}

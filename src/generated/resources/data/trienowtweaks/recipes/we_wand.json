@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LEL",
+    " I ",
+    " I "
+  ],
+  "key": {
+    "L": {
+      "item": "trienowtweaks:generic_light"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:we_wand"
+  }
+}

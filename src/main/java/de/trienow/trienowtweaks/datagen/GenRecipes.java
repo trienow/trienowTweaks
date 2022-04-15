@@ -1,15 +1,16 @@
 package de.trienow.trienowtweaks.datagen;
 
 import de.trienow.trienowtweaks.atom.AtomItemBlocks;
+import de.trienow.trienowtweaks.atom.AtomItems;
+import de.trienow.trienowtweaks.atom.AtomRecipes;
 import de.trienow.trienowtweaks.atom.AtomTags;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 
@@ -17,6 +18,7 @@ import java.util.function.Consumer;
 
 /**
  * @author (c) trienow 2022
+ * @author (c) super_zzo 2022
  */
 public class GenRecipes extends RecipeProvider
 {
@@ -28,8 +30,7 @@ public class GenRecipes extends RecipeProvider
 	@Override
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer)
 	{
-		ItemStack POTION_SPLASH_INVISIBILITY = new ItemStack(Items.SPLASH_POTION);
-		POTION_SPLASH_INVISIBILITY.getOrCreateTag().putString("Potion", Potions.LONG_INVISIBILITY.getRegistryName().toString());
+		final Item INVISIBLE_LIGHT = AtomItemBlocks.GENERIC_LIGHT.get();
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.COMPACT_CRAFTER.get())
 				.unlockedBy(getHasName(Items.STICKY_PISTON), has(Items.STICKY_PISTON))
@@ -42,27 +43,29 @@ public class GenRecipes extends RecipeProvider
 				.pattern("BPB")
 				.save(pFinishedRecipeConsumer);
 
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.ENTITY_PROHIBITATOR.get())
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.ENTITY_PROHIBITATOR.get(), 5)
 				.unlockedBy(getHasName(Items.WITHER_SKELETON_SKULL), has(Items.WITHER_SKELETON_SKULL))
 				.define('H', Tags.Items.HEADS)
 				.define('L', Items.DEEPSLATE_LAPIS_ORE)
-				.define('W', Items.RED_NETHER_BRICK_WALL)
-				.define('N', Items.CHISELED_NETHER_BRICKS)
-				.pattern("NLN")
+				.define('W', Items.DEEPSLATE_BRICK_WALL)
+				.define('B', Items.DEEPSLATE_BRICKS)
+				.pattern("LBL")
 				.pattern("WHW")
-				.pattern("LNL")
+				.pattern("BLB")
 				.save(pFinishedRecipeConsumer);
 
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(Items.MAGMA_BLOCK),
-				AtomItemBlocks.FAKE_FIRE.get(),
-				0.05F,
-				150);
-
-		ShapelessRecipeBuilder.shapeless(AtomItemBlocks.GENERIC_LIGHT.get(), 8)
-				.unlockedBy(getHasName(Items.FERMENTED_SPIDER_EYE), has(Items.FERMENTED_SPIDER_EYE))
-				.requires(Ingredient.of(POTION_SPLASH_INVISIBILITY), 1)
-				.requires(Items.GLOWSTONE, 8)
+						AtomItemBlocks.FAKE_FIRE.get(),
+						0.05F,
+						150)
+				.unlockedBy(getHasName(Items.MAGMA_BLOCK), has(Items.MAGMA_BLOCK))
 				.save(pFinishedRecipeConsumer);
+
+		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
+				.save(pFinishedRecipeConsumer, recipeId("generic_light"));
+
+		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
+				.save(pFinishedRecipeConsumer, recipeId("invisible_wall"));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.ITEM_DETECTOR.get())
 				.unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
@@ -89,7 +92,7 @@ public class GenRecipes extends RecipeProvider
 				.pattern("BBB")
 				.save(pFinishedRecipeConsumer);
 
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_WOODEN.get(), 2)
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_WOODEN.get(), 3)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
 				.define('S', Items.SPRUCE_PLANKS)
 				.define('F', ItemTags.WOODEN_FENCES)
@@ -97,7 +100,7 @@ public class GenRecipes extends RecipeProvider
 				.pattern("FFF")
 				.save(pFinishedRecipeConsumer);
 
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_BRIGHT.get(), 2)
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_BRIGHT.get(), 3)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
 				.define('S', Items.SPRUCE_PLANKS)
 				.define('F', ItemTags.WOODEN_FENCES)
@@ -107,16 +110,16 @@ public class GenRecipes extends RecipeProvider
 				.pattern(" W ")
 				.save(pFinishedRecipeConsumer);
 
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get(), 2)
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get(), 6)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
 				.define('S', Items.SPRUCE_PLANKS)
 				.define('C', Items.CRIMSON_FENCE)
 				.define('W', Items.WARPED_FENCE)
 				.pattern("SSS")
 				.pattern("CWC")
-				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_01"));
+				.save(pFinishedRecipeConsumer, recipeLoc(getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_01"));
 
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get(), 2)
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get(), 3)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
 				.define('S', Items.SPRUCE_PLANKS)
 				.define('F', ItemTags.WOODEN_FENCES)
@@ -124,9 +127,9 @@ public class GenRecipes extends RecipeProvider
 				.pattern("SSS")
 				.pattern("FFF")
 				.pattern(" P ")
-				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_02"));
+				.save(pFinishedRecipeConsumer, recipeLoc(getSimpleRecipeName(AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get()) + "_02"));
 
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_BLACK.get(), 2)
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.RAILROAD_TRUSS_BLACK.get(), 3)
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
 				.define('S', Items.SPRUCE_PLANKS)
 				.define('F', ItemTags.WOODEN_FENCES)
@@ -136,7 +139,7 @@ public class GenRecipes extends RecipeProvider
 				.pattern(" B ")
 				.save(pFinishedRecipeConsumer);
 
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_BLACK.get())
+		/*SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_BLACK.get())
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
 				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_black"));
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_BRIGHT.get())
@@ -147,11 +150,12 @@ public class GenRecipes extends RecipeProvider
 				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_purple"));
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_WOODEN.get())
 				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_wooden"));
+				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_wooden"));*/
 
-		/*
-		  AtomItemBlocks.STREETLAMP_FIRE & AtomItemBlocks.STREETLAMP_FLESH are done in RecipeTT directly
-		 */
+		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
+				.save(pFinishedRecipeConsumer, recipeId("streetlamp_fire"));
+		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
+				.save(pFinishedRecipeConsumer, recipeId("streetlamp_flesh"));
 
 		ShapedRecipeBuilder.shaped(AtomItemBlocks.STREETLAMP_GLOWSTONE.get())
 				.unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE))
@@ -173,5 +177,50 @@ public class GenRecipes extends RecipeProvider
 				.pattern("C")
 				.pattern("L")
 				.save(pFinishedRecipeConsumer);
+
+		ShapelessRecipeBuilder.shapeless(AtomItems.DRTOAST_HEAD.get())
+				.unlockedBy(getHasName(Items.BREAD), has(Items.BREAD))
+				.requires(Items.BREAD)
+				.requires(Items.KELP)
+				.requires(Items.BEETROOT)
+				.requires(Items.COOKED_BEEF)
+				.save(pFinishedRecipeConsumer);
+
+		ShapedRecipeBuilder.shaped(AtomItems.AUTO_FOOD.get())
+				.unlockedBy(getHasName(Items.MELON_SLICE), has(Items.MELON_SLICE))
+				.define('M', Items.MELON)
+				.define('D', Items.DISPENSER)
+				.pattern("MMM")
+				.pattern("MDM")
+				.save(pFinishedRecipeConsumer);
+
+		ShapedRecipeBuilder.shaped(AtomItems.AUTO_LIGHT.get())
+				.unlockedBy(getHasName(Items.SHROOMLIGHT), has(Items.SHROOMLIGHT))
+				.define('G', Items.GOLD_INGOT)
+				.define('S', Items.SHROOMLIGHT)
+				.pattern("GGG")
+				.pattern("G G")
+				.pattern(" S ")
+				.save(pFinishedRecipeConsumer);
+
+		ShapedRecipeBuilder.shaped(AtomItems.WE_WAND.get())
+				.unlockedBy(getHasName(INVISIBLE_LIGHT), has(INVISIBLE_LIGHT))
+				.define('L', INVISIBLE_LIGHT)
+				.define('E', Items.ENDER_PEARL)
+				.define('I', Tags.Items.INGOTS_IRON)
+				.pattern("LEL")
+				.pattern(" I ")
+				.pattern(" I ")
+				.save(pFinishedRecipeConsumer);
+	}
+
+	private static String recipeId(String name)
+	{
+		return recipeLoc(name).toString();
+	}
+
+	private static ResourceLocation recipeLoc(String name)
+	{
+		return new ResourceLocation(TrienowTweaks.MODID, name);
 	}
 }

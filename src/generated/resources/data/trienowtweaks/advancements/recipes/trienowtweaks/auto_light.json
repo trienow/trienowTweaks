@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_bright"
+      "trienowtweaks:auto_light"
     ]
   },
   "criteria": {
-    "has_rail": {
+    "has_shroomlight": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:rail"
+              "minecraft:shroomlight"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_bright"
+        "recipe": "trienowtweaks:auto_light"
       }
     }
   },
   "requirements": [
     [
-      "has_rail",
+      "has_shroomlight",
       "has_the_recipe"
     ]
   ]

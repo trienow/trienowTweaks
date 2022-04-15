@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "trienowtweaks:we_wand"
+    ]
+  },
+  "criteria": {
+    "has_generic_light": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "trienowtweaks:generic_light"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "trienowtweaks:we_wand"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_generic_light",
+      "has_the_recipe"
+    ]
+  ]
+}

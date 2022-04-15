@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_black"
+      "trienowtweaks:invisible_wall"
     ]
   },
   "criteria": {
-    "has_rail": {
+    "has_fermented_spider_eye": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:rail"
+              "minecraft:fermented_spider_eye"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "trienowtweaks:stonecutting_railroad_truss_any_to_railroad_truss_black"
+        "recipe": "trienowtweaks:invisible_wall"
       }
     }
   },
   "requirements": [
     [
-      "has_rail",
+      "has_fermented_spider_eye",
       "has_the_recipe"
     ]
   ]
