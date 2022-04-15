@@ -3,14 +3,13 @@ package de.trienow.trienowtweaks.item;
 import de.trienow.trienowtweaks.config.Globals;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -20,11 +19,28 @@ import java.util.List;
  */
 public class ItemWeWand extends BaseItem
 {
-	private static final ChatFormatting[] FORMATTERS = ChatFormatting.values();
-	private static final LazyOptional<char[]> RAW_HOVER_TEXT = LazyOptional.of(() -> {
-		TranslatableComponent translatableComponent = new TranslatableComponent("item.trienowtweaks.we_wand.tooltip0");
-		return translatableComponent.getString().toCharArray();
-	});
+	private static final String TOOLTIP_KEY = "item.trienowtweaks.we_wand.tooltip0";
+	private static final String[] FORMATTERS = new String[] {
+			ChatFormatting.AQUA.toString(),
+			ChatFormatting.BLACK.toString(),
+			ChatFormatting.BLUE.toString(),
+			ChatFormatting.DARK_AQUA.toString(),
+			ChatFormatting.DARK_BLUE.toString(),
+			ChatFormatting.DARK_GRAY.toString(),
+			ChatFormatting.DARK_GREEN.toString(),
+			ChatFormatting.DARK_PURPLE.toString(),
+			ChatFormatting.DARK_RED.toString(),
+			ChatFormatting.GOLD.toString(),
+			ChatFormatting.GRAY.toString(),
+			ChatFormatting.GREEN.toString(),
+			ChatFormatting.LIGHT_PURPLE.toString(),
+			ChatFormatting.RED.toString(),
+			ChatFormatting.WHITE.toString(),
+			ChatFormatting.YELLOW.toString()
+	};
+
+	private int colorIndex = 0;
+	private int renderCounter = 0;
 
 	public ItemWeWand()
 	{
@@ -34,13 +50,21 @@ public class ItemWeWand extends BaseItem
 	@Override
 	public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced)
 	{
-		StringBuilder formatted = new StringBuilder();
-		for (char ch : RAW_HOVER_TEXT.orElse(this.getClass().toString().toCharArray()))
+		if (I18n.exists(TOOLTIP_KEY))
 		{
-			formatted.append(FORMATTERS[TrienowTweaks.rnd.nextInt(FORMATTERS.length)].toString()).append(ch);
+			renderCounter--;
+			if (renderCounter <= 0)
+			{
+				int newColorIndex = TrienowTweaks.rnd.nextInt(FORMATTERS.length);
+				if (newColorIndex == colorIndex)
+				{
+					newColorIndex = (colorIndex + 1) % FORMATTERS.length;
+				}
+				colorIndex = newColorIndex;
+				renderCounter = 15;
+			}
+			pTooltipComponents.add(new TextComponent(FORMATTERS[colorIndex] + I18n.get(TOOLTIP_KEY)));
 		}
-
-		pTooltipComponents.add(new TextComponent(formatted.toString()));
 	}
 
 	@Override
