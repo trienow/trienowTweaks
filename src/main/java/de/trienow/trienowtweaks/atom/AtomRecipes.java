@@ -16,7 +16,7 @@ public class AtomRecipes
 {
 	private static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TrienowTweaks.MODID);
 
-	public static RegistryObject<SimpleRecipeSerializer<RecipeTTCrafting>> RECIPE_TT =
+	public static final RegistryObject<SimpleRecipeSerializer<RecipeTTCrafting>> RECIPE_TT =
 			RECIPES.register("crafting_crafting_tt", () -> new SimpleRecipeSerializer<>(RecipeTTCrafting::new));
 
 	public static void init(IEventBus modEventBus)

@@ -45,7 +45,7 @@ class Random
 	 * @param sender The command executor
 	 * @param target The player, which is targeted
 	 * @return 1, because success?
-	 * @throws CommandSyntaxException When neither the targets or sender were players
+	 * @throws CommandSyntaxException When neither the targets nor sender were players
 	 */
 	private static int execRandom(CommandSourceStack sender, ServerPlayer target) throws CommandSyntaxException
 	{

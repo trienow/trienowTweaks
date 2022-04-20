@@ -88,7 +88,7 @@ public class ServerConfig implements IConfigCache
 	}
 
 	/**
-	 * Determines, whether or not the 24h cmds are allowed to run.
+	 * Determines, whether the 24h cmds are allowed to run.
 	 *
 	 * @return <code>true</code>, if it has been 24h since the "first" player logged in.
 	 */

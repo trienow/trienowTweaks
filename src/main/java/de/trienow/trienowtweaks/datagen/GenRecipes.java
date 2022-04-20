@@ -140,19 +140,6 @@ public class GenRecipes extends RecipeProvider
 				.pattern(" B ")
 				.save(pFinishedRecipeConsumer);
 
-		/*SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_BLACK.get())
-				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_black"));
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_BRIGHT.get())
-				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_bright"));
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_PURPLE.get())
-				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_purple"));
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(AtomTags.Items.RAILROAD_TRUSS), AtomItemBlocks.RAILROAD_TRUSS_WOODEN.get())
-				.unlockedBy(getHasName(Items.RAIL), has(Items.RAIL))
-				.save(pFinishedRecipeConsumer, new ResourceLocation(TrienowTweaks.MODID, "stonecutting_railroad_truss_any_to_railroad_truss_wooden"));*/
-
 		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
 				.save(pFinishedRecipeConsumer, recipeId(AtomItemBlocks.STREETLAMP_FIRE));
 		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())

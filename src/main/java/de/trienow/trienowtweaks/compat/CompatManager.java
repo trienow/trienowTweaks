@@ -22,7 +22,7 @@ import java.util.Optional;
 public class CompatManager
 {
 	public static ICuriosProxy curiosProxy;
-	public static ICompatProxy[] proxies = new ICompatProxy[1];
+	public static final ICompatProxy[] proxies = new ICompatProxy[1];
 	private static int compatProxyId = 0;
 
 	@SubscribeEvent
