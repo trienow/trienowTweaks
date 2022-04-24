@@ -1,6 +1,8 @@
 # trienowTweaks
 
-A utility mod to fill in the gaps in between a plethora of mods in a modpack. While you are welcome to use it in your modpack, please note that I will only provide limited support (e.g. via issues).
+[![Available For Minecraft Versions](https://cf.way2muchnoise.eu/versions/trienowtweaks.svg) ![Download Counter](https://cf.way2muchnoise.eu/full_trienowtweaks_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/trienowtweaks)
+
+A utility mod to fill in the gaps in between a plethora of mods in a custom modpack. You are welcome to use it in your modpack.
 
 ## Blocks
 
@@ -10,6 +12,7 @@ A utility mod to fill in the gaps in between a plethora of mods in a modpack. Wh
 | Entity Prohibitator | Prevents hostile entities from spawning in a specific chunk                                                                                        |
 | Fake Fire           | Decorative fire                                                                                                                                    |
 | Generic Light       | Invisible light source                                                                                                                             |
+| Invisible Wall      | A block you can't jump over and can't see either.                                                                                                  |
 | Item Detector       | Outputs a redstone signal as soon as enough items are above it. Works under water. Removes items, if there are waaay to many to prevent server lag |
 | Minecart Killer     | Kills a minecart entity above it, when receiving a redstone signal                                                                                 |
 | Railroad Truss      | A decorative railroad-ish looking block to put tracks on. Comes in different styles                                                                |
