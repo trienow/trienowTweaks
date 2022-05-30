@@ -15,7 +15,6 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkSource;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -37,7 +36,6 @@ public class GenericEvents
 		}
 
 		ServerPlayer player = (ServerPlayer) sidedPlayer;
-		Config.getServerConfig().update24hExecutionTime();
 
 		// SET EXACT SPAWN POINT
 		CompoundTag playerPersisted = player.getPersistentData();
@@ -49,23 +47,17 @@ public class GenericEvents
 
 		if (!playerPersisted.getBoolean(TAG_PLAYER_EXACT_SPAWN))
 		{
-			Level level = player.level;
-			BlockPos spawn = LevelUtils.getSpawn(level);
+			if (Config.getServerConfig().exactSpawnpoint.get())
+			{
+				Level level = player.level;
+				BlockPos spawn = LevelUtils.getSpawn(level);
 
-			player.teleportTo(spawn.getX() + 0.5f, spawn.getY() + 0.5f, spawn.getZ() + 0.5f);
-			player.setRespawnPosition(level.dimension(), spawn, 0.0F, true, false);
-			TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
+				player.teleportTo(spawn.getX() + 0.5f, spawn.getY() + 0.5f, spawn.getZ() + 0.5f);
+				player.setRespawnPosition(level.dimension(), spawn, 0.0F, true, false);
+				TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
+			}
 
 			playerPersisted.putBoolean(TAG_PLAYER_EXACT_SPAWN, true);
-		}
-	}
-
-	@SubscribeEvent
-	public static void onPlayerLogout(PlayerLoggedOutEvent evt)
-	{
-		if (!evt.getPlayer().level.isClientSide())
-		{
-			Config.getServerConfig().update24hExecutionTime();
 		}
 	}
 
