@@ -23,7 +23,7 @@ class Heal
 	public static ArgumentBuilder<CommandSourceStack, ?> register()
 	{
 		//@fm:off
-		return Commands.literal(SubCommands.heal.toString()).requires((cs) -> cs.hasPermission(4))
+		return Commands.literal(SubCommands.heal.toString()).requires((cs) -> cs.hasPermission(2))
 				.then(CommandArg.PLAYERS.arg()
 						.then(HEARTS.arg()
 								.executes(ctx -> heal(ctx.getSource(), CommandArg.PLAYERS.get(ctx), HEARTS.get(ctx))))

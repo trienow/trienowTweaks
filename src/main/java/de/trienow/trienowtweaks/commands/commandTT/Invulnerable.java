@@ -20,7 +20,7 @@ class Invulnerable
 	public static ArgumentBuilder<CommandSourceStack, ?> register()
 	{
 		//@fm:off
-		return Commands.literal(SubCommands.invulnerable.toString()).requires((cs) -> cs.hasPermission(4))
+		return Commands.literal(SubCommands.invulnerable.toString()).requires((cs) -> cs.hasPermission(2))
 				.then(CommandArg.ENTITIES.arg()
 				.then(CommandArg.BOOLEAN.arg()
 						.executes(ctx -> invulnerable(ctx.getSource(), CommandArg.ENTITIES.get(ctx), CommandArg.BOOLEAN.get(ctx)))));

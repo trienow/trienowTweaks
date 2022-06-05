@@ -29,13 +29,14 @@ import static de.trienow.trienowtweaks.main.TrienowTweaks.LOG;
  */
 class Random
 {
+	private static final String TEXT_START = "cmd." + TrienowTweaks.MODID + ".tt.random.start";
 	private static final String TEXT_FAIL = "cmd." + TrienowTweaks.MODID + ".tt.random.fail";
 	private static final String TEXT_SUCCESS = "cmd." + TrienowTweaks.MODID + ".tt.random.success";
 
 	public static ArgumentBuilder<CommandSourceStack, ?> register()
 	{
 		//@fm:off
-		return Commands.literal(SubCommands.random.toString()).requires((cs) -> cs.hasPermission(4))
+		return Commands.literal(SubCommands.random.toString()).requires((cs) -> cs.hasPermission(2))
 				.then(CommandArg.PLAYER.arg().executes(ctx -> execRandom(ctx.getSource(), CommandArg.PLAYER.get(ctx))))
 				.executes(ctx -> execRandom(ctx.getSource(), null));
 		//@fm:on
@@ -50,6 +51,8 @@ class Random
 	private static int execRandom(CommandSourceStack sender, ServerPlayer target) throws CommandSyntaxException
 	{
 		target = target == null ? sender.getPlayerOrException() : target;
+
+		CommandUtils.sendIm(target, TEXT_START);
 
 		Level level = target.level;
 		WorldBorder border = level.getWorldBorder();

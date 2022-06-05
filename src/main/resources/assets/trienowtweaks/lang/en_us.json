@@ -95,6 +95,7 @@
   "cmd.trienowtweaks.tt.help.spawn": "Ports the executing or given \u00A7e[player]\u00A7r to spawn.",
   "cmd.trienowtweaks.tt.invulnerable.on": "Made \u00A7a%1$s \u00A7binvulnerable",
   "cmd.trienowtweaks.tt.invulnerable.off": "Made \u00A7a%1$s \u00A7cvulnerable",
+  "cmd.trienowtweaks.tt.random.start": "Looking for a random place for you...",
   "cmd.trienowtweaks.tt.random.success0": "Does a biome of type %1$s at [%2$s, %3$s, %4$s] sound good?",
   "cmd.trienowtweaks.tt.random.success1": "How about a biome of type %1$s at [%2$s, %3$s, %4$s]?",
   "cmd.trienowtweaks.tt.random.success2": "I found a biome of type %1$s at [%2$s, %3$s, %4$s] for you!",

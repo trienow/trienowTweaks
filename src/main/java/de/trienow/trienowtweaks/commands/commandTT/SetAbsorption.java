@@ -22,7 +22,7 @@ class SetAbsorption
 	public static ArgumentBuilder<CommandSourceStack, ?> register()
 	{
 		//@fm:off
-		return Commands.literal(SubCommands.setAbsorption.toString()).requires((cs) -> cs.hasPermission(4))
+		return Commands.literal(SubCommands.setAbsorption.toString()).requires((cs) -> cs.hasPermission(2))
 				.then(CommandArg.PLAYERS.arg()
 				.then(CommandArg.HEARTS.arg().executes(ctx -> setAbsorption(ctx.getSource(), CommandArg.PLAYERS.get(ctx), CommandArg.HEARTS.get(ctx)))));
 		//@fm:on
