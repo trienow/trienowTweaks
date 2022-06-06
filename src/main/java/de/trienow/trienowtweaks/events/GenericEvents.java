@@ -4,7 +4,6 @@ import de.trienow.trienowtweaks.config.Config;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.utils.LevelUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
@@ -35,29 +34,21 @@ public class GenericEvents
 			return;
 		}
 
-		ServerPlayer player = (ServerPlayer) sidedPlayer;
-
 		// SET EXACT SPAWN POINT
-		CompoundTag playerPersisted = player.getPersistentData();
-
-		if (playerPersisted == null)
+		if (Config.getServerConfig().exactSpawnpoint.get())
 		{
-			playerPersisted = new CompoundTag();
-		}
+			ServerPlayer player = (ServerPlayer) sidedPlayer;
+			Level level = player.level;
 
-		if (!playerPersisted.getBoolean(TAG_PLAYER_EXACT_SPAWN))
-		{
-			if (Config.getServerConfig().exactSpawnpoint.get())
+			final BlockPos respawnPos = player.getRespawnPosition();
+			final BlockPos worldspawnPos = LevelUtils.getSpawn(level);
+
+			if (respawnPos == null || worldspawnPos == respawnPos)
 			{
-				Level level = player.level;
-				BlockPos spawn = LevelUtils.getSpawn(level);
-
-				player.teleportTo(spawn.getX() + 0.5f, spawn.getY() + 0.5f, spawn.getZ() + 0.5f);
-				player.setRespawnPosition(level.dimension(), spawn, 0.0F, true, false);
+				player.teleportTo(worldspawnPos.getX() + 0.5f, worldspawnPos.getY() + 0.5f, worldspawnPos.getZ() + 0.5f);
+				player.setRespawnPosition(level.dimension(), worldspawnPos, 0.0F, true, false);
 				TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
 			}
-
-			playerPersisted.putBoolean(TAG_PLAYER_EXACT_SPAWN, true);
 		}
 	}
 
