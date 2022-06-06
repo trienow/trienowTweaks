@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import de.trienow.trienowtweaks.entity.model.ModelDrToast;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -17,7 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
  * @param <M> the type parameter
  * @author (c) trienow 2022
  */
-public class LayerTT<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M>
+public class LayerTT<T extends LivingEntity, M extends HumanoidModel<T>> extends RenderLayer<T, M>
 {
 	private final ModelKnight<T> MODEL_KNIGHT_HEAD;
 	private final ModelKnight<T> MODEL_KNIGHT_CHEST;
@@ -48,6 +48,12 @@ public class LayerTT<T extends LivingEntity, M extends EntityModel<T>> extends R
 		{
 			pMatrixStack.pushPose();
 			M parentModel = this.getParentModel();
+
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_HEAD);
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_CHEST);
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_LEGS);
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_FEET);
+
 			coloredCutoutModelCopyLayerRender(parentModel, MODEL_KNIGHT_HEAD, RenderSetup.KNIGHT_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
 			coloredCutoutModelCopyLayerRender(parentModel, MODEL_KNIGHT_CHEST, RenderSetup.KNIGHT_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
 			coloredCutoutModelCopyLayerRender(parentModel, MODEL_KNIGHT_LEGS, RenderSetup.KNIGHT_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
@@ -59,16 +65,12 @@ public class LayerTT<T extends LivingEntity, M extends EntityModel<T>> extends R
 			pMatrixStack.pushPose();
 
 			M parentModel = this.getParentModel();
+
+			parentModel.copyPropertiesTo(MODEL_DRTOAST);
+
 			coloredCutoutModelCopyLayerRender(parentModel, MODEL_DRTOAST, RenderSetup.DRTOAST_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
 
 			pMatrixStack.popPose();
 		}
 	}
-
-	private static void setMatrix(PoseStack pMatrixStack, float yTranslation, float scaleFactor)
-	{
-		pMatrixStack.translate(0f, yTranslation, 0f);
-		pMatrixStack.scale(scaleFactor, scaleFactor, scaleFactor);
-	}
-
 }

@@ -3,11 +3,9 @@ package de.trienow.trienowtweaks.entity.layer;
 import de.trienow.trienowtweaks.entity.model.ModelDrToast;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,13 +33,17 @@ public class RenderSetup
 		evt.registerLayerDefinition(DRTOAST_LAYER_LOCATION, ModelDrToast::createLayer);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SubscribeEvent
 	public static void onEntityAddLayers(final EntityRenderersEvent.AddLayers evt)
 	{
 		for (String skin : evt.getSkins())
 		{
-			final LivingEntityRenderer<Player, EntityModel<Player>> renderer = evt.getSkin(skin);
-			renderer.addLayer(new LayerTT<>(renderer));
+			final LivingEntityRenderer livingEntityRenderer = evt.getSkin(skin);
+			if (livingEntityRenderer instanceof LivingEntityRenderer)
+			{
+				livingEntityRenderer.addLayer(new LayerTT<>(livingEntityRenderer));
+			}
 		}
 	}
 }

@@ -38,7 +38,7 @@ public class AtomItems
 		ITEMS.register(modEventBus);
 	}
 
-	private static <I extends Item> RegistryObject<Item> register(String baseName, EquipmentSlot slot, Function<EquipmentSlot, ArmorItem> creator)
+	private static RegistryObject<Item> register(String baseName, EquipmentSlot slot, Function<EquipmentSlot, ArmorItem> creator)
 	{
 		switch (slot)
 		{

@@ -41,7 +41,7 @@ public class AtomBlocks
 		BLOCKS.register(modEventBus);
 	}
 
-	private static <I extends Block> RegistryObject<Block> register(FlavorRailroadTruss flavor)
+	private static RegistryObject<Block> register(FlavorRailroadTruss flavor)
 	{
 		return BLOCKS.register("railroad_truss_" + flavor, () -> new BlockRailroadTruss(flavor));
 	}

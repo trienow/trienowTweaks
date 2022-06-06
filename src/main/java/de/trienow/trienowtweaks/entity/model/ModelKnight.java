@@ -1,7 +1,6 @@
 package de.trienow.trienowtweaks.entity.model;
 
 import com.google.common.collect.ImmutableList;
-import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -70,7 +69,6 @@ public class ModelKnight<T extends LivingEntity> extends HumanoidModel<T>
 	@Override
 	public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch)
 	{
-		TrienowTweaks.LOG.debug("SETUP ANIM {}", pEntity);
 		if (pEntity instanceof ArmorStand)
 		{
 			pLimbSwing = 0;
