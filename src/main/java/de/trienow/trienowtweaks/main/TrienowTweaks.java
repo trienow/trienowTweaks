@@ -2,10 +2,10 @@ package de.trienow.trienowtweaks.main;
 
 import de.trienow.trienowtweaks.atom.*;
 import de.trienow.trienowtweaks.config.Config;
+import de.trienow.trienowtweaks.network.PacketHandler;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.StartupMessageManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +48,6 @@ public class TrienowTweaks
 		AtomTiles.init(modEventBus);
 		AtomRecipes.init(modEventBus);
 
-		StartupMessageManager.addModMessage("Hello from trienowTweaks!");
+		PacketHandler.register();
 	}
 }

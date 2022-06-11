@@ -1,7 +1,7 @@
 package de.trienow.trienowtweaks.commands.commandTT;
 
 /**
- * @author (c) trienow 2019
+ * @author (c) trienow 2019 - 2022
  */
 public enum SubCommands
 {
@@ -9,6 +9,7 @@ public enum SubCommands
 	heal,
 	help,
 	invulnerable,
+	permaRenderLayer,
 	random,
 	setAbsorption,
 	spawn

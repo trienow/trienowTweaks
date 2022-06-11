@@ -17,6 +17,7 @@ public class CommandTT
 				.then(Heal.register())
 				.then(Random.register())
 				.then(SetAbsorption.register())
-				.then(Invulnerable.register());
+				.then(Invulnerable.register())
+				.then(PermaRenderLayer.register());
 	}
 }
