@@ -4,8 +4,6 @@ import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.UUID;
@@ -27,20 +25,16 @@ public record PacketReqPlayerCaps(UUID playerUuid)
 		return new PacketReqPlayerCaps(buf.readUUID());
 	}
 
-	public static void messageConsumer(PacketReqPlayerCaps msg, Supplier<NetworkEvent.Context> ctxSupplier)
+	public static void messageConsumer(PacketReqPlayerCaps reqPcaps, Supplier<NetworkEvent.Context> ctxSupplier)
 	{
 		//No need to enqueue this on the main thread
-		DistExecutor.unsafeRunWhenOn(Dist.DEDICATED_SERVER, () -> () -> handlePacketClient(ctxSupplier.get().getSender(), msg));
-		ctxSupplier.get().setPacketHandled(true);
-	}
-
-	private static void handlePacketClient(ServerPlayer sender, PacketReqPlayerCaps reqPcaps)
-	{
+		ServerPlayer sender = ctxSupplier.get().getSender();
 		Player player = sender.getLevel().getPlayerByUUID(reqPcaps.playerUuid);
 		if (player instanceof Player)
 		{
 			player.getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap) -> new PacketPlayerCaps(pcap.getLayerTtRenderMode(), reqPcaps.playerUuid).sendToPlayer(sender));
 		}
+		ctxSupplier.get().setPacketHandled(true);
 	}
 
 	public void sendToServer()
