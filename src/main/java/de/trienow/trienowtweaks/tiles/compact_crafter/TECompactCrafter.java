@@ -12,14 +12,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 /**
@@ -31,9 +31,6 @@ public class TECompactCrafter extends BlockEntity
 
 	private static final CraftCompactInventory craft2 = new CraftCompactInventory(2);
 	private static final CraftCompactInventory craft3 = new CraftCompactInventory(3);
-
-	// Literally does not make sense, but oh well...
-	private static final NonNullSupplier<? extends IItemHandler> NULL_IITEMHANDLER = () -> null;
 
 	private byte tickThreshold = 0;
 
@@ -123,6 +120,7 @@ public class TECompactCrafter extends BlockEntity
 	 * @param inputStack The {@link ItemStack} to fill the grid with
 	 * @return See: {@link CraftReturnPackage}
 	 */
+	@Nonnull
 	private static CraftReturnPackage getRecipe(Level world, ItemStack inputStack)
 	{
 		CraftReturnPackage crp = new CraftReturnPackage();
@@ -162,6 +160,7 @@ public class TECompactCrafter extends BlockEntity
 	 * @param face  The direction of the {@link Block} to get the {@link IItemHandler} from.
 	 * @return The {@link IItemHandler} or <code>null</code> if nothing is found.
 	 */
+	@Nullable
 	private static IItemHandler getNeighborItemHandler(Level world, BlockPos pos, Direction face)
 	{
 		pos = pos.offset(face.getNormal());
@@ -171,8 +170,7 @@ public class TECompactCrafter extends BlockEntity
 
 		if (te != null)
 		{
-			LazyOptional<IItemHandler> lazyIih = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, face);
-			iih = lazyIih.orElseGet(NULL_IITEMHANDLER);
+			iih = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, face).orElse(null);
 		}
 
 		return iih;

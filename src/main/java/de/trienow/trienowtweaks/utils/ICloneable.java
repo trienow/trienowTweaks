@@ -1,5 +1,7 @@
 package de.trienow.trienowtweaks.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @param <C> The type of object to clone
  * @author (c) trienow 2022
@@ -11,5 +13,5 @@ public interface ICloneable<C>
 	 *
 	 * @param dest The destination object
 	 */
-	void clone(C dest);
+	void clone(@NotNull C dest);
 }

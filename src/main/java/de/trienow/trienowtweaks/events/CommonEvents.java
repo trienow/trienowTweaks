@@ -44,6 +44,7 @@ public class CommonEvents
 		if (!evt.getPlayer().level.isClientSide())
 		{
 			evt.getOriginal().reviveCaps();
+			//noinspection CodeBlock2Expr
 			evt.getOriginal().getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap0) -> {
 				evt.getPlayer().getCapability(IPlayerCapability.PLAYER_CAP)
 						.ifPresent((pcap1) -> pcap0.clone(pcap1));

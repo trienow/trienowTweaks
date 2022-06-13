@@ -25,7 +25,7 @@ public class TEItemDetector extends BlockEntity
 
 	public int amt = 1;
 	private byte tick = 0;
-	private AABB checkBox = null;
+	private AABB checkBox;
 
 	public TEItemDetector(BlockPos pWorldPosition, BlockState pBlockState)
 	{

@@ -229,11 +229,6 @@ public class GenRecipes extends RecipeProvider
 		return ro.getId().toString();
 	}
 
-	private static String recipeId(@Nonnull RegistryObject<?> ro, int index)
-	{
-		return recipeId(ro) + "_" + index;
-	}
-
 	private static ResourceLocation recipeLoc(@Nonnull RegistryObject<?> ro, int index)
 	{
 		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + index);

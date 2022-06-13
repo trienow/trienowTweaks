@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * @author (c) trienow 2019 - 2022
  */
-public class ServerConfig implements IConfigCache
+public class ServerConfig
 {
-	private static final String FLIGHT_DISABLED_COMMENT = "In these Dimensions (must be integers wrapped in strings), the player will be forced to the ground (not really being able to fly)";
+	private static final String FLIGHT_DISABLED_COMMENT = "In these Dimensions, the player will be forced to the ground (not really being able to fly)";
 	private static final List<String> FLIGHT_DISABLED = new ArrayList<>()
 	{
 		{
@@ -37,7 +37,6 @@ public class ServerConfig implements IConfigCache
 				.define("forceExactSpawnPoint", false);
 	}
 
-	@Override
 	public void cacheLoadedValues()
 	{
 		// --- FLIGHT DISABLED DIMENSIONS ---

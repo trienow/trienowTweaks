@@ -3,6 +3,7 @@ package de.trienow.trienowtweaks.capabilities;
 import de.trienow.trienowtweaks.entity.layer.LayerTtRenderMode;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author (c) trienow 2022
@@ -30,6 +31,7 @@ public class PlayerCapability implements IPlayerCapability
 	}
 
 	@Override
+	@NotNull
 	public Tag serializeNBT()
 	{
 		CompoundTag main = new CompoundTag();

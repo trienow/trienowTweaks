@@ -6,6 +6,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author (c) trienow 2022
@@ -26,6 +27,7 @@ public interface IPlayerCapability extends ICloneable<IPlayerCapability>
 	 */
 	void setLayerTtRenderMode(LayerTtRenderMode renderMode);
 
+	@NotNull
 	Tag serializeNBT();
 
 	void deserializeNBT(Tag nbt);
