@@ -1,25 +1,26 @@
 package de.trienow.trienowtweaks.utils;
 
+import net.minecraft.ResourceLocationException;
+import net.minecraft.resources.ResourceLocation;
+
 import java.util.function.Predicate;
 
 /**
- * @author (c) trienow 2019
+ * @author (c) trienow 2019 - 2022
  */
 public interface IPredicateObjects
 {
-	Predicate<Object> TRUE = (o) -> true;
+	Predicate<Object> LOWERCASE_STRING = (o) -> o instanceof String s && s.length() > 0 && s.toLowerCase().equals(o);
 
-	Predicate<Object> LOWERCASE_STRING = (o) -> o instanceof String && ((String) o).length() > 0 && ((String) o).toLowerCase().equals(o);
-
-	Predicate<Object> INTEGER = (o) -> {
-		if (o != null)
+	Predicate<Object> RESOURCE_LOCATION = (o) -> {
+		if (o instanceof String s)
 		{
 			try
 			{
-				Integer.parseInt(o.toString());
+				new ResourceLocation(s);
 				return true;
 			}
-			catch (NumberFormatException ignored)
+			catch (ResourceLocationException ignored)
 			{
 			}
 		}

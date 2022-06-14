@@ -31,7 +31,7 @@ public class ServerConfig
 	{
 		builder.comment("Misc settings").push("general");
 		flightDisabled = builder.comment(FLIGHT_DISABLED_COMMENT)
-				.defineList("flightDisabledDimensions", FLIGHT_DISABLED, IPredicateObjects.INTEGER);
+				.defineList("flightDisabledDimensions", FLIGHT_DISABLED, IPredicateObjects.RESOURCE_LOCATION);
 
 		exactSpawnpoint = builder.comment(EXACT_SPAWNPOINT_COMMENT)
 				.define("forceExactSpawnPoint", false);
