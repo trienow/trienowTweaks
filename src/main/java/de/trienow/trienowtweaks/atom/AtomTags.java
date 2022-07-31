@@ -30,6 +30,9 @@ public class AtomTags
 
 		public static final TagKey<Item> MEAT_RAW = forge("items/meat_raw");
 
+		public static final TagKey<Item> COAL_BLOCK = forge("storage_blocks/coal");
+		//public static final TagKey<Item> CHARCOAL_BLOCK = forge("storage_blocks/charcoal");
+
 		private static TagKey<Item> forge(String name)
 		{
 			return ItemTags.create(new ResourceLocation("forge", name));

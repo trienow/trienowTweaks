@@ -6,7 +6,7 @@
   ],
   "key": {
     "C": {
-      "item": "minecraft:coal_block"
+      "tag": "forge:storage_blocks/coal"
     },
     "L": {
       "tag": "minecraft:logs"
@@ -14,6 +14,6 @@
   },
   "result": {
     "item": "trienowtweaks:torch_solamnia",
-    "count": 4
+    "count": 8
   }
 }

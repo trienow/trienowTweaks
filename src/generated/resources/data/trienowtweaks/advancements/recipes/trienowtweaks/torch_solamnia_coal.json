@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "trienowtweaks:torch_solamnia"
+      "trienowtweaks:torch_solamnia_coal"
     ]
   },
   "criteria": {
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:coal_block"
-            ]
+            "tag": "forge:storage_blocks/coal"
           }
         ]
       }
@@ -31,7 +29,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "trienowtweaks:torch_solamnia"
+        "recipe": "trienowtweaks:torch_solamnia_coal"
       }
     }
   },

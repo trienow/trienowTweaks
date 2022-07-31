@@ -157,14 +157,14 @@ public class GenRecipes extends RecipeProvider
 				.save(pFinishedRecipeConsumer);
 
 		//Fun Idea: Make a crafting recipe for all burnable ItemBlocks...
-		ShapedRecipeBuilder.shaped(AtomItemBlocks.TORCH_SOLAMNIA.get(), 4)
-				.unlockedBy(getHasName(Items.COAL_BLOCK), has(Items.COAL_BLOCK))
+		ShapedRecipeBuilder.shaped(AtomItemBlocks.TORCH_SOLAMNIA.get(), 8)
+				.unlockedBy(getHasName(Items.COAL_BLOCK), has(AtomTags.Items.COAL_BLOCK))
 				.unlockedBy("has_log_any", has(ItemTags.LOGS))
-				.define('C', Items.COAL_BLOCK)
+				.define('C', AtomTags.Items.COAL_BLOCK)
 				.define('L', ItemTags.LOGS)
 				.pattern("C")
 				.pattern("L")
-				.save(pFinishedRecipeConsumer);
+				.save(pFinishedRecipeConsumer, recipeVariant(AtomItemBlocks.TORCH_SOLAMNIA, "coal"));
 
 		ShapedRecipeBuilder.shaped(AtomItems.AUTO_FOOD.get())
 				.unlockedBy(getHasName(Items.MELON_SLICE), has(Items.MELON_SLICE))
@@ -232,5 +232,10 @@ public class GenRecipes extends RecipeProvider
 	private static ResourceLocation recipeLoc(@Nonnull RegistryObject<?> ro, int index)
 	{
 		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + index);
+	}
+
+	private static ResourceLocation recipeVariant(@Nonnull RegistryObject<?> ro, String variant)
+	{
+		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + variant);
 	}
 }
