@@ -1,7 +1,6 @@
 package de.trienow.trienowtweaks.blocks;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -32,7 +31,7 @@ public abstract class BaseBlock extends Block
 	{
 		for (int i = 0; i < tooltipCount; i++)
 		{
-			pTooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip" + i));
+			pTooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip" + i));
 		}
 		super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
 	}

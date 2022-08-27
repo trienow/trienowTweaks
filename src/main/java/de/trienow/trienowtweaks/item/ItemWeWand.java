@@ -1,11 +1,9 @@
 package de.trienow.trienowtweaks.item;
 
 import de.trienow.trienowtweaks.config.Globals;
-import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -55,7 +53,13 @@ public class ItemWeWand extends BaseItem
 			renderCounter--;
 			if (renderCounter <= 0)
 			{
-				int newColorIndex = TrienowTweaks.rnd.nextInt(FORMATTERS.length);
+				int newColorIndex = colorIndex;
+
+				if (pLevel != null)
+				{
+					newColorIndex = pLevel.random.nextInt(FORMATTERS.length);
+				}
+
 				if (newColorIndex == colorIndex)
 				{
 					newColorIndex = (colorIndex + 1) % FORMATTERS.length;
@@ -63,7 +67,7 @@ public class ItemWeWand extends BaseItem
 				colorIndex = newColorIndex;
 				renderCounter = 15;
 			}
-			pTooltipComponents.add(new TextComponent(FORMATTERS[colorIndex] + I18n.get(TOOLTIP_KEY)));
+			pTooltipComponents.add(Component.literal(FORMATTERS[colorIndex] + I18n.get(TOOLTIP_KEY)));
 		}
 	}
 

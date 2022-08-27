@@ -2,9 +2,9 @@ package de.trienow.trienowtweaks.datagen;
 
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 /**
  * @author (c) trienow 2022
@@ -20,9 +20,9 @@ public class DataGenerators
 		if (evt.includeServer())
 		{
 			final GenBlockTags blockTagsProvider = new GenBlockTags(gen, evt.getExistingFileHelper());
-			gen.addProvider(blockTagsProvider);
-			gen.addProvider(new GenItemTags(gen, blockTagsProvider, evt.getExistingFileHelper()));
-			gen.addProvider(new GenRecipes(gen));
+			gen.addProvider(true, blockTagsProvider);
+			gen.addProvider(true, new GenItemTags(gen, blockTagsProvider, evt.getExistingFileHelper()));
+			gen.addProvider(true, new GenRecipes(gen));
 		}
 	}
 }

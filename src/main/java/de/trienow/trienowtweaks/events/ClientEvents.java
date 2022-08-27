@@ -5,8 +5,8 @@ import de.trienow.trienowtweaks.entity.layer.RenderSetup;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
-import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -17,13 +17,13 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientEvents
 {
 	@SubscribeEvent
-	public static void onWorldClose(final WorldEvent.Unload evt)
+	public static void onLevelClose(final LevelEvent.Unload evt)
 	{
 		RenderSetup.clearPcapCache();
 	}
 
 	@SubscribeEvent
-	public static void onEntityLeave(final EntityLeaveWorldEvent evt)
+	public static void onEntityLeave(final EntityLeaveLevelEvent evt)
 	{
 		if (evt.getEntity() instanceof Player player)
 		{

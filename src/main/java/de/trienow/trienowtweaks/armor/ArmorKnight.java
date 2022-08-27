@@ -3,7 +3,7 @@ package de.trienow.trienowtweaks.armor;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.function.Consumer;
 
@@ -19,7 +19,7 @@ public class ArmorKnight extends ItemArmorBase
 	}
 
 	@Override
-	public void initializeClient(Consumer<IItemRenderProperties> consumer)
+	public void initializeClient(Consumer<IClientItemExtensions> consumer)
 	{
 		consumer.accept(new ArmorRenderProperties(ModelKnight::makeModel));
 	}

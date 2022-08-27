@@ -7,6 +7,8 @@ import de.trienow.trienowtweaks.atom.AtomTags;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.utils.NonNullListUtils;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -19,7 +21,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.IShapedRecipe;
-import net.minecraftforge.common.crafting.NBTIngredient;
+import net.minecraftforge.common.crafting.PartialNBTIngredient;
 
 import java.util.Map;
 
@@ -163,8 +165,8 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 
 	private static Map<ResourceLocation, RecipeTT> genRecipes()
 	{
-		ItemStack is_PotionInvisibility = new ItemStack(Items.POTION);
-		is_PotionInvisibility.getOrCreateTag().putString("Potion", Potions.INVISIBILITY.getRegistryName().toString());
+		CompoundTag potionTag = new CompoundTag();
+		potionTag.putString("Potion", Registry.POTION.getKey(Potions.INVISIBILITY).toString());
 
 		final Ingredient crimsonPressurePlate = Ingredient.of(Items.CRIMSON_PRESSURE_PLATE);
 		final Ingredient flintAndSteel = Ingredient.of(Items.FLINT_AND_STEEL);
@@ -174,7 +176,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 		final Ingredient ingotsIron = Ingredient.of(Tags.Items.INGOTS_IRON);
 		final Ingredient netherrack = Ingredient.of(Items.NETHERRACK);
 		final Ingredient meatRaw = Ingredient.of(AtomTags.Items.MEAT_RAW);
-		final Ingredient potionInvisibility = NBTIngredient.of(is_PotionInvisibility);
+		final Ingredient potionInvisibility = PartialNBTIngredient.of(Items.POTION, potionTag);
 		final Ingredient walls = Ingredient.of(ItemTags.WALLS);
 
 		final RecipeTT genericLight = new RecipeTT(3, 3, AtomItemBlocks.GENERIC_LIGHT.get(), 16)

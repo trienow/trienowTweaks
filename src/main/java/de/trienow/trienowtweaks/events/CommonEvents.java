@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkSource;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,12 +41,12 @@ public class CommonEvents
 	@SubscribeEvent
 	public static void onPlayerClone(final PlayerEvent.Clone evt)
 	{
-		if (!evt.getPlayer().level.isClientSide())
+		if (!evt.getEntity().level.isClientSide())
 		{
 			evt.getOriginal().reviveCaps();
 			//noinspection CodeBlock2Expr
 			evt.getOriginal().getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap0) -> {
-				evt.getPlayer().getCapability(IPlayerCapability.PLAYER_CAP)
+				evt.getEntity().getCapability(IPlayerCapability.PLAYER_CAP)
 						.ifPresent((pcap1) -> pcap0.clone(pcap1));
 			});
 			evt.getOriginal().invalidateCaps();
@@ -56,7 +56,7 @@ public class CommonEvents
 	@SubscribeEvent
 	public static void onPlayerLogin(final PlayerLoggedInEvent evt)
 	{
-		Player sidedPlayer = evt.getPlayer();
+		Player sidedPlayer = evt.getEntity();
 		if (sidedPlayer.level.isClientSide())
 		{
 			return;
@@ -82,10 +82,10 @@ public class CommonEvents
 
 	// ENTITY PROHIBITATOR
 	@SubscribeEvent
-	public static void onEntitySpawn(final EntityJoinWorldEvent evt)
+	public static void onEntitySpawn(final EntityJoinLevelEvent evt)
 	{
 		// When accessing blocks or chunks while the world is loading (EVEN IF THEY ARE THERE) the loading stalls.
-		Level level = evt.getWorld();
+		Level level = evt.getLevel();
 		Entity ent = evt.getEntity();
 		if (level.isClientSide())
 		{

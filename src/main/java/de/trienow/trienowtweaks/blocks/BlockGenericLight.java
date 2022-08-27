@@ -4,6 +4,7 @@ import de.trienow.trienowtweaks.blocks.states.StateGenericLight;
 import de.trienow.trienowtweaks.config.Globals;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -16,8 +17,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Random;
 
 /**
  * @author (c) trienow 2016 - 2022
@@ -52,7 +51,7 @@ public class BlockGenericLight extends BaseBlock
 	}
 
 	@Override
-	public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom)
+	public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom)
 	{
 		BlockPos anchorBlock = pPos.subtract(pState.getValue(ANCHOR).getAnchorOffset());
 		if (!(pLevel.getBlockState(anchorBlock).getBlock() instanceof BlockTorchSolamnia))

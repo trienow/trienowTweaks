@@ -6,7 +6,6 @@ import de.trienow.trienowtweaks.compat.curios.ICuriosProxy;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -21,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * @author (c) trienow 2017 - 2020
+ * @author (c) trienow 2017 - 2022
  */
 public class ItemAutoLight extends BaseItem
 {
@@ -74,8 +73,8 @@ public class ItemAutoLight extends BaseItem
 	@Override
 	public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced)
 	{
-		pTooltipComponents.add(new TranslatableComponent("item.trienowtweaks.auto_light.tooltip0"));
-		pTooltipComponents.add(new TranslatableComponent("item.trienowtweaks.auto_light.tooltip1"));
+		pTooltipComponents.add(Component.translatable("item.trienowtweaks.auto_light.tooltip0"));
+		pTooltipComponents.add(Component.translatable("item.trienowtweaks.auto_light.tooltip1"));
 	}
 
 	@Override

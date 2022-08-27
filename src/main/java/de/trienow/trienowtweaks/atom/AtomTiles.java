@@ -21,7 +21,7 @@ import static de.trienow.trienowtweaks.main.TrienowTweaks.MODID;
 @Mod.EventBusSubscriber(modid = MODID, bus = Bus.MOD)
 public class AtomTiles
 {
-	private static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, TrienowTweaks.MODID);
+	private static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, TrienowTweaks.MODID);
 
 	public static final RegistryObject<BlockEntityType<TECompactCrafter>> COMPACT_CRAFTER = register("compact_crafter", TECompactCrafter::new, AtomBlocks.COMPACT_CRAFTER);
 	public static final RegistryObject<BlockEntityType<TEItemDetector>> ITEM_DETECTOR = register("item_detector", TEItemDetector::new, AtomBlocks.ITEM_DETECTOR);

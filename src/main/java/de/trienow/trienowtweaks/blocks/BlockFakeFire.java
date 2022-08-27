@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -16,8 +17,6 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Random;
 
 /**
  * @author (c) trienow 2017 - 2022
@@ -63,20 +62,20 @@ public class BlockFakeFire extends BaseBlock
 	}
 
 	@Override
-	public void animateTick(BlockState p_49888_, Level level, BlockPos pos, Random rand)
+	public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom)
 	{
-		if (rand.nextInt(80) == 0)
+		if (pRandom.nextInt(80) == 0)
 		{
-			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 0.5f, rand.nextFloat(), true);
+			pLevel.playLocalSound(pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 0.5f, pRandom.nextFloat(), true);
 		}
 
-		if (rand.nextInt(10) == 0)
+		if (pRandom.nextInt(10) == 0)
 		{
-			double rnd1 = rand.nextDouble();
-			double rnd4 = rand.nextDouble();
-			double rnd5 = rand.nextDouble();
+			double rnd1 = pRandom.nextDouble();
+			double rnd4 = pRandom.nextDouble();
+			double rnd5 = pRandom.nextDouble();
 			rnd1 = rnd1 < 0.2D ? rnd1 : 0.1D;
-			level.addParticle(ParticleTypes.LARGE_SMOKE, false, (pos.getX() + rnd4), pos.getY(), (pos.getZ() + rnd5), 0, rnd1, 0);
+			pLevel.addParticle(ParticleTypes.LARGE_SMOKE, false, (pPos.getX() + rnd4), pPos.getY(), (pPos.getZ() + rnd5), 0, rnd1, 0);
 		}
 	}
 }

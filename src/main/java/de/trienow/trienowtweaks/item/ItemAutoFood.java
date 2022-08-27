@@ -6,7 +6,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -144,7 +143,7 @@ public class ItemAutoFood extends BaseItem
 			case WARN:
 				if (warn < 1)
 				{
-					cPlayer.sendSuccess(new TranslatableComponent("item.trienowtweaks.auto_food.warning"), false);
+					cPlayer.sendSuccess(Component.translatable("item.trienowtweaks.auto_food.warning"), false);
 					tc.putByte("warn", (byte) 1);
 					stack.setTag(tc);
 				}
@@ -152,7 +151,7 @@ public class ItemAutoFood extends BaseItem
 			case DEATH:
 				if (warn < 2)
 				{
-					cPlayer.sendSuccess(new TranslatableComponent("item.trienowtweaks.auto_food.danger"), false);
+					cPlayer.sendSuccess(Component.translatable("item.trienowtweaks.auto_food.danger"), false);
 					tc.putByte("warn", (byte) 2);
 					stack.setTag(tc);
 				}
@@ -193,8 +192,8 @@ public class ItemAutoFood extends BaseItem
 		else
 			tf = ChatFormatting.DARK_RED;
 
-		pTooltipComponents.add(new TranslatableComponent("item.trienowtweaks.auto_food.tooltip0"));
-		pTooltipComponents.add(new TranslatableComponent("item.trienowtweaks.auto_food.tooltip1", tf, uses));
+		pTooltipComponents.add(Component.translatable("item.trienowtweaks.auto_food.tooltip0"));
+		pTooltipComponents.add(Component.translatable("item.trienowtweaks.auto_food.tooltip1", tf, uses));
 	}
 
 	@Override

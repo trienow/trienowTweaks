@@ -11,8 +11,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Random;
-
 /**
  * @author (c) trienow 2016 - 2022
  */
@@ -22,8 +20,6 @@ public class TrienowTweaks
 	public static final String MODID = "trienowtweaks";
 
 	public static final Logger LOG = LogManager.getLogger();
-
-	public static final Random rnd = new Random();
 
 	public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab("trienowtweaks")
 	{

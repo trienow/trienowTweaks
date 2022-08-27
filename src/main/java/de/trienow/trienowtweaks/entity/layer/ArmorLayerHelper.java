@@ -34,7 +34,7 @@ public class ArmorLayerHelper
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public static void onRenderPlayerPre(final RenderPlayerEvent.Pre evt)
 	{
-		final Player player = evt.getPlayer();
+		final Player player = evt.getEntity();
 		final String playerName = player.getName().getString();
 		if (RenderSetup.TRIENOW.equals(playerName) || RenderSetup.TOASTY.equals(playerName))
 		{

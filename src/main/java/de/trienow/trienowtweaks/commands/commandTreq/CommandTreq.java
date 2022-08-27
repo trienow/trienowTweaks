@@ -6,7 +6,7 @@ import de.trienow.trienowtweaks.commands.CommandUtils;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraftforge.event.TickEvent.WorldTickEvent;
+import net.minecraftforge.event.TickEvent;
 
 /**
  * @author (c) trienow 2016 - 2022
@@ -46,11 +46,11 @@ public class CommandTreq
 		return 1;
 	}
 
-	public static void onWorldTick(WorldTickEvent evt)
+	public static void onLevelTick(TickEvent.LevelTickEvent evt)
 	{
 		if (activeTick >= 0)
 		{
-			REQUESTS.cleanUpRequests(evt.world.getServer().getPlayerList());
+			REQUESTS.cleanUpRequests(evt.level.getServer().getPlayerList());
 			activeTick = -100;
 		}
 		else

@@ -5,7 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Pose;
@@ -91,7 +91,7 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 			}
 
 			final CommandSourceStack senderE = pPlayer.createCommandSourceStack();
-			senderE.sendSuccess(new TranslatableComponent(this.getDescriptionId() + ".message", numberColor, te.amt), false);
+			senderE.sendSuccess(Component.translatable(this.getDescriptionId() + ".message", numberColor, te.amt), false);
 		}
 
 		return InteractionResult.CONSUME;

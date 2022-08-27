@@ -10,7 +10,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent.WorldTickEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -25,16 +25,16 @@ public class WorldTick
 	private static int antiFlyingTick = 0;
 
 	@SubscribeEvent
-	public static void onWorldTickEvent(WorldTickEvent evt)
+	public static void onWorldTickEvent(TickEvent.LevelTickEvent evt)
 	{
-		if (!evt.world.isClientSide())
+		if (!evt.level.isClientSide())
 		{
-			CommandTreq.onWorldTick(evt);
+			CommandTreq.onLevelTick(evt);
 			antiFlying(evt);
 		}
 	}
 
-	private static void antiFlying(WorldTickEvent evt)
+	private static void antiFlying(TickEvent.LevelTickEvent evt)
 	{
 		if (antiFlyingTick > 100)
 		{
@@ -43,7 +43,7 @@ public class WorldTick
 			List<? extends String> flightDisabledDims = Config.getServerConfig().flightDisabled.get();
 			if (flightDisabledDims != null)
 			{
-				for (Player player : evt.world.getServer().getPlayerList().getPlayers())
+				for (Player player : evt.level.getServer().getPlayerList().getPlayers())
 				{
 					String dimKey = player.level.dimension().location().toString();
 					if (!player.isCreative() && !player.isSpectator() && flightDisabledDims.contains(dimKey) && !player.isOnGround() && player.getDeltaMovement().y == 0)
@@ -53,7 +53,7 @@ public class WorldTick
 						for (int i = (int) (playerPos.y); i >= 1; i--)
 						{
 							BlockPos bPos = new BlockPos((int) playerPos.x, i, (int) playerPos.z);
-							if (level.getBlockState(bPos).isFaceSturdy(evt.world, bPos, Direction.UP))
+							if (level.getBlockState(bPos).isFaceSturdy(evt.level, bPos, Direction.UP))
 							{
 								player.setPos(playerPos.x, i + 1, playerPos.z);
 								player.getAbilities().mayfly = false;

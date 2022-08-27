@@ -11,10 +11,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.border.WorldBorder;
@@ -57,14 +58,14 @@ class Random
 		Level level = target.level;
 		WorldBorder border = level.getWorldBorder();
 		BlockPos spawnPoint = LevelUtils.getSpawn(level);
-		java.util.Random rand = level.random;
+		RandomSource rand = level.random;
 		int iterations = 0;
 
 		while (true)
 		{
 			if (iterations > 2000)
 			{
-				TranslatableComponent reason = new TranslatableComponent(TEXT_FAIL + rand.nextInt(5));
+				Component reason = Component.translatable(TEXT_FAIL + rand.nextInt(5));
 				CommandUtils.sendIm(sender, TEXT_FAIL, reason);
 				break;
 			}
@@ -124,20 +125,32 @@ class Random
 			double ty = pos.getY() + 3;
 			double tz = pos.getZ() + 0.5f;
 
+			String biomeName = "<UNKNOWN>";
+
+			Registry<Biome> biomeRegistry = level.registryAccess().registry(Registry.BIOME_REGISTRY).orElse(null);
+
+			if (biomeRegistry != null)
+			{
+				ResourceLocation biomeResourceLocation = biomeRegistry.getKey(biome);
+				if (biomeResourceLocation != null)
+				{
+					biomeName = biomeResourceLocation.getPath().replaceAll("_", " ");
+				}
+			}
+
 			LOG.info("[TT] /tt random: Teleporting {} to [{} {} {}] ({}) issued by {}. Tried {} times.",
 					target.getDisplayName().toString(),
 					tx,
 					ty,
 					tz,
-					biome.getRegistryName().toString(),
+					biomeName,
 					sender.getDisplayName().toString(),
 					iterations);
 
-			String biomeName = biome.getRegistryName().getPath().replaceAll("_", " ");
-			Component cBiome = new TextComponent(biomeName).withStyle(ChatFormatting.GREEN);
-			Component cX = new TextComponent("" + pos.getX()).withStyle(ChatFormatting.AQUA);
-			Component cY = new TextComponent("" + pos.getY()).withStyle(ChatFormatting.AQUA);
-			Component cZ = new TextComponent("" + pos.getZ()).withStyle(ChatFormatting.AQUA);
+			Component cBiome = Component.literal(biomeName).withStyle(ChatFormatting.GREEN);
+			Component cX = Component.literal("" + pos.getX()).withStyle(ChatFormatting.AQUA);
+			Component cY = Component.literal("" + pos.getY()).withStyle(ChatFormatting.AQUA);
+			Component cZ = Component.literal("" + pos.getZ()).withStyle(ChatFormatting.AQUA);
 
 			CommandUtils.sendIm(target, TEXT_SUCCESS + rand.nextInt(4), cBiome, cX, cY, cZ);
 			target.teleportTo(tx, ty, tz);
