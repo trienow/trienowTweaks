@@ -7,7 +7,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.category.extensions.IExtendableRecipeCategory;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
-import mezz.jei.common.plugins.vanilla.crafting.CraftingCategoryExtension;
+import mezz.jei.library.plugins.vanilla.crafting.CraftingCategoryExtension;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 

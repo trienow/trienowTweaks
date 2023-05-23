@@ -90,6 +90,7 @@
       }
     }
   ],
+  "render_type": "cutout",
   "gui_light": "front",
   "display": {
     "thirdperson_righthand": {

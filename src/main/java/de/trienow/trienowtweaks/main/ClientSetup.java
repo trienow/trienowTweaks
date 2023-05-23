@@ -17,7 +17,7 @@ public class ClientSetup
 		ItemBlockRenderTypes.setRenderLayer(AtomBlocks.STREETLAMP_FLESH.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(AtomBlocks.STREETLAMP_GLOWSTONE.get(), RenderType.cutout());
 
-		ItemBlockRenderTypes.setRenderLayer(AtomBlocks.FAKE_FIRE.get(), RenderType.cutout());
+		//ItemBlockRenderTypes.setRenderLayer(AtomBlocks.FAKE_FIRE.get(), RenderType.cutout());
 
 		ItemBlockRenderTypes.setRenderLayer(AtomBlocks.RAILROAD_TRUSS_BLACK.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(AtomBlocks.RAILROAD_TRUSS_BRIGHT.get(), RenderType.cutout());

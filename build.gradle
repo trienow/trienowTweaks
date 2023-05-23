@@ -133,7 +133,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven { /*TOP*/ url "https://cursemaven.com" }
-    maven { /*JEI*/ url "https://dvs1.progwml6.com/files/maven" }
+    maven { /*JEI*/ url "https://maven.blamejared.com/" }
     maven { /*CURIOS*/ url "https://maven.theillusivec4.top/" }
 }
 
