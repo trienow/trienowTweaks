@@ -23,10 +23,11 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2022 - 2023
  */
 public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingContainer>
 {
@@ -76,7 +77,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	 * @param pLevel     TODO
 	 */
 	@Override
-	public boolean matches(CraftingContainer pContainer, Level pLevel)
+	public boolean matches(CraftingContainer pContainer, @Nullable Level pLevel)
 	{
 		for (int i = 0; i < pContainer.getContainerSize(); i++)
 		{

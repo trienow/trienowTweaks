@@ -6,11 +6,11 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
 public class ItemArmorBase extends ArmorItem
 {
-	protected ItemArmorBase(String baseName, ArmorMaterial materialIn, EquipmentSlot slot, Properties props)
+	protected ItemArmorBase(ArmorMaterial materialIn, EquipmentSlot slot, Properties props)
 	{
 		super(materialIn, slot, props.tab(TrienowTweaks.ITEM_GROUP).stacksTo(1));
 	}

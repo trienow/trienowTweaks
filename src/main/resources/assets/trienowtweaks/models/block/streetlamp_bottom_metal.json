@@ -1,5 +1,5 @@
 {
-  "__comment": "(c) trienow 2016 - 2019",
+  "__comment": "(c) trienow 2016 - 2023",
   "textures": {
     "particle": "minecraft:block/anvil",
     "texture": "minecraft:block/anvil"
@@ -41,5 +41,6 @@
         "east": { "uv": [6, 0, 10, 7], "texture": "#texture" }
       }
     }
-  ]
+  ],
+  "render_type": "cutout"
 }

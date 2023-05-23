@@ -9,10 +9,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
- * @author (c) trienow 2019 - 2022
+ * @author (c) trienow 2019 - 2023
  */
 class TeleportRequests
 {
@@ -125,7 +126,7 @@ class TeleportRequests
 		return 1;
 	}
 
-	private boolean preTeleportChecks(Player fromPlayer, Player toPlayer, String toPlayerName)
+	private boolean preTeleportChecks(@Nullable Player fromPlayer, @Nullable Player toPlayer, String toPlayerName)
 	{
 		boolean checksOk = true;
 		final String translation_key = TRANSLATION_KEY + "teleport.fail.";

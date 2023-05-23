@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * @author (c) trienow 2018 - 2022
+ * @author (c) trienow 2018 - 2023
  */
 public class TEItemDetector extends BlockEntity
 {
@@ -56,7 +56,7 @@ public class TEItemDetector extends BlockEntity
 
 	public void tickServer()
 	{
-		if (!level.isClientSide())
+		if (level != null && !level.isClientSide())
 		{
 			if (tick % 20 == 0)
 			{

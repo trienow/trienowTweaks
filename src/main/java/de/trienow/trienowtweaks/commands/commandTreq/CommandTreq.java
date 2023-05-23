@@ -6,10 +6,11 @@ import de.trienow.trienowtweaks.commands.CommandUtils;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.event.TickEvent;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
 public class CommandTreq
 {
@@ -50,7 +51,11 @@ public class CommandTreq
 	{
 		if (activeTick >= 0)
 		{
-			REQUESTS.cleanUpRequests(evt.level.getServer().getPlayerList());
+			MinecraftServer server = evt.level.getServer();
+			if (server != null)
+			{
+				REQUESTS.cleanUpRequests(server.getPlayerList());
+			}
 			activeTick = -100;
 		}
 		else

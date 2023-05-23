@@ -26,7 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author (c) trienow 2017 - 2022
+ * @author (c) trienow 2017 - 2023
  */
 public class BlockItemDetector extends BaseBlock implements EntityBlock
 {
@@ -68,7 +68,7 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 	@Override
 	public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit)
 	{
-		if (!pLevel.isClientSide() && pPlayer != null && pLevel.getBlockEntity(pPos) instanceof TEItemDetector te)
+		if (!pLevel.isClientSide() && pLevel.getBlockEntity(pPos) instanceof TEItemDetector te)
 		{
 			ChatFormatting numberColor = ChatFormatting.GREEN;
 			if (pPlayer.getPose() == Pose.CROUCHING)

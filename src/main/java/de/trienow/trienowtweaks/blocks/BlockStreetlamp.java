@@ -4,6 +4,7 @@ import de.trienow.trienowtweaks.blocks.states.StateStreetlamp;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,7 +22,7 @@ import net.minecraftforge.common.IPlantable;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author trienow 2017 - 2022
+ * @author trienow 2017 - 2023
  */
 public class BlockStreetlamp extends BaseBlock
 {
@@ -70,8 +71,9 @@ public class BlockStreetlamp extends BaseBlock
 		Level level = pContext.getLevel();
 		BlockPos pos = pContext.getClickedPos();
 		BlockState state = defaultBlockState(); // <- Is StateStreetlamp.TOP
+		Player player = pContext.getPlayer();
 
-		if (pContext.getPlayer().getPose() != Pose.CROUCHING && level.getBlockState(pos.above()).isAir() && level.getBlockState(pos.above(2)).isAir())
+		if (player != null && player.getPose() != Pose.CROUCHING && level.getBlockState(pos.above()).isAir() && level.getBlockState(pos.above(2)).isAir())
 		{
 			BlockState middle = state.setValue(SOLAMNIA, StateStreetlamp.MIDDLE);
 			BlockState bottom = state.setValue(SOLAMNIA, StateStreetlamp.BOTTOM);

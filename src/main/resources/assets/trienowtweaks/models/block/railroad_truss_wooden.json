@@ -1,5 +1,5 @@
 {
-	"__comment": "(c) trienow 2017 - 2019",
+	"__comment": "(c) trienow 2017 - 2023",
 	"textures": {
 		"particle": "block/oak_planks",
 		"texture": "block/oak_planks",
@@ -359,6 +359,7 @@
 			}
 		}
 	],
+	"render_type": "cutout",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation":  [ 75, 45, 0 ],

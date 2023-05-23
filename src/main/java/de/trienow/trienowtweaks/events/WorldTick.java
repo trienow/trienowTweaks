@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.List;
 
 /**
- * @author (c) trienow 2017 - 2022
+ * @author (c) trienow 2017 - 2023
  */
 @Mod.EventBusSubscriber(modid = TrienowTweaks.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldTick
@@ -43,6 +43,7 @@ public class WorldTick
 			List<? extends String> flightDisabledDims = Config.getServerConfig().flightDisabled.get();
 			if (flightDisabledDims != null)
 			{
+
 				for (Player player : evt.level.getServer().getPlayerList().getPlayers())
 				{
 					String dimKey = player.level.dimension().location().toString();

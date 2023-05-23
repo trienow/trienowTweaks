@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2023
  * @author (c) super_zzo 2022
  */
 public class GenRecipes extends RecipeProvider
@@ -229,11 +229,13 @@ public class GenRecipes extends RecipeProvider
 		return ro.getId().toString();
 	}
 
+	@SuppressWarnings("SameParameterValue")
 	private static ResourceLocation recipeLoc(@Nonnull RegistryObject<?> ro, int index)
 	{
 		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + index);
 	}
 
+	@SuppressWarnings("SameParameterValue")
 	private static ResourceLocation recipeVariant(@Nonnull RegistryObject<?> ro, String variant)
 	{
 		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + variant);

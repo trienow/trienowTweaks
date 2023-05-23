@@ -24,7 +24,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
 @Mod.EventBusSubscriber
 public class CommonEvents
@@ -47,7 +47,7 @@ public class CommonEvents
 			//noinspection CodeBlock2Expr
 			evt.getOriginal().getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap0) -> {
 				evt.getEntity().getCapability(IPlayerCapability.PLAYER_CAP)
-						.ifPresent((pcap1) -> pcap0.clone(pcap1));
+						.ifPresent(pcap0::clone);
 			});
 			evt.getOriginal().invalidateCaps();
 		}

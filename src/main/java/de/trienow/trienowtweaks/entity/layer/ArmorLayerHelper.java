@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 /**
  * A hacky class, to hide the armor from players
  *
- * @author (c) trienow 2022
+ * @author (c) trienow 2023
  */
 @Mod.EventBusSubscriber(modid = TrienowTweaks.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ArmorLayerHelper
@@ -65,7 +65,7 @@ public class ArmorLayerHelper
 	{
 		final Entity renderedEntity = evt.getEntity();
 		final Consumer<PlayerRenderer> parkedArmorRenderer = parkedArmorRenderers.get(renderedEntity);
-		if (parkedArmorRenderer instanceof Consumer<PlayerRenderer>)
+		if (parkedArmorRenderer != null)
 		{
 			parkedArmorRenderer.accept(evt.getRenderer());
 			parkedArmorRenderers.remove(renderedEntity);

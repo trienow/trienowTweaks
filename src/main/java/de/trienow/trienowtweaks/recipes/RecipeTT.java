@@ -8,6 +8,9 @@ import net.minecraft.world.level.ItemLike;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author (c) trienow 2022 - 2023
+ */
 class RecipeTT
 {
 	final int width;
@@ -26,6 +29,7 @@ class RecipeTT
 		this.resultCount = resultCount;
 	}
 
+	@SuppressWarnings("SameParameterValue")
 	RecipeTT(int width, int height, ItemLike result)
 	{
 		this(width, height, result, 1);

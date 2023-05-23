@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2023
  * Thanks to the minecraft forge docs, for explaining how to work with packets so well!
  */
 public record PacketReqPlayerCaps(UUID playerUuid)
@@ -29,8 +29,8 @@ public record PacketReqPlayerCaps(UUID playerUuid)
 	{
 		//No need to enqueue this on the main thread
 		ServerPlayer sender = ctxSupplier.get().getSender();
-		Player player = sender.getLevel().getPlayerByUUID(reqPcaps.playerUuid);
-		if (player instanceof Player)
+		Player player = sender != null ? sender.getLevel().getPlayerByUUID(reqPcaps.playerUuid) : null;
+		if (player != null)
 		{
 			player.getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap) -> new PacketPlayerCaps(pcap.getLayerTtRenderMode(), reqPcaps.playerUuid).sendToPlayer(sender));
 		}

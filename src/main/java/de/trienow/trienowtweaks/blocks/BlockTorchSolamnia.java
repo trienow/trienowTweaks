@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
 public class BlockTorchSolamnia extends BaseBlock
 {
@@ -45,7 +45,6 @@ public class BlockTorchSolamnia extends BaseBlock
 	private static final VoxelShape SHAPE_BB_SOUTH = Shapes.create(0.400D, 0.150D, 0.000D, 0.600D, 0.850D, 0.350D);
 	private static final VoxelShape SHAPE_BB_WEST = Shapes.create(0.650D, 0.150D, 0.400D, 1.000D, 0.850D, 0.600D);
 	private static final VoxelShape SHAPE_COLLISION = Shapes.empty();
-	public static final VoxelShape SHAPE_FULL = Shapes.block();
 	private static final Direction[] FIX_PLACEMENT_TRIES = new Direction[] { Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN };
 
 	public BlockTorchSolamnia()

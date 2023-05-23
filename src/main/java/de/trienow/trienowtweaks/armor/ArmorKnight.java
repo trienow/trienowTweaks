@@ -8,14 +8,14 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import java.util.function.Consumer;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
 public class ArmorKnight extends ItemArmorBase
 {
 
 	public ArmorKnight(EquipmentSlot slot)
 	{
-		super("knight", ArmorMaterial.KNIGHT, slot, new Properties());
+		super(ArmorMaterial.KNIGHT, slot, new Properties());
 	}
 
 	@Override

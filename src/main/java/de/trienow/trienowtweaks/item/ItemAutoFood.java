@@ -21,12 +21,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * @author (c) trienow 2017 - 2022
+ * @author (c) trienow 2017 - 2023
  */
 public class ItemAutoFood extends BaseItem
 {
 	byte checkLimiter = -100;
-	byte iter = -100;
 
 	public ItemAutoFood()
 	{

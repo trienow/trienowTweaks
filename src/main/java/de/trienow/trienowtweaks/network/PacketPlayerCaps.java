@@ -3,6 +3,7 @@ package de.trienow.trienowtweaks.network;
 import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
 import de.trienow.trienowtweaks.entity.layer.LayerTtRenderMode;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +16,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2023
  * Thanks to the minecraft forge docs, for explaining how to work with packets so well!
  */
 public record PacketPlayerCaps(LayerTtRenderMode renderMode, UUID playerUuid)
@@ -40,8 +41,9 @@ public record PacketPlayerCaps(LayerTtRenderMode renderMode, UUID playerUuid)
 
 	private static void handlePacketClient(PacketPlayerCaps syncPcap)
 	{
-		Player clientPlayer = Minecraft.getInstance().level.getPlayerByUUID(syncPcap.playerUuid);
-		if (clientPlayer instanceof Player)
+		ClientLevel level = Minecraft.getInstance().level;
+		Player clientPlayer = level != null ? level.getPlayerByUUID(syncPcap.playerUuid) : null;
+		if (clientPlayer != null)
 		{
 			clientPlayer.getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap) -> pcap.setLayerTtRenderMode(syncPcap.renderMode));
 		}

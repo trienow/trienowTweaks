@@ -4,7 +4,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * @author (c) trienow 2019 - 2022
+ * @author (c) trienow 2019 - 2023
  */
 class CraftCompactInventory extends CraftingContainer
 {
@@ -13,6 +13,7 @@ class CraftCompactInventory extends CraftingContainer
 
 	public CraftCompactInventory(int size)
 	{
+		//noinspection ConstantConditions The GUI is never displayed, so we don't need to worry. Check other methods though.
 		super(null, size, size);
 		this.size = size;
 		this.stack = ItemStack.EMPTY;
@@ -31,6 +32,18 @@ class CraftCompactInventory extends CraftingContainer
 	public void setItem(int pIndex, ItemStack pStack)
 	{
 		this.stack = pStack;
+	}
+
+	/**
+	 * Prevents accidental calling of the "removeItem" function, which accesses the menu field, which I initialize with null.
+	 *
+	 * @param pIndex ignored.
+	 * @param pCount ignored.
+	 */
+	@Override
+	public ItemStack removeItem(int pIndex, int pCount)
+	{
+		return stack.copy();
 	}
 
 	public void fillGrid(ItemStack stack)

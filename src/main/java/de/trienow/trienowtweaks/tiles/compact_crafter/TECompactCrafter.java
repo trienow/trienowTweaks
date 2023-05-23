@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 /**
- * @author (c) trienow 2019 - 2022
+ * @author (c) trienow 2019 - 2023
  */
 public class TECompactCrafter extends BlockEntity
 {
@@ -161,16 +161,19 @@ public class TECompactCrafter extends BlockEntity
 	 * @return The {@link IItemHandler} or <code>null</code> if nothing is found.
 	 */
 	@Nullable
-	private static IItemHandler getNeighborItemHandler(Level world, BlockPos pos, Direction face)
+	private static IItemHandler getNeighborItemHandler(@Nullable Level world, BlockPos pos, Direction face)
 	{
-		pos = pos.offset(face.getNormal());
-
-		BlockEntity te = world.getBlockEntity(pos);
 		IItemHandler iih = null;
 
-		if (te != null)
+		if (world != null)
 		{
-			iih = te.getCapability(ForgeCapabilities.ITEM_HANDLER, face).orElse(null);
+			pos = pos.offset(face.getNormal());
+			BlockEntity te = world.getBlockEntity(pos);
+
+			if (te != null)
+			{
+				iih = te.getCapability(ForgeCapabilities.ITEM_HANDLER, face).orElse(null);
+			}
 		}
 
 		return iih;

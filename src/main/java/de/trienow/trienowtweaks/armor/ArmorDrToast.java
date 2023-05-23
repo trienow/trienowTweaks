@@ -8,13 +8,13 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import java.util.function.Consumer;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
 public class ArmorDrToast extends ItemArmorBase
 {
 	public ArmorDrToast(EquipmentSlot slot)
 	{
-		super("drtoast", ArmorMaterial.DR_TOAST, slot, new Properties());
+		super(ArmorMaterial.DR_TOAST, slot, new Properties());
 	}
 
 	@Override
