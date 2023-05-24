@@ -9,10 +9,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+/**
+ * @author (c) trienow 2016 - 2023
+ */
 public class AtomItemBlocks
 {
 	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TrienowTweaks.MODID);
-	private static final Item.Properties ITEM_PROPERTIES_TAB = new Item.Properties().tab(TrienowTweaks.ITEM_GROUP);
+	private static final Item.Properties ITEM_PROPERTIES = new Item.Properties();
 
 	public static final RegistryObject<Item> GENERIC_LIGHT = register(AtomBlocks.GENERIC_LIGHT);
 	public static final RegistryObject<Item> INVISIBLE_WALL = register(AtomBlocks.INVISIBLE_WALL);
@@ -40,6 +43,6 @@ public class AtomItemBlocks
 
 	private static RegistryObject<Item> register(RegistryObject<Block> b)
 	{
-		return ITEMS.register(b.getId().getPath(), () -> new BlockItem(b.get(), ITEM_PROPERTIES_TAB));
+		return ITEMS.register(b.getId().getPath(), () -> new BlockItem(b.get(), ITEM_PROPERTIES));
 	}
 }

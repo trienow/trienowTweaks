@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -13,9 +14,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
-public class ItemWeWand extends BaseItem
+public class ItemWeWand extends Item
 {
 	private static final String TOOLTIP_KEY = "item.trienowtweaks.we_wand.tooltip0";
 	private static final String[] FORMATTERS = new String[] {

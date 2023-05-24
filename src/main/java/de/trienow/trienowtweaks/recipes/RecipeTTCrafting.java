@@ -7,7 +7,7 @@ import de.trienow.trienowtweaks.atom.AtomTags;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.utils.NonNullListUtils;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -15,6 +15,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -36,10 +38,10 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	private final ResourceLocation id;
 	private final RecipeTT recipe;
 
-	public RecipeTTCrafting(final ResourceLocation id)
+	public RecipeTTCrafting(ResourceLocation pId, CraftingBookCategory pCategory)
 	{
-		this.id = id;
-		this.recipe = RECIPES.get(id);
+		this.id = pId;
+		this.recipe = RECIPES.get(pId);
 	}
 
 	@Override
@@ -95,7 +97,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	 * @param pContainer TODO
 	 */
 	@Override
-	public ItemStack assemble(CraftingContainer pContainer)
+	public ItemStack assemble(CraftingContainer pContainer, RegistryAccess p_267165_)
 	{
 		if (matches(pContainer, null))
 		{
@@ -117,6 +119,12 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	public boolean canCraftInDimensions(int pWidth, int pHeight)
 	{
 		return pWidth >= recipe.width && pHeight >= recipe.height;
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess p_267052_)
+	{
+		return new ItemStack(recipe.result, recipe.resultCount);
 	}
 
 	@Override
@@ -153,21 +161,21 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	}
 
 	@Override
-	public ItemStack getResultItem()
-	{
-		return new ItemStack(recipe.result, recipe.resultCount);
-	}
-
-	@Override
 	public NonNullList<Ingredient> getIngredients()
 	{
 		return NonNullListUtils.FromArray(recipe.ingredients);
 	}
 
+	@Override
+	public CraftingBookCategory category()
+	{
+		return null;
+	}
+
 	private static Map<ResourceLocation, RecipeTT> genRecipes()
 	{
 		CompoundTag potionTag = new CompoundTag();
-		potionTag.putString("Potion", Registry.POTION.getKey(Potions.INVISIBILITY).toString());
+		potionTag.putString("Potion", ForgeRegistries.POTIONS.getKey(Potions.INVISIBILITY).toString());
 
 		final Ingredient crimsonPressurePlate = Ingredient.of(Items.CRIMSON_PRESSURE_PLATE);
 		final Ingredient flintAndSteel = Ingredient.of(Items.FLINT_AND_STEEL);

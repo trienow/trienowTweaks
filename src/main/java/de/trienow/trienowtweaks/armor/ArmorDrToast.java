@@ -1,7 +1,7 @@
 package de.trienow.trienowtweaks.armor;
 
 import de.trienow.trienowtweaks.entity.model.ModelDrToast;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
@@ -10,9 +10,9 @@ import java.util.function.Consumer;
 /**
  * @author (c) trienow 2016 - 2023
  */
-public class ArmorDrToast extends ItemArmorBase
+public class ArmorDrToast extends ArmorItem
 {
-	public ArmorDrToast(EquipmentSlot slot)
+	public ArmorDrToast(ArmorItem.Type slot)
 	{
 		super(ArmorMaterial.DR_TOAST, slot, new Properties());
 	}

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * @author (c) trienow 2017 - 2023
  */
-public class ItemAutoFood extends BaseItem
+public class ItemAutoFood extends Item
 {
 	byte checkLimiter = -100;
 

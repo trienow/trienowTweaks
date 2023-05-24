@@ -22,11 +22,12 @@ import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import static de.trienow.trienowtweaks.main.TrienowTweaks.LOG;
 
 /**
- * @author (c) trienow 2019 - 2022
+ * @author (c) trienow 2019 - 2023
  */
 class Random
 {
@@ -127,7 +128,7 @@ class Random
 
 			String biomeName = "<UNKNOWN>";
 
-			Registry<Biome> biomeRegistry = level.registryAccess().registry(Registry.BIOME_REGISTRY).orElse(null);
+			Registry<Biome> biomeRegistry = level.registryAccess().registry(ForgeRegistries.BIOMES.getRegistryKey()).orElse(null);
 
 			if (biomeRegistry != null)
 			{

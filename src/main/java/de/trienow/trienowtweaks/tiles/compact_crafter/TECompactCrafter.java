@@ -132,7 +132,7 @@ public class TECompactCrafter extends BlockEntity
 			if (recipe.isPresent())
 			{
 				crp.slotCount = craft2.getSlotCount();
-				crp.outputStack = recipe.get().getResultItem();
+				crp.outputStack = recipe.get().getResultItem(world.registryAccess());
 			}
 			else
 			{
@@ -141,7 +141,7 @@ public class TECompactCrafter extends BlockEntity
 				if (recipe.isPresent())
 				{
 					crp.slotCount = craft3.getSlotCount();
-					crp.outputStack = recipe.get().getResultItem();
+					crp.outputStack = recipe.get().getResultItem(world.registryAccess());
 				}
 			}
 		}

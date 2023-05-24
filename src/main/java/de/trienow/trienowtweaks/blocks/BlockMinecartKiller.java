@@ -2,7 +2,6 @@ package de.trienow.trienowtweaks.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.level.Level;
@@ -38,7 +37,7 @@ public class BlockMinecartKiller extends BaseBlock
 
 			for (Entity entity : ents)
 			{
-				entity.hurt(DamageSource.GENERIC, Float.MAX_VALUE);
+				entity.hurt(entity.damageSources().generic(), Float.MAX_VALUE);
 			}
 		}
 	}

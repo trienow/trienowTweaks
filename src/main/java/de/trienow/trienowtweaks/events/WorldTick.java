@@ -6,7 +6,6 @@ import de.trienow.trienowtweaks.config.Config;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -61,7 +60,7 @@ public class WorldTick
 								player.getAbilities().flying = false;
 								player.onUpdateAbilities();
 
-								player.hurt(DamageSource.OUT_OF_WORLD, 2);
+								player.hurt(player.damageSources().outOfWorld(), 2);
 
 								CommandUtils.sendIm(player, "feature.trienowtweaks.anti_flying.message");
 								break;

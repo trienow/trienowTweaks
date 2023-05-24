@@ -3,25 +3,28 @@ package de.trienow.trienowtweaks.datagen;
 import de.trienow.trienowtweaks.atom.AtomBlocks;
 import de.trienow.trienowtweaks.atom.AtomTags;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2022 - 2023
  */
 public class GenBlockTags extends BlockTagsProvider
 {
-	public GenBlockTags(DataGenerator pGenerator, @Nullable ExistingFileHelper existingFileHelper)
+	public GenBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, @Nullable ExistingFileHelper existingFileHelper)
 	{
-		super(pGenerator, TrienowTweaks.MODID, existingFileHelper);
+		super(output, lookupProvider, TrienowTweaks.MODID, existingFileHelper);
 	}
 
 	@Override
-	protected void addTags()
+	protected void addTags(HolderLookup.Provider pProvider)
 	{
 		tag(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(AtomBlocks.ENTITY_PROHIBITATOR.get())

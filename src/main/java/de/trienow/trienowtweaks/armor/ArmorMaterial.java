@@ -4,11 +4,11 @@ import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.crafting.Ingredient;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author (c) trienow 2016 - 2023
  */
 @SuppressWarnings("SameParameterValue")
 public enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial
@@ -37,15 +37,15 @@ public enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial
 	}
 
 	@Override
-	public int getDurabilityForSlot(EquipmentSlot slotIn)
+	public int getDurabilityForType(ArmorItem.Type armorType)
 	{
-		return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+		return MAX_DAMAGE_ARRAY[armorType.getSlot().getIndex()] * this.maxDamageFactor;
 	}
 
 	@Override
-	public int getDefenseForSlot(EquipmentSlot slotIn)
+	public int getDefenseForType(ArmorItem.Type armorType)
 	{
-		return this.damageReductionAmountArray[slotIn.getIndex()];
+		return this.damageReductionAmountArray[armorType.getSlot().getIndex()];
 	}
 
 	@Override

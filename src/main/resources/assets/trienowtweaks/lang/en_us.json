@@ -1,5 +1,5 @@
 {
-  "itemGroup.trienowtweaks": "trienow's creative tab",
+  "item_group.trienowtweaks.trienowtab": "trienow's creative tab",
 
   "block.trienowtweaks.compact_crafter": "Compacting Crafter",
   "block.trienowtweaks.compact_crafter.tooltip0": "\u00A72Put an inventory on the left and right of this block.",
