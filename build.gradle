@@ -70,6 +70,10 @@ minecraft {
                     source sourceSets.main
                 }
             }
+
+            //These two lines for Curios
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
 
         server {
@@ -88,6 +92,10 @@ minecraft {
                     source sourceSets.main
                 }
             }
+
+            //These two lines for Curios
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
 
         // This run config launches GameTestServer and runs all registered gametests, then exits.
@@ -107,6 +115,10 @@ minecraft {
                     source sourceSets.main
                 }
             }
+
+            //These two lines for Curios
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
 
         data {
@@ -124,6 +136,10 @@ minecraft {
                     source sourceSets.main
                 }
             }
+
+            //These two lines for Curios
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
     }
 }
