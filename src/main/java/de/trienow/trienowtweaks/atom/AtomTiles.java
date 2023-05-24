@@ -33,7 +33,7 @@ public class AtomTiles
 
 	private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, BlockEntityType.BlockEntitySupplier<T> tileSupplier, RegistryObject<Block> block)
 	{
-		//noinspection ConstantConditions The null in build is suggested by the forge docs. https://docs.minecraftforge.net/en/1.19.x/blockentities/#registering
+		//The null in build is suggested by the forge docs https://docs.minecraftforge.net/en/1.19.x/blockentities/#registering
 		return TILES.register("te_" + name, () -> BlockEntityType.Builder.of(tileSupplier, block.get()).build(null));
 	}
 }

@@ -36,9 +36,9 @@
   "block.trienowtweaks.item_detector.tooltip1": "\u00A7cSneak-right-click: decrease detection by 10",
   "block.trienowtweaks.item_detector.tooltip2": "\u00A79Will will keep max 10k item entities",
   "block.trienowtweaks.item_detector.tooltip3": "\u00A7e1 item entity = 1-64 items of the same type",
-  "block.trienowtweaks.item_detector.message": "Minimum Items to detect: %s%s",
+  "block.trienowtweaks.item_detector.message": "Minimum item entities to detect: %s%s",
   "block.trienowtweaks.minecart_killer": "Minecart Killer",
-  "block.trienowtweaks.minecart_killer.tooltip0": "\u00A73Will kill the Minecart above it,",
+  "block.trienowtweaks.minecart_killer.tooltip0": "\u00A73Will kill the minecart above it,",
   "block.trienowtweaks.minecart_killer.tooltip1": "\u00A73when it receives a \u00A7c\u00A7oredstone\u00A7r \u00A73signal.",
 
   "block.trienowtweaks.streetlamp": "Street Lamp",

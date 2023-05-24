@@ -13,7 +13,6 @@ class CraftCompactInventory extends CraftingContainer
 
 	public CraftCompactInventory(int size)
 	{
-		//noinspection ConstantConditions The GUI is never displayed, so we don't need to worry. Check other methods though.
 		super(null, size, size);
 		this.size = size;
 		this.stack = ItemStack.EMPTY;
