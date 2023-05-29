@@ -1,0 +1,37 @@
+itemGroup.trienowCreativeTab=trienow's creative tab
+
+
+tile.trienowtweaks.compact_crafter.name=Compacting Crafter
+tile.trienowtweaks.entity_prohibitator.name=Entity Prohibitator
+tile.trienowtweaks.fake_fire.name=Fake Fire
+tile.trienowtweaks.generic_light.name=Invisible Light Source
+tile.trienowtweaks.invisible_wall.name=Invisible Wall
+
+tile.trienowtweaks.railroad_truss_wooden.name=Wooden Railroad Truss
+tile.trienowtweaks.railroad_truss_black.name=Ebony Railroad Truss
+tile.trienowtweaks.railroad_truss_bright.name=Fir Railroad Truss
+tile.trienowtweaks.railroad_truss_purple.name=Umbran Railroad Truss
+
+tile.trienowtweaks.torch_solamnia.name=trienowTorch^2
+tile.trienowtweaks.item_detector.name=Item Detector
+tile.trienowtweaks.minecart_killer.name=Minecart Killer
+tile.trienowtweaks.apothecary_refiller.name=Petal Apothecary Refiller
+
+tile.trienowtweaks.streetlamp.name=Street Lamp
+tile.trienowtweaks.streetlamp.top_fire.name=Fiery Street Lamp
+tile.trienowtweaks.streetlamp.top_glowstone.name=Glowstone Street Lamp
+tile.trienowtweaks.streetlamp.top_flesh.name=Fleshy Street Lamp
+tile.trienowtweaks.streetlamp.middle_metal.name=Metal Street Lamp Post
+tile.trienowtweaks.streetlamp.bottom_metal.name=Metal Street Lamp Base
+tile.trienowtweaks.streetlamp.middle_flesh.name=Fleshy Street Lamp Post
+tile.trienowtweaks.streetlamp.bottom_flesh.name=Fleshy Street Lamp Base
+
+item.trienowtweaks.auto_food.name=Helmet of Gluttony
+item.trienowtweaks.we_wand.name=WorldEdit Wand
+item.trienowtweaks.auto_light.name=Bright Amulet
+
+item.trienowtweaks.custom_helmet.name=Knight's Helmet
+item.trienowtweaks.custom_chestplate.name=Knight's Breastplate
+item.trienowtweaks.custom_leggings.name=Knight's Greaves
+item.trienowtweaks.custom_boots.name=Knight's Boots
+item.trienowtweaks.drtoast_helmet.name=Sandwichmania

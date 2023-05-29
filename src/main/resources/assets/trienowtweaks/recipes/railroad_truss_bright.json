@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "FFF",
+    " W "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:planks",
+      "data": 1
+    },
+    "F": {
+      "type": "forge:ore_dict",
+      "ore": "fenceWood"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "dyeWhite"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:railroad_truss_bright",
+    "count": 3
+  }
+}

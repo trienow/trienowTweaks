@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "L"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "blockCoal"
+    },
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "logWood"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:torch_solamnia",
+    "count": 8
+  }
+}

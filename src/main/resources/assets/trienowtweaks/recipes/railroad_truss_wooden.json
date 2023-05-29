@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "FFF"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:planks",
+      "data": 1
+    },
+    "F": {
+      "item": "minecraft:fence"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:railroad_truss_wooden",
+    "count": 3
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "COP",
+    "RHC",
+    "CTR"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "blockGold"
+    },
+    "P": {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    },
+    "O": {
+      "item": "minecraft:observer"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:item_detector"
+  }
+}

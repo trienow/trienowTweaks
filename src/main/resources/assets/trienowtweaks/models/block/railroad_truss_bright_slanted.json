@@ -1,0 +1,8 @@
+{
+    "parent": "trienowtweaks:block/railroad_truss_wooden_slanted",
+	"textures":
+	{
+		"particle": "trienowtweaks:blocks/planks_bright",
+		"texture": "trienowtweaks:blocks/planks_bright"
+	}
+}

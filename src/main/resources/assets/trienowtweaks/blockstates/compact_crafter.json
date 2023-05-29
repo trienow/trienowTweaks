@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "trienowtweaks:compact_crafter" },
+        "facing=south": { "model": "trienowtweaks:compact_crafter", "y": 180 },
+        "facing=west":  { "model": "trienowtweaks:compact_crafter", "y": 270 },
+        "facing=east":  { "model": "trienowtweaks:compact_crafter", "y": 90 }
+    }
+}

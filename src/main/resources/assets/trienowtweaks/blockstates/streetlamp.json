@@ -1,0 +1,12 @@
+{
+    "variants":
+    {
+    "nasgo=top_fire":{ "model": "trienowtweaks:streetlamp_top_fire" },
+    "nasgo=top_glowstone":{ "model": "trienowtweaks:streetlamp_top_glowstone" },
+    "nasgo=top_flesh":{ "model": "trienowtweaks:streetlamp_top_flesh" },
+    "nasgo=middle_metal":{ "model": "trienowtweaks:streetlamp_middle_metal" },
+    "nasgo=middle_flesh":{ "model": "trienowtweaks:streetlamp_middle_flesh" },
+    "nasgo=bottom_metal":{ "model": "trienowtweaks:streetlamp_bottom_metal" },
+    "nasgo=bottom_flesh":{ "model": "trienowtweaks:streetlamp_bottom_flesh" }
+    }
+}

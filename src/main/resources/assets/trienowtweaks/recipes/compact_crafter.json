@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BPB",
+    "HCH",
+    "BPB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:obsidian"
+    },
+    "P": {
+      "item": "minecraft:sticky_piston"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:compact_crafter"
+  }
+}

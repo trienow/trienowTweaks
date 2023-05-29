@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=true": {
+      "model": "trienowtweaks:item_detector_1"
+    },
+    "active=false": {
+      "model": "trienowtweaks:item_detector_0"
+    }
+  }
+}

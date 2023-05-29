@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "trienowtweaks:blocks/item_detector_1_end",
+        "side": "trienowtweaks:blocks/item_detector_1"
+    }
+}

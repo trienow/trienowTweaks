@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LBL",
+    "WHW",
+    "BLB"
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:skull",
+      "data": 2
+    },
+    "L": {
+      "item": "minecraft:lapis_ore"
+    },
+    "W": {
+      "item": "minecraft:stonebrick",
+      "data": 3
+    },
+    "B": {
+      "item": "minecraft:stonebrick",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "trienowtweaks:entity_prohibitator",
+    "count": 5
+  }
+}
