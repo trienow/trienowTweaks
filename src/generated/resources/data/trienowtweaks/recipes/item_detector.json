@@ -1,31 +1,33 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "tag": "forge:blocks/copper_cut"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "O": {
+      "item": "minecraft:observer"
+    },
+    "P": {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
   "pattern": [
     "COP",
     "RHC",
     "CTR"
   ],
-  "key": {
-    "C": {
-      "tag": "forge:blocks/copper_cut"
-    },
-    "P": {
-      "item": "minecraft:heavy_weighted_pressure_plate"
-    },
-    "O": {
-      "item": "minecraft:observer"
-    },
-    "T": {
-      "item": "minecraft:tnt"
-    },
-    "H": {
-      "item": "minecraft:hopper"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
-  },
   "result": {
     "item": "trienowtweaks:item_detector"
-  }
+  },
+  "show_notification": true
 }

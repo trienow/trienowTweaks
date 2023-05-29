@@ -24,5 +24,8 @@ public class DataGenerators
 		gen.addProvider(evt.includeServer(), (DataProvider.Factory<GenItemTags>) (output) ->
 				new GenItemTags(output, evt.getLookupProvider(), genBlockTags.contentsGetter(), MODID, evt.getExistingFileHelper())
 		);
+		gen.addProvider(evt.includeServer(), (DataProvider.Factory<GenRecipes>) (output) ->
+				new GenRecipes(output)
+		);
 	}
 }

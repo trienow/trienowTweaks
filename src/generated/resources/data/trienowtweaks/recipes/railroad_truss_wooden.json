@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "tag": "minecraft:wooden_fences"
+    },
+    "S": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
   "pattern": [
     "SSS",
     "FFF"
   ],
-  "key": {
-    "S": {
-      "item": "minecraft:spruce_planks"
-    },
-    "F": {
-      "tag": "minecraft:wooden_fences"
-    }
-  },
   "result": {
-    "item": "trienowtweaks:railroad_truss_wooden",
-    "count": 3
-  }
+    "count": 3,
+    "item": "trienowtweaks:railroad_truss_wooden"
+  },
+  "show_notification": true
 }

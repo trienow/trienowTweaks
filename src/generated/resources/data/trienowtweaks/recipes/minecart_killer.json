@@ -1,28 +1,30 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "BSO",
-    "BPR",
-    "BBB"
-  ],
+  "category": "redstone",
   "key": {
     "B": {
       "tag": "minecraft:stone_bricks"
-    },
-    "R": {
-      "item": "minecraft:repeater"
-    },
-    "S": {
-      "item": "minecraft:diamond_sword"
     },
     "O": {
       "item": "minecraft:observer"
     },
     "P": {
       "item": "minecraft:sticky_piston"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "S": {
+      "item": "minecraft:diamond_sword"
     }
   },
+  "pattern": [
+    "BSO",
+    "BPR",
+    "BBB"
+  ],
   "result": {
     "item": "trienowtweaks:minecart_killer"
-  }
+  },
+  "show_notification": true
 }

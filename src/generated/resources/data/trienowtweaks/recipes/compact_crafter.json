@@ -1,25 +1,27 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": {
+      "item": "minecraft:polished_blackstone_bricks"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "P": {
+      "item": "minecraft:sticky_piston"
+    }
+  },
   "pattern": [
     "BPB",
     "HCH",
     "BPB"
   ],
-  "key": {
-    "B": {
-      "item": "minecraft:polished_blackstone_bricks"
-    },
-    "P": {
-      "item": "minecraft:sticky_piston"
-    },
-    "H": {
-      "item": "minecraft:hopper"
-    },
-    "C": {
-      "item": "minecraft:crafting_table"
-    }
-  },
   "result": {
     "item": "trienowtweaks:compact_crafter"
-  }
+  },
+  "show_notification": true
 }

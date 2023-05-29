@@ -1,9 +1,10 @@
 {
   "type": "minecraft:blasting",
+  "category": "blocks",
+  "cookingtime": 150,
+  "experience": 0.05,
   "ingredient": {
     "item": "minecraft:magma_block"
   },
-  "result": "trienowtweaks:fake_fire",
-  "experience": 0.05,
-  "cookingtime": 150
+  "result": "trienowtweaks:fake_fire"
 }

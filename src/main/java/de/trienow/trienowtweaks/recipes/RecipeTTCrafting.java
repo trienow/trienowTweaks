@@ -112,8 +112,8 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	/**
 	 * Used to determine if this recipe can fit in a grid of the given width/height
 	 *
-	 * @param pWidth  TODO
-	 * @param pHeight TODO
+	 * @param pWidth  Width of the crafting grid
+	 * @param pHeight Height of the crafting grid
 	 */
 	@Override
 	public boolean canCraftInDimensions(int pWidth, int pHeight)

@@ -1,12 +1,15 @@
 {
-  "type": "minecraft:smithing",
-  "base": {
-    "item": "minecraft:netherite_boots"
-  },
+  "type": "minecraft:smithing_transform",
   "addition": {
     "item": "minecraft:gold_ingot"
   },
+  "base": {
+    "item": "minecraft:netherite_boots"
+  },
   "result": {
     "item": "trienowtweaks:knight_boots"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
   }
 }

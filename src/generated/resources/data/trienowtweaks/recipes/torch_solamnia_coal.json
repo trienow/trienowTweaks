@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "C",
-    "L"
-  ],
+  "category": "misc",
   "key": {
     "C": {
       "tag": "forge:storage_blocks/coal"
@@ -12,8 +9,13 @@
       "tag": "minecraft:logs"
     }
   },
+  "pattern": [
+    "C",
+    "L"
+  ],
   "result": {
-    "item": "trienowtweaks:torch_solamnia",
-    "count": 8
-  }
+    "count": 8,
+    "item": "trienowtweaks:torch_solamnia"
+  },
+  "show_notification": true
 }

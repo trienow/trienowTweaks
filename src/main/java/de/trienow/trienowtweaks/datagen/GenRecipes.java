@@ -193,27 +193,45 @@ public class GenRecipes extends RecipeProvider
 				.pattern(" I ")
 				.save(pWriter);
 
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.GOLDEN_HELMET), Ingredient.of((Items.BREAD)), Ingredient.EMPTY, RecipeCategory.COMBAT, AtomItems.DRTOAST_HEAD.get())
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+						Ingredient.of(Items.GOLDEN_HELMET),
+						Ingredient.of((Items.BREAD)),
+						RecipeCategory.COMBAT,
+						AtomItems.DRTOAST_HEAD.get())
 				.unlocks(getHasName(Items.BREAD), has(Items.BREAD))
 				.unlocks(getHasName(Items.GOLDEN_HELMET), has(Items.GOLDEN_HELMET))
 				.save(pWriter, recipeIdSmithing(AtomItems.DRTOAST_HEAD));
 
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_HELMET), Ingredient.of(Items.RED_WOOL), Ingredient.EMPTY, RecipeCategory.COMBAT, AtomItems.KNIGHT_HEAD.get())
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+						Ingredient.of(Items.NETHERITE_HELMET),
+						Ingredient.of(Items.RED_WOOL),
+						RecipeCategory.COMBAT, AtomItems.KNIGHT_HEAD.get())
 				.unlocks(getHasName(Items.NETHERITE_HELMET), has(Items.NETHERITE_HELMET))
 				.unlocks(getHasName(Items.RED_WOOL), has(Items.RED_WOOL))
 				.save(pWriter, recipeIdSmithing(AtomItems.KNIGHT_HEAD));
 
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_CHESTPLATE), Ingredient.of(Items.LEATHER), Ingredient.EMPTY, RecipeCategory.COMBAT, AtomItems.KNIGHT_CHEST.get())
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+						Ingredient.of(Items.NETHERITE_CHESTPLATE),
+						Ingredient.of(Items.LEATHER), RecipeCategory.COMBAT,
+						AtomItems.KNIGHT_CHEST.get())
 				.unlocks(getHasName(Items.NETHERITE_CHESTPLATE), has(Items.NETHERITE_CHESTPLATE))
 				.unlocks(getHasName(Items.LEATHER), has(Items.LEATHER))
 				.save(pWriter, recipeIdSmithing(AtomItems.KNIGHT_CHEST));
 
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_LEGGINGS), Ingredient.of(Items.QUARTZ), Ingredient.EMPTY, RecipeCategory.COMBAT, AtomItems.KNIGHT_LEGS.get())
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+						Ingredient.of(Items.NETHERITE_LEGGINGS),
+						Ingredient.of(Items.QUARTZ),
+						RecipeCategory.COMBAT,
+						AtomItems.KNIGHT_LEGS.get())
 				.unlocks(getHasName(Items.NETHERITE_LEGGINGS), has(Items.NETHERITE_LEGGINGS))
 				.unlocks(getHasName(Items.QUARTZ), has(Items.QUARTZ))
 				.save(pWriter, recipeIdSmithing(AtomItems.KNIGHT_LEGS));
 
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_BOOTS), Ingredient.of(Items.GOLD_INGOT), Ingredient.EMPTY, RecipeCategory.COMBAT, AtomItems.KNIGHT_FEET.get())
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+						Ingredient.of(Items.NETHERITE_BOOTS),
+						Ingredient.of(Items.GOLD_INGOT),
+						RecipeCategory.COMBAT,
+						AtomItems.KNIGHT_FEET.get())
 				.unlocks(getHasName(Items.NETHERITE_BOOTS), has(Items.NETHERITE_BOOTS))
 				.unlocks(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
 				.save(pWriter, recipeIdSmithing(AtomItems.KNIGHT_FEET));

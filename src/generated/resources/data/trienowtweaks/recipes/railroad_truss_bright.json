@@ -1,23 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SSS",
-    "FFF",
-    " W "
-  ],
+  "category": "misc",
   "key": {
-    "S": {
-      "item": "minecraft:spruce_planks"
-    },
     "F": {
       "tag": "minecraft:wooden_fences"
+    },
+    "S": {
+      "item": "minecraft:spruce_planks"
     },
     "W": {
       "tag": "forge:dyes/white"
     }
   },
+  "pattern": [
+    "SSS",
+    "FFF",
+    " W "
+  ],
   "result": {
-    "item": "trienowtweaks:railroad_truss_bright",
-    "count": 3
-  }
+    "count": 3,
+    "item": "trienowtweaks:railroad_truss_bright"
+  },
+  "show_notification": true
 }

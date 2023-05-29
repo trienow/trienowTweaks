@@ -1,23 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:dyes/black"
+    },
+    "F": {
+      "tag": "minecraft:wooden_fences"
+    },
+    "S": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
   "pattern": [
     "SSS",
     "FFF",
     " B "
   ],
-  "key": {
-    "S": {
-      "item": "minecraft:spruce_planks"
-    },
-    "F": {
-      "tag": "minecraft:wooden_fences"
-    },
-    "B": {
-      "tag": "forge:dyes/black"
-    }
-  },
   "result": {
-    "item": "trienowtweaks:railroad_truss_black",
-    "count": 3
-  }
+    "count": 3,
+    "item": "trienowtweaks:railroad_truss_black"
+  },
+  "show_notification": true
 }

@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SSS",
-    "CWC"
-  ],
+  "category": "misc",
   "key": {
-    "S": {
-      "item": "minecraft:spruce_planks"
-    },
     "C": {
       "item": "minecraft:crimson_fence"
+    },
+    "S": {
+      "item": "minecraft:spruce_planks"
     },
     "W": {
       "item": "minecraft:warped_fence"
     }
   },
+  "pattern": [
+    "SSS",
+    "CWC"
+  ],
   "result": {
-    "item": "trienowtweaks:railroad_truss_purple",
-    "count": 6
-  }
+    "count": 6,
+    "item": "trienowtweaks:railroad_truss_purple"
+  },
+  "show_notification": true
 }

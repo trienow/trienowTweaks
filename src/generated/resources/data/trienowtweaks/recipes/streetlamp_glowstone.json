@@ -1,25 +1,27 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "IPI",
-    "GSG",
-    "III"
-  ],
+  "category": "misc",
   "key": {
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
     "I": {
       "tag": "forge:ingots/iron"
     },
     "P": {
       "item": "minecraft:heavy_weighted_pressure_plate"
     },
-    "G": {
-      "tag": "forge:glass/colorless"
-    },
     "S": {
       "item": "minecraft:glowstone"
     }
   },
+  "pattern": [
+    "IPI",
+    "GSG",
+    "III"
+  ],
   "result": {
     "item": "trienowtweaks:streetlamp_glowstone"
-  }
+  },
+  "show_notification": true
 }
