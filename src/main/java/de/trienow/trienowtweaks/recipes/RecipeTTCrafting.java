@@ -170,7 +170,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	@Override
 	public CraftingBookCategory category()
 	{
-		return null;
+		return recipe.category;
 	}
 
 	private static Map<ResourceLocation, RecipeTT> genRecipes()
@@ -192,24 +192,28 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 		final RecipeTT genericLight = new RecipeTT(3, 3, AtomItemBlocks.GENERIC_LIGHT.get(), 16)
 				.addIngredients(0, glowstone, glowstone, glowstone)
 				.addIngredients(1, glowstone, potionInvisibility, glowstone)
-				.addIngredients(2, glowstone, glowstone, glowstone);
+				.addIngredients(2, glowstone, glowstone, glowstone)
+				.setCategory(CraftingBookCategory.BUILDING);
 
 		final RecipeTT invisibleWall = new RecipeTT(3, 3, AtomItemBlocks.INVISIBLE_WALL.get(), 8)
 				.addIngredients(0, walls, walls, walls)
 				.addIngredients(1, walls, potionInvisibility, walls)
-				.addIngredients(2, walls, walls, walls);
+				.addIngredients(2, walls, walls, walls)
+				.setCategory(CraftingBookCategory.BUILDING);
 
 		final RecipeTT streetlampFire = new RecipeTT(3, 3, AtomItemBlocks.STREETLAMP_FIRE.get())
 				.addIngredients(0, ingotsIron, heavyWeightedPressurePlate, ingotsIron)
 				.addIngredients(1, glassColorless, flintAndSteel, glassColorless)
 				.addIngredients(2, ingotsIron, netherrack, ingotsIron)
-				.addDamageable(Items.FLINT_AND_STEEL, 1);
+				.addDamageable(Items.FLINT_AND_STEEL, 1)
+				.setCategory(CraftingBookCategory.BUILDING);
 
 		final RecipeTT streetlampFlesh = new RecipeTT(3, 3, AtomBlocks.STREETLAMP_FLESH.get())
 				.addIngredients(0, meatRaw, crimsonPressurePlate, meatRaw)
 				.addIngredients(1, glassColorless, flintAndSteel, glassColorless)
 				.addIngredients(2, meatRaw, netherrack, meatRaw)
-				.addDamageable(Items.FLINT_AND_STEEL, 1);
+				.addDamageable(Items.FLINT_AND_STEEL, 1)
+				.setCategory(CraftingBookCategory.BUILDING);
 
 		return Map.ofEntries(
 				addRecipe("generic_light", genericLight),

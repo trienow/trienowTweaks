@@ -2,6 +2,7 @@ package de.trienow.trienowtweaks.recipes;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
@@ -19,6 +20,7 @@ class RecipeTT
 	final ItemLike result;
 	final int resultCount;
 	private final Map<Item, Integer> damageableItems = new HashMap<>();
+	CraftingBookCategory category = CraftingBookCategory.MISC;
 
 	RecipeTT(int width, int height, ItemLike result, int resultCount)
 	{
@@ -60,6 +62,12 @@ class RecipeTT
 		return this;
 	}
 
+	public RecipeTT setCategory(CraftingBookCategory category)
+	{
+		this.category = category;
+		return this;
+	}
+
 	public RecipeTT addDamageable(ItemLike itemLike, int damageToAdd)
 	{
 		damageableItems.put(itemLike.asItem(), damageToAdd);
@@ -70,4 +78,5 @@ class RecipeTT
 	{
 		return damageableItems.getOrDefault(stack.getItem(), 0);
 	}
+
 }
