@@ -73,17 +73,18 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	}
 
 	/**
-	 * Used to check if a recipe matches current crafting inventory
+	 * Used to check if a recipe matches the current crafting inventory
 	 *
-	 * @param pContainer TODO
-	 * @param pLevel     TODO
+	 * @param pContainer The container containing a recipe to craft.
+	 * @param pLevel     A level object.
 	 */
 	@Override
 	public boolean matches(CraftingContainer pContainer, @Nullable Level pLevel)
 	{
+		int recipeLength = recipe.ingredients.length;
 		for (int i = 0; i < pContainer.getContainerSize(); i++)
 		{
-			if (!recipe.ingredients[i].test(pContainer.getItem(i)))
+			if (i >= recipeLength || !recipe.ingredients[i].test(pContainer.getItem(i)))
 			{
 				return false;
 			}
@@ -94,7 +95,7 @@ public class RecipeTTCrafting implements CraftingRecipe, IShapedRecipe<CraftingC
 	/**
 	 * Returns an Item that is the result of this recipe
 	 *
-	 * @param pContainer TODO
+	 * @param pContainer The container containing a recipe to craft.
 	 */
 	@Override
 	public ItemStack assemble(CraftingContainer pContainer, RegistryAccess p_267165_)
