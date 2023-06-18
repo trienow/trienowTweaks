@@ -29,6 +29,7 @@ public class TrienowTweaks
 		AtomBlocks.init(modEventBus);
 		AtomItems.init(modEventBus);
 		AtomItemBlocks.init(modEventBus);
+		AtomCreativeTab.init(modEventBus);
 		AtomTiles.init(modEventBus);
 		AtomRecipes.init(modEventBus);
 
