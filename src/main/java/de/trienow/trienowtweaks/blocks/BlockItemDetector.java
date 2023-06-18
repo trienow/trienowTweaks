@@ -85,9 +85,9 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 				te.amt++;
 			}
 
-			if (te.amt > 100)
+			if (te.amt > 64)
 			{
-				te.amt = 100;
+				te.amt = 64;
 			}
 			if (te.amt < 1)
 			{
