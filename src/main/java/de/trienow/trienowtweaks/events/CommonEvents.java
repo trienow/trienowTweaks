@@ -23,8 +23,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.IOException;
-
 /**
  * @author trienow 2016 - 2023
  */
@@ -59,29 +57,23 @@ public class CommonEvents
 	public static void onPlayerLogin(final PlayerLoggedInEvent evt)
 	{
 		Player sidedPlayer = evt.getEntity();
-		try (Level level = sidedPlayer.level())
+		Level level = sidedPlayer.level();
+		if (!level.isClientSide())
 		{
-			if (!level.isClientSide())
+			// SET EXACT SPAWN POINT
+			if (Config.getServerConfig().exactSpawnpoint.get())
 			{
-				// SET EXACT SPAWN POINT
-				if (Config.getServerConfig().exactSpawnpoint.get())
-				{
-					ServerPlayer player = (ServerPlayer) sidedPlayer;
-					final BlockPos respawnPos = player.getRespawnPosition();
-					final BlockPos worldspawnPos = LevelUtils.getSpawn(level);
+				ServerPlayer player = (ServerPlayer) sidedPlayer;
+				final BlockPos respawnPos = player.getRespawnPosition();
+				final BlockPos worldspawnPos = LevelUtils.getSpawn(level);
 
-					if (respawnPos == null || worldspawnPos == respawnPos)
-					{
-						player.teleportTo(worldspawnPos.getX() + 0.5f, worldspawnPos.getY() + 0.5f, worldspawnPos.getZ() + 0.5f);
-						player.setRespawnPosition(level.dimension(), worldspawnPos, 0.0F, true, false);
-						TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
-					}
+				if (respawnPos == null || worldspawnPos == respawnPos)
+				{
+					player.teleportTo(worldspawnPos.getX() + 0.5f, worldspawnPos.getY() + 0.5f, worldspawnPos.getZ() + 0.5f);
+					player.setRespawnPosition(level.dimension(), worldspawnPos, 0.0F, true, false);
+					TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
 				}
 			}
-		}
-		catch (IOException ex)
-		{
-			TrienowTweaks.LOG.error("Could not access the player level", ex);
 		}
 	}
 

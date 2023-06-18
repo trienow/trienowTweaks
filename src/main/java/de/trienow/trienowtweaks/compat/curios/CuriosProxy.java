@@ -13,7 +13,6 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
-import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
@@ -52,34 +51,28 @@ public class CuriosProxy implements ICuriosProxy
 	{
 		if (wearer instanceof Player player)
 		{
-			try (Level playerLevel = player.level())
+			Level playerLevel = player.level();
+			if (playerLevel.isClientSide())
 			{
-				if (playerLevel.isClientSide())
-				{
-					final int inCount = stack.getCount();
-					final AtomicBoolean success = new AtomicBoolean(false);
-					final ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
+				final int inCount = stack.getCount();
+				final AtomicBoolean success = new AtomicBoolean(false);
+				final ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
 
-					curiosHelper.getCuriosHandler(player).ifPresent(itemHandler -> itemHandler.getStacksHandler(identifier).ifPresent(stackHandler -> {
-						IDynamicStackHandler stacks = stackHandler.getStacks();
-						for (int i = 0; i < stackHandler.getSlots(); i++)
+				curiosHelper.getCuriosHandler(player).ifPresent(itemHandler -> itemHandler.getStacksHandler(identifier).ifPresent(stackHandler -> {
+					IDynamicStackHandler stacks = stackHandler.getStacks();
+					for (int i = 0; i < stackHandler.getSlots(); i++)
+					{
+						ItemStack outStack = stacks.insertItem(i, stack.copy(), false);
+						if (outStack.getCount() < inCount)
 						{
-							ItemStack outStack = stacks.insertItem(i, stack.copy(), false);
-							if (outStack.getCount() < inCount)
-							{
-								//Set the referenced stack to the amount of the remaining stack
-								stack.setCount(outStack.getCount());
-								success.set(true);
-								break;
-							}
+							//Set the referenced stack to the amount of the remaining stack
+							stack.setCount(outStack.getCount());
+							success.set(true);
+							break;
 						}
-					}));
-					return success.get();
-				}
-			}
-			catch (IOException ex)
-			{
-				TrienowTweaks.LOG.error("The player level could not be acquired.", ex);
+					}
+				}));
+				return success.get();
 			}
 		}
 

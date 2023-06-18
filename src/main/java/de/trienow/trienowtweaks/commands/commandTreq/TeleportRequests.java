@@ -7,11 +7,9 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -177,22 +175,13 @@ class TeleportRequests
 						Vec3 pos = toPlayer.position();
 
 						fromPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 60, 255, true, false));
-						try (Level fromPlayerLevel = fromPlayer.level())
+						if (fromPlayer.level().equals(toPlayer.level()))
 						{
-							if (fromPlayerLevel.equals(toPlayer.level()))
-							{
-								fromPlayer.teleportTo(pos.x, pos.y + 0.5, pos.z);
-							}
-							else
-							{
-								fromPlayer.changeDimension(toPlayer.serverLevel(), new XDimTeleporter(pos));
-							}
+							fromPlayer.teleportTo(pos.x, pos.y + 0.5, pos.z);
 						}
-						catch (IOException e)
+						else
 						{
-							CommandUtils.sendIm(fromPlayer, TRANSLATION_KEY + "teleport.level_access_failed");
-							CommandUtils.sendIm(toPlayer, TRANSLATION_KEY + "teleport.level_access_failed");
-							TrienowTweaks.LOG.error("TREQ Level access failed.", e);
+							fromPlayer.changeDimension(toPlayer.serverLevel(), new XDimTeleporter(pos));
 						}
 					}
 				}

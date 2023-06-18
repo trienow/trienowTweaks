@@ -13,7 +13,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -43,36 +42,29 @@ public class WorldTick
 			List<? extends String> flightDisabledDims = Config.getServerConfig().flightDisabled.get();
 			if (flightDisabledDims != null)
 			{
-
 				for (Player player : evt.level.getServer().getPlayerList().getPlayers())
 				{
-					try (Level level = player.level())
+					Level level = player.level();
+					String dimKey = level.dimension().location().toString();
+					if (!player.isCreative() && !player.isSpectator() && flightDisabledDims.contains(dimKey) && !player.onGround() && player.getDeltaMovement().y == 0)
 					{
-						String dimKey = level.dimension().location().toString();
-						if (!player.isCreative() && !player.isSpectator() && flightDisabledDims.contains(dimKey) && !player.onGround() && player.getDeltaMovement().y == 0)
+						Vec3 playerPos = player.position();
+						for (int i = (int) (playerPos.y); i >= 1; i--)
 						{
-							Vec3 playerPos = player.position();
-							for (int i = (int) (playerPos.y); i >= 1; i--)
+							BlockPos bPos = new BlockPos((int) playerPos.x, i, (int) playerPos.z);
+							if (level.getBlockState(bPos).isFaceSturdy(evt.level, bPos, Direction.UP))
 							{
-								BlockPos bPos = new BlockPos((int) playerPos.x, i, (int) playerPos.z);
-								if (level.getBlockState(bPos).isFaceSturdy(evt.level, bPos, Direction.UP))
-								{
-									player.setPos(playerPos.x, i + 1, playerPos.z);
-									player.getAbilities().mayfly = false;
-									player.getAbilities().flying = false;
-									player.onUpdateAbilities();
+								player.setPos(playerPos.x, i + 1, playerPos.z);
+								player.getAbilities().mayfly = false;
+								player.getAbilities().flying = false;
+								player.onUpdateAbilities();
 
-									player.hurt(player.damageSources().fellOutOfWorld(), 2);
+								player.hurt(player.damageSources().fellOutOfWorld(), 2);
 
-									CommandUtils.sendIm(player, "feature.trienowtweaks.anti_flying.message");
-									break;
-								}
+								CommandUtils.sendIm(player, "feature.trienowtweaks.anti_flying.message");
+								break;
 							}
 						}
-					}
-					catch (IOException ex)
-					{
-						TrienowTweaks.LOG.error("ANTI FLYING: The level could not be accessed.", ex);
 					}
 				}
 

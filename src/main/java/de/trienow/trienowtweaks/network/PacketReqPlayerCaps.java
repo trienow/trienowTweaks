@@ -1,14 +1,11 @@
 package de.trienow.trienowtweaks.network;
 
 import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
-import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.io.IOException;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -36,15 +33,7 @@ public record PacketReqPlayerCaps(UUID playerUuid)
 
 		if (sender != null)
 		{
-			try (Level level = sender.level())
-			{
-				player = level.getPlayerByUUID(reqPcaps.playerUuid);
-			}
-			catch (IOException e)
-			{
-				TrienowTweaks.LOG.error("Could not access the level.", e);
-			}
-
+			player = sender.level().getPlayerByUUID(reqPcaps.playerUuid);
 		}
 
 		if (player != null)
