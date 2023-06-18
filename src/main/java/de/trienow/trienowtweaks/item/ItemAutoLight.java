@@ -35,17 +35,21 @@ public class ItemAutoLight extends Item
 	@Override
 	public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected)
 	{
-		if (pLevel.isClientSide() || !pEntity.onGround() || !(pEntity instanceof Player))
-			return;
-
 		if (activeTick >= -90)
 		{
+			if (pLevel.isClientSide() || !pEntity.onGround() || !(pEntity instanceof Player))
+			{
+				return;
+			}
+
 			try
 			{
 				Player player = (Player) pEntity;
 				BlockPos pos = player.blockPosition();
-				if (pos.getY() > 256)
+				if (pos.getY() > pLevel.getMaxBuildHeight() || pos.getY() < pLevel.getMinBuildHeight())
+				{
 					return;
+				}
 
 				int lightLevel = pLevel.getBrightness(LightLayer.BLOCK, pos);
 				if (lightLevel <= 7)
