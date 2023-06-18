@@ -149,7 +149,7 @@ public class BlockRailroadTruss extends BaseBlock
 	public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pDirection)
 	{
 		boolean result = false;
-		if (!pAdjacentBlockState.is(this))// && pAdjacentBlockState.getMaterial().isSolid()) TODO
+		if (!pAdjacentBlockState.is(this) && pAdjacentBlockState.isSolid())
 		{
 			result = true;
 		}

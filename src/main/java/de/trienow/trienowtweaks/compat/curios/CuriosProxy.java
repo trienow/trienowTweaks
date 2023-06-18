@@ -52,7 +52,7 @@ public class CuriosProxy implements ICuriosProxy
 		if (wearer instanceof Player player)
 		{
 			Level playerLevel = player.level();
-			if (playerLevel.isClientSide())
+			if (!playerLevel.isClientSide())
 			{
 				final int inCount = stack.getCount();
 				final AtomicBoolean success = new AtomicBoolean(false);

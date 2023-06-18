@@ -7,7 +7,7 @@
   "block.trienowtweaks.compact_crafter.tooltip2": "\u00A7eor 3x3 pattern. \u00A7cThe right inventory is the output.",
   "block.trienowtweaks.entity_prohibitator": "Entity Prohibitator",
   "block.trienowtweaks.entity_prohibitator.tooltip0": "\u00A7aWill prohibit any Monsters from Spawning in a Chunk",
-  "block.trienowtweaks.entity_prohibitator.tooltip1": "\u00A72Must be placed at the Chunk's origen at y = 255",
+  "block.trienowtweaks.entity_prohibitator.tooltip1": "\u00A72Must be placed at the Chunk's origin at y = 255",
   "block.trienowtweaks.entity_prohibitator.tooltip2": "\u00A79How to calculate X and Z:",
   "block.trienowtweaks.entity_prohibitator.tooltip3": "\u00A7bCoordinate = 'Chunk Coordinate' * 16",
   "block.trienowtweaks.fake_fire": "Fake Fire",

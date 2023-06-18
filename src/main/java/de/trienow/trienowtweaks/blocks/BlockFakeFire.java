@@ -26,7 +26,7 @@ public class BlockFakeFire extends BaseBlock
 	private static final Properties PROPS = BlockBehaviour.Properties.of()
 			.strength(0.1f)
 			.lightLevel((blockState) -> 15)
-			.sound(SoundType.WOOD)
+			.sound(SoundType.SNOW)
 			.noOcclusion()
 			.noCollission()
 			.mapColor(MapColor.FIRE);
