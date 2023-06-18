@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "trienowtweaks:block/torch_squared"
+    },
+    "facing=down": {
+      "model": "trienowtweaks:block/torch_squared",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "trienowtweaks:block/torch_squared_wall",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "trienowtweaks:block/torch_squared_wall"
+    },
+    "facing=west": {
+      "model": "trienowtweaks:block/torch_squared_wall",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "trienowtweaks:block/torch_squared_wall",
+      "y": 180
+    }
+  }
+}

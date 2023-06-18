@@ -57,7 +57,7 @@ public class BlockGenericLight extends BaseBlock
 	public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom)
 	{
 		BlockPos anchorBlock = pPos.subtract(pState.getValue(ANCHOR).getAnchorOffset());
-		if (!(pLevel.getBlockState(anchorBlock).getBlock() instanceof BlockTorchSolamnia))
+		if (!(pLevel.getBlockState(anchorBlock).getBlock() instanceof BlockTorchSquared))
 		{
 			pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_NONE);
 		}

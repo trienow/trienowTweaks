@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author trienow 2016 - 2023
  */
-public class BlockTorchSolamnia extends BaseBlock
+public class BlockTorchSquared extends BaseBlock
 {
 	private static final Properties PROPS = BlockBehaviour.Properties.of()
 			.mapColor(MapColor.NONE)
@@ -49,7 +49,7 @@ public class BlockTorchSolamnia extends BaseBlock
 	private static final VoxelShape SHAPE_COLLISION = Shapes.empty();
 	private static final Direction[] FIX_PLACEMENT_TRIES = new Direction[] { Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN };
 
-	public BlockTorchSolamnia()
+	public BlockTorchSquared()
 	{
 		super(PROPS);
 		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP));

@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trienowtweaks:torch_solamnia_coal"
+        "recipe": "trienowtweaks:torch_squared_coal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -37,7 +37,8 @@
   ],
   "rewards": {
     "recipes": [
-      "trienowtweaks:torch_solamnia_coal"
+      "trienowtweaks:torch_squared_coal"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

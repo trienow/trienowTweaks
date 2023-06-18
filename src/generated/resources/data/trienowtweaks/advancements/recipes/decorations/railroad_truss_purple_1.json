@@ -30,5 +30,6 @@
     "recipes": [
       "trienowtweaks:railroad_truss_purple_1"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

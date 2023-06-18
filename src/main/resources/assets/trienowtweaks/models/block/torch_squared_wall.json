@@ -2,8 +2,8 @@
   "__comment": "(c) trienow 2016 - 2019",
   "ambientocclusion": false,
   "textures": {
-    "particle": "trienowtweaks:block/torch_solamnia",
-    "texture": "trienowtweaks:block/torch_solamnia"
+    "particle": "trienowtweaks:block/torch_squared",
+    "texture": "trienowtweaks:block/torch_squared"
   },
   "elements": [
     {

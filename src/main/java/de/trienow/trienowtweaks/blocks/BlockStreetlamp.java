@@ -35,7 +35,7 @@ public class BlockStreetlamp extends BaseBlock
 			.lightLevel((blockState) -> 15)
 			.noOcclusion();
 
-	private static final EnumProperty<StateStreetlamp> SOLAMNIA = EnumProperty.create("solamnia", StateStreetlamp.class);
+	private static final EnumProperty<StateStreetlamp> PLACEMENT = EnumProperty.create("placement", StateStreetlamp.class);
 
 	private static final VoxelShape SHAPE_COLLISION = Shapes.create(0.375, 0.0, 0.375, 0.625, 1.0, 0.625);
 	private static final VoxelShape SHAPE_BB = Shapes.create(0.1875, 0.0, 0.1875, 0.8125, 1.0, 0.8125);
@@ -46,7 +46,7 @@ public class BlockStreetlamp extends BaseBlock
 	public BlockStreetlamp()
 	{
 		super(PROPS);
-		this.registerDefaultState(this.defaultBlockState().setValue(SOLAMNIA, StateStreetlamp.TOP));
+		this.registerDefaultState(this.defaultBlockState().setValue(PLACEMENT, StateStreetlamp.TOP));
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class BlockStreetlamp extends BaseBlock
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder)
 	{
 		super.createBlockStateDefinition(pBuilder);
-		pBuilder.add(SOLAMNIA);
+		pBuilder.add(PLACEMENT);
 	}
 
 	@Nullable
@@ -79,8 +79,8 @@ public class BlockStreetlamp extends BaseBlock
 
 		if (player != null && player.getPose() != Pose.CROUCHING && level.getBlockState(pos.above()).isAir() && level.getBlockState(pos.above(2)).isAir())
 		{
-			BlockState middle = state.setValue(SOLAMNIA, StateStreetlamp.MIDDLE);
-			BlockState bottom = state.setValue(SOLAMNIA, StateStreetlamp.BOTTOM);
+			BlockState middle = state.setValue(PLACEMENT, StateStreetlamp.MIDDLE);
+			BlockState bottom = state.setValue(PLACEMENT, StateStreetlamp.BOTTOM);
 
 			level.setBlock(pos.above(), middle, Block.UPDATE_ALL);
 			level.setBlock(pos.above(2), state, Block.UPDATE_ALL);
@@ -132,7 +132,7 @@ public class BlockStreetlamp extends BaseBlock
 		boolean up = fromPos.equals(pos.above()) && !isStreetlamp(level, pos.above());
 		boolean down = fromPos.equals(pos.below()) && !isStreetlamp(level, pos.below());
 
-		switch (state.getValue(SOLAMNIA))
+		switch (state.getValue(PLACEMENT))
 		{
 			case BOTTOM:
 				if (up)

@@ -30,5 +30,6 @@
     "recipes": [
       "trienowtweaks:minecart_killer"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

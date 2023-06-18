@@ -43,5 +43,6 @@
     "recipes": [
       "trienowtweaks:knight_helmet_smithing"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

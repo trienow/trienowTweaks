@@ -30,5 +30,6 @@
     "recipes": [
       "trienowtweaks:compact_crafter"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

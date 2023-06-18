@@ -59,7 +59,7 @@ public class AtomCreativeTab
 			evt.accept(AtomItemBlocks.COMPACT_CRAFTER.get());
 			evt.accept(AtomItemBlocks.ITEM_DETECTOR.get());
 			evt.accept(AtomItemBlocks.ENTITY_PROHIBITATOR.get());
-			evt.accept(AtomItemBlocks.TORCH_SOLAMNIA.get());
+			evt.accept(AtomItemBlocks.TORCH_SQUARED.get());
 
 			//Items
 			evt.accept(AtomItems.WE_WAND.get());

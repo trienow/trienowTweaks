@@ -1,8 +1,8 @@
 {
     "variants":
     {
-    "solamnia=top":{ "model": "trienowtweaks:block/streetlamp_top_fire" },
-    "solamnia=middle":{ "model": "trienowtweaks:block/streetlamp_middle_metal" },
-    "solamnia=bottom":{ "model": "trienowtweaks:block/streetlamp_bottom_metal" }
+    "placement=top":{ "model": "trienowtweaks:block/streetlamp_top_fire" },
+    "placement=middle":{ "model": "trienowtweaks:block/streetlamp_middle_metal" },
+    "placement=bottom":{ "model": "trienowtweaks:block/streetlamp_bottom_metal" }
     }
 }

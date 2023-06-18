@@ -30,5 +30,6 @@
     "recipes": [
       "trienowtweaks:entity_prohibitator"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
