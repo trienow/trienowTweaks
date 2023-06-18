@@ -5,21 +5,21 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
 /**
- * @author (c) trienow 2019 - 2022
+ * @author trienow 2019 - 2023
  */
 public class CommandUtils
 {
-	public static void sendIm(CommandSourceStack cs, String translationKey, Object... args)
+	public static void sendIm(final CommandSourceStack cs, final String translationKey, final Object... args)
 	{
-		cs.sendSuccess(Component.translatable(translationKey, args), false);
+		cs.sendSuccess(() -> Component.translatable(translationKey, args), false);
 	}
 
-	public static void sendLoggedIm(CommandSourceStack cs, String translationKey, Object... args)
+	public static void sendLoggedIm(final CommandSourceStack cs, final String translationKey, final Object... args)
 	{
-		cs.sendSuccess(Component.translatable(translationKey, args), true);
+		cs.sendSuccess(() -> Component.translatable(translationKey, args), true);
 	}
 
-	public static void sendIm(Player toPlayer, String translationKey, Object... args)
+	public static void sendIm(final Player toPlayer, final String translationKey, final Object... args)
 	{
 		sendIm(toPlayer.createCommandSourceStack(), translationKey, args);
 	}

@@ -14,22 +14,24 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author (c) trienow 2016 - 2023
+ * @author trienow 2016 - 2023
  */
 public class BlockTorchSolamnia extends BaseBlock
 {
-	private static final Properties PROPS = Properties.of(Material.DECORATION)
+	private static final Properties PROPS = BlockBehaviour.Properties.of()
+			.mapColor(MapColor.NONE)
 			.noCollission()
 			.noOcclusion()
 			.strength(0)
@@ -57,14 +59,14 @@ public class BlockTorchSolamnia extends BaseBlock
 	private static VoxelShape getShape(Direction facing)
 	{
 		return switch (facing)
-				{
-					case DOWN -> SHAPE_BB_DOWN;
-					case EAST -> SHAPE_BB_EAST;
-					case NORTH -> SHAPE_BB_NORTH;
-					case SOUTH -> SHAPE_BB_SOUTH;
-					case WEST -> SHAPE_BB_WEST;
-					default -> SHAPE_BB_UP;
-				};
+		{
+			case DOWN -> SHAPE_BB_DOWN;
+			case EAST -> SHAPE_BB_EAST;
+			case NORTH -> SHAPE_BB_NORTH;
+			case SOUTH -> SHAPE_BB_SOUTH;
+			case WEST -> SHAPE_BB_WEST;
+			default -> SHAPE_BB_UP;
+		};
 	}
 
 	@Override

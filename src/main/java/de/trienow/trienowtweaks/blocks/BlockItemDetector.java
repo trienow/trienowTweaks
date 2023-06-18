@@ -21,16 +21,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author (c) trienow 2017 - 2023
+ * @author trienow 2017 - 2023
  */
 public class BlockItemDetector extends BaseBlock implements EntityBlock
 {
-	private static final Properties PROPS = defaultProperties(Material.STONE);
+	private static final Properties PROPS = defaultProperties()
+			.mapColor(MapColor.STONE)
+			.pushReaction(PushReaction.BLOCK);
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 
 	public BlockItemDetector()
@@ -70,7 +73,7 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 	{
 		if (!pLevel.isClientSide() && pLevel.getBlockEntity(pPos) instanceof TEItemDetector te)
 		{
-			ChatFormatting numberColor = ChatFormatting.GREEN;
+			final ChatFormatting numberColor;
 			if (pPlayer.getPose() == Pose.CROUCHING)
 			{
 				numberColor = ChatFormatting.RED;
@@ -78,6 +81,7 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 			}
 			else
 			{
+				numberColor = ChatFormatting.GREEN;
 				te.amt++;
 			}
 
@@ -91,7 +95,7 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 			}
 
 			final CommandSourceStack senderE = pPlayer.createCommandSourceStack();
-			senderE.sendSuccess(Component.translatable(this.getDescriptionId() + ".message", numberColor, te.amt), false);
+			senderE.sendSuccess(() -> Component.translatable(this.getDescriptionId() + ".message", numberColor, te.amt), false);
 		}
 
 		return InteractionResult.CONSUME;

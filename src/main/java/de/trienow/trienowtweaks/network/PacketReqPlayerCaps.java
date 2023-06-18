@@ -1,16 +1,19 @@
 package de.trienow.trienowtweaks.network;
 
 import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
+import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.io.IOException;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
- * @author (c) trienow 2023
+ * @author trienow 2023
  * Thanks to the minecraft forge docs, for explaining how to work with packets so well!
  */
 public record PacketReqPlayerCaps(UUID playerUuid)
@@ -29,7 +32,21 @@ public record PacketReqPlayerCaps(UUID playerUuid)
 	{
 		//No need to enqueue this on the main thread
 		ServerPlayer sender = ctxSupplier.get().getSender();
-		Player player = sender != null ? sender.getLevel().getPlayerByUUID(reqPcaps.playerUuid) : null;
+		Player player = null;
+
+		if (sender != null)
+		{
+			try (Level level = sender.level())
+			{
+				player = level.getPlayerByUUID(reqPcaps.playerUuid);
+			}
+			catch (IOException e)
+			{
+				TrienowTweaks.LOG.error("Could not access the level.", e);
+			}
+
+		}
+
 		if (player != null)
 		{
 			player.getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap) -> new PacketPlayerCaps(pcap.getLayerTtRenderMode(), reqPcaps.playerUuid).sendToPlayer(sender));

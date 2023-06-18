@@ -1,5 +1,6 @@
 package de.trienow.trienowtweaks.item;
 
+import de.trienow.trienowtweaks.commands.CommandUtils;
 import de.trienow.trienowtweaks.compat.CompatManager;
 import de.trienow.trienowtweaks.compat.curios.ICuriosProxy;
 import net.minecraft.ChatFormatting;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * @author (c) trienow 2017 - 2023
+ * @author trienow 2017 - 2023
  */
 public class ItemAutoFood extends Item
 {
@@ -133,29 +134,32 @@ public class ItemAutoFood extends Item
 
 		switch (nbta)
 		{
-			case OK:
+			case OK ->
+			{
 				if (warn > 0)
 				{
 					tc.putByte("warn", (byte) 0);
 					stack.setTag(tc);
 				}
-				break;
-			case WARN:
+			}
+			case WARN ->
+			{
 				if (warn < 1)
 				{
-					cPlayer.sendSuccess(Component.translatable("item.trienowtweaks.auto_food.warning"), false);
+					CommandUtils.sendIm(cPlayer, "item.trienowtweaks.auto_food.warning");
 					tc.putByte("warn", (byte) 1);
 					stack.setTag(tc);
 				}
-				break;
-			case DEATH:
+			}
+			case DEATH ->
+			{
 				if (warn < 2)
 				{
-					cPlayer.sendSuccess(Component.translatable("item.trienowtweaks.auto_food.danger"), false);
+					CommandUtils.sendIm(cPlayer, "item.trienowtweaks.auto_food.danger");
 					tc.putByte("warn", (byte) 2);
 					stack.setTag(tc);
 				}
-				break;
+			}
 		}
 	}
 

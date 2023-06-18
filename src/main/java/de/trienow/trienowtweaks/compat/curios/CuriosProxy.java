@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -12,9 +13,13 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
+/**
+ * @author trienow 2020 - 2023
+ */
 public class CuriosProxy implements ICuriosProxy
 {
 	@Override
@@ -45,27 +50,37 @@ public class CuriosProxy implements ICuriosProxy
 	@Override
 	public boolean trySetStackInSlot(String identifier, LivingEntity wearer, ItemStack stack)
 	{
-		if (!wearer.level.isClientSide() && wearer instanceof Player player)
+		if (wearer instanceof Player player)
 		{
-			final int inCount = stack.getCount();
-			final AtomicBoolean success = new AtomicBoolean(false);
-			final ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
-
-			curiosHelper.getCuriosHandler(player).ifPresent(itemHandler -> itemHandler.getStacksHandler(identifier).ifPresent(stackHandler -> {
-				IDynamicStackHandler stacks = stackHandler.getStacks();
-				for (int i = 0; i < stackHandler.getSlots(); i++)
+			try (Level playerLevel = player.level())
+			{
+				if (playerLevel.isClientSide())
 				{
-					ItemStack outStack = stacks.insertItem(i, stack.copy(), false);
-					if (outStack.getCount() < inCount)
-					{
-						//Set the referenced stack to the amount of the remaining stack
-						stack.setCount(outStack.getCount());
-						success.set(true);
-						break;
-					}
+					final int inCount = stack.getCount();
+					final AtomicBoolean success = new AtomicBoolean(false);
+					final ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
+
+					curiosHelper.getCuriosHandler(player).ifPresent(itemHandler -> itemHandler.getStacksHandler(identifier).ifPresent(stackHandler -> {
+						IDynamicStackHandler stacks = stackHandler.getStacks();
+						for (int i = 0; i < stackHandler.getSlots(); i++)
+						{
+							ItemStack outStack = stacks.insertItem(i, stack.copy(), false);
+							if (outStack.getCount() < inCount)
+							{
+								//Set the referenced stack to the amount of the remaining stack
+								stack.setCount(outStack.getCount());
+								success.set(true);
+								break;
+							}
+						}
+					}));
+					return success.get();
 				}
-			}));
-			return success.get();
+			}
+			catch (IOException ex)
+			{
+				TrienowTweaks.LOG.error("The player level could not be acquired.", ex);
+			}
 		}
 
 		return false;

@@ -8,18 +8,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * @author (c) trienow 2017 - 2022
+ * @author trienow 2017 - 2023
  */
 public class BlockMinecartKiller extends BaseBlock
 {
-	private static final Properties PROPS = defaultProperties(Material.METAL);
+	private static final Properties PROPS = defaultProperties().mapColor(MapColor.METAL);
 	private static final Predicate<Entity> PREDICATE_TRUE = (ent) -> true;
 
 	public BlockMinecartKiller()

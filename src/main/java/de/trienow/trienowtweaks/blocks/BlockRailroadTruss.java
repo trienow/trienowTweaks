@@ -11,19 +11,22 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.IPlantable;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author (c) trienow 2017 - 2022
+ * @author trienow 2017 - 2023
  */
 public class BlockRailroadTruss extends BaseBlock
 {
-	private static final Properties PROPS = Properties.of(Material.WOOD)
+	private static final Properties PROPS = BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WOOD)
+			.ignitedByLava()
 			.strength(1, 10)
 			.noOcclusion();
 	private static final EnumProperty<StateRailroadTruss> DISPLAY = EnumProperty.create("display", StateRailroadTruss.class);
@@ -79,12 +82,12 @@ public class BlockRailroadTruss extends BaseBlock
 	private static StateRailroadTruss getSlant(Direction face)
 	{
 		return switch (face)
-				{
-					case WEST -> StateRailroadTruss.SLANTED_W;
-					case EAST -> StateRailroadTruss.SLANTED_E;
-					case SOUTH -> StateRailroadTruss.SLANTED_S;
-					default -> StateRailroadTruss.SLANTED_N;
-				};
+		{
+			case WEST -> StateRailroadTruss.SLANTED_W;
+			case EAST -> StateRailroadTruss.SLANTED_E;
+			case SOUTH -> StateRailroadTruss.SLANTED_S;
+			default -> StateRailroadTruss.SLANTED_N;
+		};
 	}
 
 	private static boolean isTruss(Level worldIn, BlockPos pos)
@@ -146,7 +149,7 @@ public class BlockRailroadTruss extends BaseBlock
 	public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pDirection)
 	{
 		boolean result = false;
-		if (!pAdjacentBlockState.is(this) && pAdjacentBlockState.getMaterial().isSolid())
+		if (!pAdjacentBlockState.is(this))// && pAdjacentBlockState.getMaterial().isSolid()) TODO
 		{
 			result = true;
 		}

@@ -10,22 +10,25 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author trienow 2016 - 2023
  */
 public class BlockGenericLight extends BaseBlock
 {
-	private static final Properties PROPS = defaultProperties(Material.AIR)
-			.sound(SoundType.LADDER).lightLevel((blockState) -> 15)
+	private static final Properties PROPS = BlockBehaviour.Properties.of()
+			.mapColor(MapColor.NONE)
+			.replaceable()
 			.air()
+			.sound(SoundType.LADDER).lightLevel((blockState) -> 15)
 			.noCollission()
 			.noOcclusion(); //Not a full block, whose faces can cull the world
 	public static final EnumProperty<StateGenericLight> ANCHOR = EnumProperty.create("anchor", StateGenericLight.class);

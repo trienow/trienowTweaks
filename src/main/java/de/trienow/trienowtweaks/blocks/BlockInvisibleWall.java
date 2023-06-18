@@ -3,20 +3,22 @@ package de.trienow.trienowtweaks.blocks;
 import de.trienow.trienowtweaks.config.Globals;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author trienow 2016 - 2023
  */
 public class BlockInvisibleWall extends BaseBlock
 {
-	private static final Properties PROPS = Properties.of(Material.WOOD)
+	private static final Properties PROPS = BlockBehaviour.Properties.of()
+			.mapColor(DyeColor.YELLOW)
 			.strength(0.5f, 5f)
 			.noOcclusion();
 	private static final VoxelShape SHAPE_COLLISION = Shapes.create(0, 0, 0, 1, 1.5, 1);

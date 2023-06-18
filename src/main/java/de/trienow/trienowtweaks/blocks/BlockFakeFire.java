@@ -11,24 +11,25 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * @author (c) trienow 2017 - 2022
+ * @author trienow 2017 - 2023
  */
 public class BlockFakeFire extends BaseBlock
 {
-	private static final Properties PROPS = Properties.of(Material.DECORATION, MaterialColor.TERRACOTTA_ORANGE)
+	private static final Properties PROPS = BlockBehaviour.Properties.of()
 			.strength(0.1f)
 			.lightLevel((blockState) -> 15)
 			.sound(SoundType.WOOD)
 			.noOcclusion()
-			.noCollission();
+			.noCollission()
+			.mapColor(MapColor.FIRE);
 
 	private static final VoxelShape AABB = Shapes.create(0.02D, 0D, 0.02D, 0.98D, 0.2D, 0.98D);
 

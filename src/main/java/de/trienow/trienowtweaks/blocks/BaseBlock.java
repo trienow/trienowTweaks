@@ -5,13 +5,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 /**
- * @author (c) trienow 2016 - 2022
+ * @author trienow 2016 - 2023
  */
 public abstract class BaseBlock extends Block
 {
@@ -36,8 +36,8 @@ public abstract class BaseBlock extends Block
 		super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
 	}
 
-	static Properties defaultProperties(Material materialIn)
+	static Properties defaultProperties()
 	{
-		return Properties.of(materialIn).strength(3.5f, 5f); //Stone is 1.5f, 6f
+		return BlockBehaviour.Properties.of().strength(3.5f, 5f); //Stone is 1.5f, 6f
 	}
 }

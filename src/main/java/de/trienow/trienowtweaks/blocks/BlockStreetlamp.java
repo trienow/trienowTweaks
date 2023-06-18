@@ -11,10 +11,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -26,7 +28,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BlockStreetlamp extends BaseBlock
 {
-	private static final Properties PROPS = Properties.of(Material.HEAVY_METAL)
+	private static final Properties PROPS = BlockBehaviour.Properties.of()
+			.mapColor(MapColor.METAL)
+			.pushReaction(PushReaction.BLOCK)
 			.strength(5)
 			.lightLevel((blockState) -> 15)
 			.noOcclusion();

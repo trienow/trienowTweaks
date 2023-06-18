@@ -1,15 +1,15 @@
 package de.trienow.trienowtweaks.blocks;
 
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 /**
- * @author (c) trienow 2017 - 2022
+ * @author trienow 2017 - 2023
  */
 public class BlockEntityProhibitator extends BaseBlock
 {
 	public BlockEntityProhibitator()
 	{
-		super(defaultProperties(Material.WOOD));
+		super(defaultProperties().mapColor(MapColor.STONE));
 		super.tooltipCount = 4;
 	}
 }

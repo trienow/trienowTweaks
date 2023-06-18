@@ -23,8 +23,10 @@ import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.io.IOException;
+
 /**
- * @author (c) trienow 2016 - 2023
+ * @author trienow 2016 - 2023
  */
 @Mod.EventBusSubscriber
 public class CommonEvents
@@ -41,7 +43,7 @@ public class CommonEvents
 	@SubscribeEvent
 	public static void onPlayerClone(final PlayerEvent.Clone evt)
 	{
-		if (!evt.getEntity().level.isClientSide())
+		if (!evt.getEntity().level().isClientSide())
 		{
 			evt.getOriginal().reviveCaps();
 			//noinspection CodeBlock2Expr
@@ -57,26 +59,29 @@ public class CommonEvents
 	public static void onPlayerLogin(final PlayerLoggedInEvent evt)
 	{
 		Player sidedPlayer = evt.getEntity();
-		if (sidedPlayer.level.isClientSide())
+		try (Level level = sidedPlayer.level())
 		{
-			return;
-		}
-
-		// SET EXACT SPAWN POINT
-		if (Config.getServerConfig().exactSpawnpoint.get())
-		{
-			ServerPlayer player = (ServerPlayer) sidedPlayer;
-			Level level = player.level;
-
-			final BlockPos respawnPos = player.getRespawnPosition();
-			final BlockPos worldspawnPos = LevelUtils.getSpawn(level);
-
-			if (respawnPos == null || worldspawnPos == respawnPos)
+			if (!level.isClientSide())
 			{
-				player.teleportTo(worldspawnPos.getX() + 0.5f, worldspawnPos.getY() + 0.5f, worldspawnPos.getZ() + 0.5f);
-				player.setRespawnPosition(level.dimension(), worldspawnPos, 0.0F, true, false);
-				TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
+				// SET EXACT SPAWN POINT
+				if (Config.getServerConfig().exactSpawnpoint.get())
+				{
+					ServerPlayer player = (ServerPlayer) sidedPlayer;
+					final BlockPos respawnPos = player.getRespawnPosition();
+					final BlockPos worldspawnPos = LevelUtils.getSpawn(level);
+
+					if (respawnPos == null || worldspawnPos == respawnPos)
+					{
+						player.teleportTo(worldspawnPos.getX() + 0.5f, worldspawnPos.getY() + 0.5f, worldspawnPos.getZ() + 0.5f);
+						player.setRespawnPosition(level.dimension(), worldspawnPos, 0.0F, true, false);
+						TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
+					}
+				}
 			}
+		}
+		catch (IOException ex)
+		{
+			TrienowTweaks.LOG.error("Could not access the player level", ex);
 		}
 	}
 

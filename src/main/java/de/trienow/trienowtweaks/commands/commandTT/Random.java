@@ -27,7 +27,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import static de.trienow.trienowtweaks.main.TrienowTweaks.LOG;
 
 /**
- * @author (c) trienow 2019 - 2023
+ * @author trienow 2019 - 2023
  */
 class Random
 {
@@ -56,7 +56,7 @@ class Random
 
 		CommandUtils.sendIm(target, TEXT_START);
 
-		Level level = target.level;
+		Level level = target.level();
 		WorldBorder border = level.getWorldBorder();
 		BlockPos spawnPoint = LevelUtils.getSpawn(level);
 		RandomSource rand = level.random;

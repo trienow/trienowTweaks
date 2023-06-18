@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * @author (c) trienow 2017 - 2023
+ * @author trienow 2017 - 2023
  */
 public class ItemAutoLight extends Item
 {
@@ -35,7 +35,7 @@ public class ItemAutoLight extends Item
 	@Override
 	public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected)
 	{
-		if (pLevel.isClientSide() || !pEntity.isOnGround() || !(pEntity instanceof Player))
+		if (pLevel.isClientSide() || !pEntity.onGround() || !(pEntity instanceof Player))
 			return;
 
 		if (activeTick >= -90)

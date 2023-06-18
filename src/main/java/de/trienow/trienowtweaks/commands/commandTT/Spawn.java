@@ -16,7 +16,7 @@ import java.util.Collections;
 import static de.trienow.trienowtweaks.main.TrienowTweaks.LOG;
 
 /**
- * @author (c) trienow 2019
+ * @author trienow 2019 - 2023
  */
 class Spawn
 {
@@ -44,7 +44,7 @@ class Spawn
 					target.getDisplayName().toString(),
 					sender.getTextName());
 
-			BlockPos spawn = LevelUtils.getSpawn(target.level);
+			BlockPos spawn = LevelUtils.getSpawn(target.level());
 			target.teleportTo(spawn.getX() + 0.5, spawn.getY() + 0.5, spawn.getZ() + 0.5);
 			CommandUtils.sendIm(sender, TEXT_RESPONSE, target.getDisplayName());
 		}

@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 /**
- * @author (c) trienow 2019 - 2023
+ * @author trienow 2019 - 2023
  */
 public class TECompactCrafter extends BlockEntity
 {
@@ -81,7 +81,7 @@ public class TECompactCrafter extends BlockEntity
 					{
 						ItemStack groupableStackSim = itemHandlerI.extractItem(i + j, Integer.MAX_VALUE, true);
 
-						if (ItemStack.isSame(inputStackSim, groupableStackSim))
+						if (ItemStack.isSameItemSameTags(inputStackSim, groupableStackSim))
 						{
 							slotsWithInputItem[j] = groupableStackSim.getCount();
 							maxExtractableItems += slotsWithInputItem[j];
