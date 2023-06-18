@@ -27,30 +27,37 @@ import java.util.List;
  */
 public class ItemAutoFood extends Item
 {
-	byte checkLimiter = -100;
+	byte checkLimiter = -20;
 
 	public ItemAutoFood()
 	{
-		super(new Properties().stacksTo(1).defaultDurability(1000));
+		super(new Properties().stacksTo(1).defaultDurability(500));
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		if (worldIn.isClientSide() || !(entityIn instanceof Player))
-		{
-			return;
-		}
-
 		if (checkLimiter > 0)
 		{
-			Player player = (Player) entityIn;
+			if (worldIn.isClientSide() || !(entityIn instanceof Player player))
+			{
+				return;
+			}
+
+			int maxDamage = getMaxDamage(stack);
+
+			CompoundTag tag = NBTInit(stack);
+			if (tag.getByte("init") == 0)
+			{
+				stack.setDamageValue(maxDamage);
+				tag.putByte("init", (byte) 1);
+				tag.putByte("warn", (byte) 2);
+			}
+
 			searchForFood(stack, player);
 
 			int currentItemDamage = stack.getDamageValue();
-			int maxDamage = getMaxDamage(stack);
-
-			if (currentItemDamage + 50 > maxDamage)
+			if (currentItemDamage > maxDamage * 0.9)
 			{
 				NBTMessage(stack, player, NBTMessage.WARN);
 			}
@@ -73,7 +80,7 @@ public class ItemAutoFood extends Item
 				NBTMessage(stack, player, NBTMessage.DEATH);
 			}
 
-			checkLimiter = 1;
+			checkLimiter = -20;
 		}
 		else
 		{
@@ -99,6 +106,7 @@ public class ItemAutoFood extends Item
 			{
 				FoodProperties food = foodStack.getItem().getFoodProperties();
 				int healAmt = food != null ? food.getNutrition() : 0;
+				healAmt /= 2; //Because AutoFood is a bit OP, food should only be half it's value
 
 				if (healAmt < 1 || healAmt > currentItemDamage)
 				{
@@ -108,11 +116,11 @@ public class ItemAutoFood extends Item
 				int itemsToFill = currentItemDamage / healAmt;
 				int itemsToConsume = Math.min(itemsToFill, foodStack.getCount());
 				inv.removeItem(i, itemsToConsume);
-				currentItemDamage = itemstack.getDamageValue() - (healAmt * itemsToConsume);
+				currentItemDamage -= healAmt * itemsToConsume;
 				itemstack.setDamageValue(currentItemDamage);
 
 				//Reset warning status, if damage is low enough
-				if (currentItemDamage < maxDamage * 0.9)
+				if (currentItemDamage < maxDamage * 0.8)
 				{
 					NBTMessage(itemstack, ply, NBTMessage.OK);
 
@@ -139,7 +147,6 @@ public class ItemAutoFood extends Item
 				if (warn > 0)
 				{
 					tc.putByte("warn", (byte) 0);
-					stack.setTag(tc);
 				}
 			}
 			case WARN ->
@@ -148,7 +155,6 @@ public class ItemAutoFood extends Item
 				{
 					CommandUtils.sendIm(cPlayer, "item.trienowtweaks.auto_food.warning");
 					tc.putByte("warn", (byte) 1);
-					stack.setTag(tc);
 				}
 			}
 			case DEATH ->
@@ -157,19 +163,28 @@ public class ItemAutoFood extends Item
 				{
 					CommandUtils.sendIm(cPlayer, "item.trienowtweaks.auto_food.danger");
 					tc.putByte("warn", (byte) 2);
-					stack.setTag(tc);
 				}
 			}
 		}
 	}
 
-	protected CompoundTag NBTInit(ItemStack stack)
+	private CompoundTag NBTInit(ItemStack stack)
 	{
-		CompoundTag tc = stack.getTag();
-		if (tc == null || !tc.contains("warn", CompoundTag.TAG_BYTE))
+		boolean update = false;
+		CompoundTag tc = stack.getOrCreateTag();
+
+		if (!tc.contains("warn", CompoundTag.TAG_BYTE))
 		{
-			tc = new CompoundTag();
 			tc.putByte("warn", (byte) 0);
+		}
+
+		if (!tc.contains("init", CompoundTag.TAG_BYTE))
+		{
+			tc.putByte("init", (byte) 0);
+		}
+
+		if (update)
+		{
 			stack.setTag(tc);
 		}
 
@@ -215,7 +230,7 @@ public class ItemAutoFood extends Item
 		}
 	}
 
-	protected enum NBTMessage
+	private enum NBTMessage
 	{
 		OK,
 		WARN,
