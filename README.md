@@ -1,6 +1,7 @@
 # trienowTweaks
 
 [![Available For Minecraft Versions](https://cf.way2muchnoise.eu/versions/trienowtweaks.svg) ![Download Counter](https://cf.way2muchnoise.eu/full_trienowtweaks_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/trienowtweaks)
+[![Available on Modrinth](https://service.trienow.de/trienowtweaks/modrinth)](https://modrinth.com/mod/trienowtweaks)
 
 A utility mod to fill in the gaps in between a plethora of mods in a custom modpack. You are welcome to use it in your modpack.
 
