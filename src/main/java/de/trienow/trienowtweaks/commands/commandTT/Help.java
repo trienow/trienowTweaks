@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraftforge.server.command.EnumArgument;
+import net.neoforged.neoforge.server.command.EnumArgument;
 
 import static de.trienow.trienowtweaks.commands.CommandUtils.sendIm;
 

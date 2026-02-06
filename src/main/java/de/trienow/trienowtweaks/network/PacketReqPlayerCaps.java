@@ -4,14 +4,13 @@ import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
  * @author trienow 2023
- * Thanks to the minecraft forge docs, for explaining how to work with packets so well!
  */
 public record PacketReqPlayerCaps(UUID playerUuid)
 {

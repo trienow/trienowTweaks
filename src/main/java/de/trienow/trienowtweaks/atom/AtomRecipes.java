@@ -2,12 +2,13 @@ package de.trienow.trienowtweaks.atom;
 
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.recipes.RecipeTTCrafting;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 /**
  * @author (c) trienow 2022 - 2023
@@ -17,7 +18,7 @@ public class AtomRecipes
 	private static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TrienowTweaks.MODID);
 
 	public static final RegistryObject<SimpleCraftingRecipeSerializer<RecipeTTCrafting>> RECIPE_TT =
-			RECIPES.register("crafting_crafting_tt", () -> new SimpleCraftingRecipeSerializer<>(RecipeTTCrafting::new));
+			RECIPES.register("crafting_crafting_tt", () -> new SimpleCraftingRecipeSerializer<>((pCategory) -> new RecipeTTCrafting(new ResourceLocation(TrienowTweaks.MODID, "crafting_crafting_tt"), pCategory)));
 
 	public static void init(IEventBus modEventBus)
 	{

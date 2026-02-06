@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2022 - 2023
  */
 class PermaRenderLayer
 {

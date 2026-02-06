@@ -4,12 +4,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import static de.trienow.trienowtweaks.main.TrienowTweaks.MODID;
 
@@ -20,15 +21,16 @@ import static de.trienow.trienowtweaks.main.TrienowTweaks.MODID;
 public class AtomCreativeTab
 {
 	private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-	public static RegistryObject<CreativeModeTab> TRIENOWTAB = registerTrienowtab();
+	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TRIENOWTAB = registerTrienowtab();
 
-	private static RegistryObject<CreativeModeTab> registerTrienowtab()
+	private static DeferredHolder<CreativeModeTab, CreativeModeTab> registerTrienowtab()
 	{
+		return CreativeModeTab.builder()
+				.icon(() -> new ItemStack(AtomItemBlocks.STREETLAMP_FIRE.))
 		return CREATIVE_MODE_TABS.register("trienowtab", () -> {
 			//noinspection CodeBlock2Expr
 			return CreativeModeTab.builder()
 					.title(Component.translatable("item_group." + MODID + ".trienowtab"))
-					.icon(() -> new ItemStack(AtomItemBlocks.STREETLAMP_FIRE.get()))
 					.build();
 		});
 	}

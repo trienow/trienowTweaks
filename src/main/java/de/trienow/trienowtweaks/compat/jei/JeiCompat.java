@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2022 - 2023
  */
 @JeiPlugin
 public class JeiCompat implements IModPlugin

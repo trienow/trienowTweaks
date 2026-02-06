@@ -4,10 +4,13 @@ import com.mojang.brigadier.CommandDispatcher;
 import de.trienow.trienowtweaks.commands.commandTT.CommandTT;
 import de.trienow.trienowtweaks.commands.commandTreq.CommandTreq;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
+/**
+ * @author (c) trienow 2023
+ */
 @Mod.EventBusSubscriber
 public class AtomCommands
 {

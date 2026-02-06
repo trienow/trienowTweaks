@@ -3,13 +3,13 @@ package de.trienow.trienowtweaks.capabilities;
 import de.trienow.trienowtweaks.entity.layer.LayerTtRenderMode;
 import de.trienow.trienowtweaks.utils.ICloneable;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.CapabilityManager;
+import net.neoforged.neoforge.common.capabilities.CapabilityToken;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow
  */
 public interface IPlayerCapability extends ICloneable<IPlayerCapability>
 {

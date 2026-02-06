@@ -7,10 +7,10 @@ import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.event.TickEvent;
+import net.neoforged.neoforge.event.TickEvent;
 
 /**
- * @author (c) trienow 2016 - 2023
+ * @author (c) trienow
  */
 public class CommandTreq
 {

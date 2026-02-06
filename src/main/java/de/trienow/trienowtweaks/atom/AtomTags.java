@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow 2023
  */
 public class AtomTags
 {

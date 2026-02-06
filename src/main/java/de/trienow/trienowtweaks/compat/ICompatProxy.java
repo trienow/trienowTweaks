@@ -1,6 +1,6 @@
 package de.trienow.trienowtweaks.compat;
 
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 
 /**
  * An interface to help with loose compatibilities.

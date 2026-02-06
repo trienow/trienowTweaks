@@ -2,14 +2,13 @@ package de.trienow.trienowtweaks.network;
 
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.NetworkRegistry;
+import net.neoforged.neoforge.network.simple.SimpleChannel;
 
 import java.util.Optional;
 
 /**
- * @author (c) trienow 2022
+ * @author (c) trienow
  * Thanks to the minecraft forge docs, for explaining how to work with packets so well!
  */
 public class PacketHandler

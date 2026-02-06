@@ -3,19 +3,19 @@ package de.trienow.trienowtweaks.compat;
 import de.trienow.trienowtweaks.compat.curios.DummyCuriosProxy;
 import de.trienow.trienowtweaks.compat.curios.ICuriosProxy;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 
 import java.util.Optional;
 
 /**
  * A main class to handle the access to different mods.
  *
- * @author (c) trienow 2020
+ * @author (c) trienow 2020 - 2023
  */
 @SuppressWarnings("WeakerAccess")
 @Mod.EventBusSubscriber(modid = TrienowTweaks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

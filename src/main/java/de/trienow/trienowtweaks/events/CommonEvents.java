@@ -16,12 +16,11 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkSource;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 /**
  * @author trienow 2016 - 2023
@@ -54,7 +53,7 @@ public class CommonEvents
 	}
 
 	@SubscribeEvent
-	public static void onPlayerLogin(final PlayerLoggedInEvent evt)
+	public static void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent evt)
 	{
 		Player sidedPlayer = evt.getEntity();
 		Level level = sidedPlayer.level();

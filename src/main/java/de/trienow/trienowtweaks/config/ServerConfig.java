@@ -1,14 +1,13 @@
 package de.trienow.trienowtweaks.config;
 
 import de.trienow.trienowtweaks.utils.IPredicateObjects;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author (c) trienow 2019 - 2022
+ * @author (c) trienow 2019 - 2023
  */
 public class ServerConfig
 {
@@ -22,12 +21,12 @@ public class ServerConfig
 	};
 
 	private static final String EXACT_SPAWNPOINT_COMMENT = "Move the player to the exact spawn point of the world";
-	public final ConfigValue<Boolean> exactSpawnpoint;
+	public final ModConfigSpec.ConfigValue<Boolean> exactSpawnpoint;
 
-	public final ConfigValue<List<? extends String>> flightDisabled;
+	public final ModConfigSpec.ConfigValue<List<? extends String>> flightDisabled;
 	@SuppressWarnings({ "FieldCanBeLocal", "MismatchedReadAndWriteOfArray" }) private String[] flightDisabledCached = null;
 
-	public ServerConfig(ForgeConfigSpec.Builder builder)
+	public ServerConfig(ModConfigSpec.Builder builder)
 	{
 		builder.comment("Misc settings").push("general");
 		flightDisabled = builder.comment(FLIGHT_DISABLED_COMMENT)

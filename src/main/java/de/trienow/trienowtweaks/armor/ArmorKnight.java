@@ -3,7 +3,7 @@ package de.trienow.trienowtweaks.armor;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.function.Consumer;
 
