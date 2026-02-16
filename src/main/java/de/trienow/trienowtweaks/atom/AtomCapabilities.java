@@ -3,13 +3,13 @@ package de.trienow.trienowtweaks.atom;
 import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.capabilities.RegisterCapabilitiesEvent;
 
 /**
  * @author (c) trienow 2023
  */
-@Mod.EventBusSubscriber(modid = TrienowTweaks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TrienowTweaks.MODID)
 public class AtomCapabilities
 {
 	@SubscribeEvent
@@ -17,4 +17,5 @@ public class AtomCapabilities
 	{
 		evt.register(IPlayerCapability.class);
 	}
+
 }

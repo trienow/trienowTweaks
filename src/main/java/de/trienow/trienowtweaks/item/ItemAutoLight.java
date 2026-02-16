@@ -6,19 +6,23 @@ import de.trienow.trienowtweaks.compat.curios.ICuriosProxy;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author trienow 2017 - 2023
@@ -32,34 +36,32 @@ public class ItemAutoLight extends Item
 		super(new Properties().stacksTo(1));
 	}
 
-	@Override
-	public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected)
+	@Override public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot)
 	{
 		if (activeTick >= -90)
 		{
-			if (pLevel.isClientSide() || !pEntity.onGround() || !(pEntity instanceof Player))
+			if (!entity.onGround() || !(entity instanceof ServerPlayer player))
 			{
 				return;
 			}
 
 			try
 			{
-				Player player = (Player) pEntity;
 				BlockPos pos = player.blockPosition();
-				if (pos.getY() > pLevel.getMaxBuildHeight() || pos.getY() < pLevel.getMinBuildHeight())
+				if (level.isOutsideBuildHeight(pos))
 				{
 					return;
 				}
 
-				int lightLevel = pLevel.getBrightness(LightLayer.BLOCK, pos);
+				int lightLevel = level.getBrightness(LightLayer.BLOCK, pos);
 				if (lightLevel <= 7)
 				{
-					lightLevel = pLevel.getBrightness(LightLayer.SKY, pos) - pLevel.getSkyDarken();
+					lightLevel = level.getBrightness(LightLayer.SKY, pos) - level.getSkyDarken();
 				}
 
-				if (lightLevel <= 7 && pLevel.getBlockState(pos).isAir())
+				if (lightLevel <= 7 && level.getBlockState(pos).isAir())
 				{
-					pLevel.setBlock(pos, AtomBlocks.GENERIC_LIGHT.get().defaultBlockState(), Block.UPDATE_ALL);
+					level.setBlock(pos, AtomBlocks.GENERIC_LIGHT.get().defaultBlockState(), Block.UPDATE_ALL);
 				}
 				activeTick = -100;
 			}
@@ -75,25 +77,16 @@ public class ItemAutoLight extends Item
 		}
 	}
 
-	@Override
-	public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced)
+	@Override public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag)
 	{
-		pTooltipComponents.add(Component.translatable("item.trienowtweaks.auto_light.tooltip0"));
-		pTooltipComponents.add(Component.translatable("item.trienowtweaks.auto_light.tooltip1"));
+		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_light.tooltip0"));
+		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_light.tooltip1"));
 	}
 
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand)
+	@Override public InteractionResult use(Level level, Player player, InteractionHand hand)
 	{
-		ItemStack heldItem = pPlayer.getItemInHand(pUsedHand);
-		boolean success = CompatManager.curiosProxy.trySetStackInSlot(ICuriosProxy.ID_NECKLACE, pPlayer, heldItem);
-		if (success)
-		{
-			return InteractionResultHolder.success(heldItem);
-		}
-		else
-		{
-			return InteractionResultHolder.fail(heldItem);
-		}
+		ItemStack heldItem = player.getItemInHand(hand);
+		boolean success = CompatManager.curiosProxy.trySetStackInSlot(ICuriosProxy.ID_NECKLACE, player, heldItem);
+		return success ? InteractionResult.SUCCESS : InteractionResult.FAIL;
 	}
 }

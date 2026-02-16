@@ -2,14 +2,15 @@ package de.trienow.trienowtweaks.blocks;
 
 import de.trienow.trienowtweaks.tiles.TEItemDetector;
 import net.minecraft.ChatFormatting;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,7 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author trienow 2017 - 2023
+ * @author trienow 2017 - 2026
  */
 public class BlockItemDetector extends BaseBlock implements EntityBlock
 {
@@ -68,13 +69,12 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 		return true;
 	}
 
-	@Override
-	public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit)
+	@Override protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
 	{
-		if (!pLevel.isClientSide() && pLevel.getBlockEntity(pPos) instanceof TEItemDetector te)
+		if (!level.isClientSide() && level.getBlockEntity(pos) instanceof TEItemDetector te)
 		{
 			final ChatFormatting numberColor;
-			if (pPlayer.getPose() == Pose.CROUCHING)
+			if (player.getPose() == Pose.CROUCHING)
 			{
 				numberColor = ChatFormatting.RED;
 				te.amt -= 10;
@@ -94,8 +94,10 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 				te.amt = 1;
 			}
 
-			final CommandSourceStack senderE = pPlayer.createCommandSourceStack();
-			senderE.sendSuccess(() -> Component.translatable(this.getDescriptionId() + ".message", numberColor, te.amt), false);
+			if (player instanceof ServerPlayer serverPlayer)
+			{
+				serverPlayer.sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message", numberColor, te.amt));
+			}
 		}
 
 		return InteractionResult.CONSUME;
@@ -110,14 +112,14 @@ public class BlockItemDetector extends BaseBlock implements EntityBlock
 
 	@Nullable
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType)
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState pState, BlockEntityType<T> pBlockEntityType)
 	{
-		if (pLevel.isClientSide())
+		if (level.isClientSide())
 		{
 			return null;
 		}
 
-		return (pLevel1, pPos, pState1, pBlockEntity) -> {
+		return (pLevel, pPos, pState1, pBlockEntity) -> {
 			if (pBlockEntity instanceof TEItemDetector tile)
 			{
 				tile.tickServer();

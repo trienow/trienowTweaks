@@ -2,25 +2,20 @@ package de.trienow.trienowtweaks.commands;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 
 /**
  * @author trienow 2019 - 2023
  */
 public class CommandUtils
 {
-	public static void sendIm(final CommandSourceStack cs, final String translationKey, final Object... args)
+	public static void sendIm(final ServerPlayer player, final String translationKey, final Object... args)
 	{
-		cs.sendSuccess(() -> Component.translatable(translationKey, args), false);
+		player.sendSystemMessage(Component.translatable(translationKey, args));
 	}
 
 	public static void sendLoggedIm(final CommandSourceStack cs, final String translationKey, final Object... args)
 	{
 		cs.sendSuccess(() -> Component.translatable(translationKey, args), true);
-	}
-
-	public static void sendIm(final Player toPlayer, final String translationKey, final Object... args)
-	{
-		sendIm(toPlayer.createCommandSourceStack(), translationKey, args);
 	}
 }

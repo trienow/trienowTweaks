@@ -62,21 +62,20 @@ public class BlockFakeFire extends BaseBlock
 		return AABB;
 	}
 
-	@Override
-	public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom)
+	@Override public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
 	{
-		if (pRandom.nextInt(80) == 0)
+		if (random.nextInt(80) == 0)
 		{
-			pLevel.playLocalSound(pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 0.5f, pRandom.nextFloat(), true);
+			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 0.5f, random.nextFloat(), true);
 		}
 
-		if (pRandom.nextInt(10) == 0)
+		if (random.nextInt(10) == 0)
 		{
-			double rnd1 = pRandom.nextDouble();
-			double rnd4 = pRandom.nextDouble();
-			double rnd5 = pRandom.nextDouble();
+			double rnd1 = random.nextDouble();
+			double rnd4 = random.nextDouble();
+			double rnd5 = random.nextDouble();
 			rnd1 = rnd1 < 0.2D ? rnd1 : 0.1D;
-			pLevel.addParticle(ParticleTypes.LARGE_SMOKE, false, (pPos.getX() + rnd4), pPos.getY(), (pPos.getZ() + rnd5), 0, rnd1, 0);
+			level.addParticle(ParticleTypes.LARGE_SMOKE, (pos.getX() + rnd4), pos.getY(), (pos.getZ() + rnd5), 0, rnd1, 0);
 		}
 	}
 }

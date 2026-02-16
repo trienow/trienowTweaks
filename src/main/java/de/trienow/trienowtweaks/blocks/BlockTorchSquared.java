@@ -4,13 +4,11 @@ import de.trienow.trienowtweaks.atom.AtomBlocks;
 import de.trienow.trienowtweaks.blocks.states.StateGenericLight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -18,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -38,7 +36,7 @@ public class BlockTorchSquared extends BaseBlock
 			.lightLevel((blockState) -> 15)
 			.sound(SoundType.WOOD);
 
-	private static final DirectionProperty FACING = BlockStateProperties.FACING;
+	private static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
 	private static final VoxelShape SHAPE_BB_UP = Shapes.create(0.438D, 0.000D, 0.438D, 0.563D, 0.625D, 0.563D);
 	private static final VoxelShape SHAPE_BB_DOWN = Shapes.create(0.438D, 0.375D, 0.438D, 0.563D, 1.000D, 0.563D);
@@ -109,35 +107,28 @@ public class BlockTorchSquared extends BaseBlock
 	}
 
 	@Override
-	public void wasExploded(Level pLevel, BlockPos pPos, Explosion pExplosion)
-	{
-		removeTickingGenericLights(pLevel, pPos);
-	}
-
-	@Override
 	public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState)
 	{
 		removeTickingGenericLights(pLevel, pPos);
 	}
 
-	@Override
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos)
+	@Override protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random)
 	{
-		BlockState stateOut = pState;
-		Direction thisFacing = pState.getValue(FACING);
+		BlockState stateOut = state;
+		Direction thisFacing = state.getValue(FACING);
 		Direction anchoredToFace = thisFacing.getOpposite();
 
 		// If the torch is pointing up (i.e. anchored to the bottom block) we only want to react to those events
-		if (anchoredToFace == pDirection && !canBeOnFace(pLevel, pCurrentPos, thisFacing))
+		if (anchoredToFace == direction && !canBeOnFace(level, pos, thisFacing))
 		{
 			// Now that we know, that we can't stay on the currently fixed face, let's find another one!
 			stateOut = Blocks.AIR.defaultBlockState(); // <- Otherwise make it to air.
 
 			for (Direction thisNewFacing : FIX_PLACEMENT_TRIES)
 			{
-				if (thisFacing != thisNewFacing && canBeOnFace(pLevel, pCurrentPos, thisNewFacing))
+				if (thisFacing != thisNewFacing && canBeOnFace(level, pos, thisNewFacing))
 				{
-					stateOut = pState.setValue(FACING, thisNewFacing);
+					stateOut = state.setValue(FACING, thisNewFacing);
 					break;
 				}
 			}
@@ -146,7 +137,7 @@ public class BlockTorchSquared extends BaseBlock
 		return stateOut;
 	}
 
-	private static boolean canBeOnFace(LevelAccessor level, BlockPos thisPos, Direction thisDirection)
+	private static boolean canBeOnFace(LevelReader level, BlockPos thisPos, Direction thisDirection)
 	{
 		return canSupportCenter(level, thisPos, thisDirection.getOpposite());
 	}

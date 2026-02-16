@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * @author trienow 2016 - 2023
+ * @author trienow 2016 - 2026
  */
 public abstract class BaseBlock extends Block
 {
@@ -20,8 +20,7 @@ public abstract class BaseBlock extends Block
 	/**
 	 * Constructs an object of type BaseBlock.java
 	 */
-	@SuppressWarnings("SameParameterValue")
-	BaseBlock(Properties props)
+	@SuppressWarnings("SameParameterValue") BaseBlock(Properties props)
 	{
 		super(props);
 	}

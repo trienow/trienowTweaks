@@ -1,7 +1,7 @@
 package de.trienow.trienowtweaks.tiles.compact_crafter;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 
@@ -116,8 +116,7 @@ class CraftCompactInventory implements CraftingContainer
 		this.stack = ItemStack.EMPTY;
 	}
 
-	@Override
-	public void fillStackedContents(StackedContents pStackedContents)
+	@Override public void fillStackedContents(StackedItemContents stackedItemContents)
 	{
 
 	}

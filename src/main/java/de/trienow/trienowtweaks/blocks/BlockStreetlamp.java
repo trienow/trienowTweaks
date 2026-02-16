@@ -2,15 +2,13 @@ package de.trienow.trienowtweaks.blocks;
 
 import de.trienow.trienowtweaks.blocks.states.StateStreetlamp;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -20,7 +18,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.IPlantable;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -92,68 +89,78 @@ public class BlockStreetlamp extends BaseBlock
 	}
 
 	@Override
-	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable)
+	protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
 	{
-		return true;
-	}
-
-	/**
-	 * Checks if a {@link BlockStreetlamp} exists at the given {@link BlockPos}
-	 *
-	 * @param pLevel The world object to use to check
-	 * @param pPos   The position at which a check should be performed
-	 * @return Returns <code>true</code> when a {@link BlockStreetlamp} is present
-	 */
-	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	private static boolean isStreetlamp(LevelAccessor pLevel, BlockPos pPos)
-	{
-		return pLevel.getBlockState(pPos).getBlock() instanceof BlockStreetlamp;
-	}
-
-	/**
-	 * Sets AIR at the given {@link BlockPos}
-	 *
-	 * @param pLevel The world object to edit
-	 * @param pPos   The position at which air should be set
-	 */
-	private static void setAir(LevelAccessor pLevel, BlockPos pPos)
-	{
-		pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-	}
-
-	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
-	{
-		if (level.isClientSide() || !(blockIn instanceof BlockStreetlamp))
-		{
-			return;
-		}
-
-		boolean up = fromPos.equals(pos.above()) && !isStreetlamp(level, pos.above());
-		boolean down = fromPos.equals(pos.below()) && !isStreetlamp(level, pos.below());
-
 		switch (state.getValue(PLACEMENT))
 		{
-			case BOTTOM:
-				if (up)
-				{
-					setAir(level, pos);
-				}
-				break;
+			case StateStreetlamp.TOP:
+				return level.getBlockState(pos.below()).getBlock() instanceof BlockStreetlamp;
 
-			case MIDDLE:
-				if (down || up)
-				{
-					setAir(level, pos);
-				}
-				break;
+			case StateStreetlamp.MIDDLE:
+				return (level.getBlockState(pos.below()).getBlock() instanceof BlockStreetlamp) &&
+						(level.getBlockState(pos.above()).getBlock() instanceof BlockStreetlamp);
 
-			case TOP:
-				if (down)
-				{
-					setAir(level, pos);
-				}
-				break;
+			case StateStreetlamp.BOTTOM:
+				return level.getBlockState(pos.above()).getBlock() instanceof BlockStreetlamp;
+
 		}
+		return false;
 	}
+
+	//	/**
+	//	 * Checks if a {@link BlockStreetlamp} exists at the given {@link BlockPos}
+	//	 *
+	//	 * @param pLevel The world object to use to check
+	//	 * @param pPos   The position at which a check should be performed
+	//	 * @return Returns <code>true</code> when a {@link BlockStreetlamp} is present
+	//	 */
+	//	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	//	private static boolean isStreetlamp(LevelAccessor pLevel, BlockPos pPos)
+	//	{
+	//		return pLevel.getBlockState(pPos).getBlock() instanceof BlockStreetlamp;
+	//	}
+	//
+	//	/**
+	//	 * Sets AIR at the given {@link BlockPos}
+	//	 *
+	//	 * @param pLevel The world object to edit
+	//	 * @param pPos   The position at which air should be set
+	//	 */
+	//	private static void setAir(LevelAccessor pLevel, BlockPos pPos)
+	//	{
+	//		pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+	//	}
+
+	//	@Override protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random)
+	//	{
+	//		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+	//	}
+	//
+	//		boolean up = fromPos.equals(pos.above()) && !isStreetlamp(level, pos.above());
+	//		boolean down = fromPos.equals(pos.below()) && !isStreetlamp(level, pos.below());
+	//
+	//		switch (state.getValue(PLACEMENT))
+	//		{
+	//			case BOTTOM:
+	//				if (up)
+	//				{
+	//					setAir(level, pos);
+	//				}
+	//				break;
+	//
+	//			case MIDDLE:
+	//				if (down || up)
+	//				{
+	//					setAir(level, pos);
+	//				}
+	//				break;
+	//
+	//			case TOP:
+	//				if (down)
+	//				{
+	//					setAir(level, pos);
+	//				}
+	//				break;
+	//		}
+	//	}
 }

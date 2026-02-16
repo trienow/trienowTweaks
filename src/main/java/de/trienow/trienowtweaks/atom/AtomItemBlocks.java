@@ -40,6 +40,6 @@ public class AtomItemBlocks
 
 	private static DeferredItem<BlockItem> register(DeferredBlock<? extends Block> b)
 	{
-		return ITEMS.registerBlockItem(b.getId().getPath(), b);
+		return ITEMS.registerSimpleBlockItem(b);
 	}
 }

@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.neoforge.common.IPlantable;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -45,10 +45,9 @@ public class BlockRailroadTruss extends BaseBlock
 		return RenderShape.MODEL;
 	}
 
-	@Override
-	public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving)
+	@Override protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston)
 	{
-		neighborChanged(pState, pLevel, pPos, this, pPos, pIsMoving);
+		neighborChanged(state, level, pos, this, null, movedByPiston);
 	}
 
 	@Override
@@ -64,12 +63,6 @@ public class BlockRailroadTruss extends BaseBlock
 	{
 		StateRailroadTruss display = pContext.getHorizontalDirection().getAxis() == Direction.Axis.Z ? StateRailroadTruss.TOP_NS : StateRailroadTruss.TOP_EW;
 		return this.defaultBlockState().setValue(DISPLAY, display);
-	}
-
-	@Override
-	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable)
-	{
-		return true;
 	}
 
 	@Override
@@ -101,30 +94,29 @@ public class BlockRailroadTruss extends BaseBlock
 		return bState.hasProperty(DISPLAY) && bState.getValue(DISPLAY).getType() == type;
 	}
 
-	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving)
+	@Override protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston)
 	{
-		if (pLevel.isClientSide())
+		if (level.isClientSide())
 		{
 			return;
 		}
 
-		Direction face = pState.getValue(DISPLAY).getFacing();
+		Direction face = state.getValue(DISPLAY).getFacing();
 		Direction faceOpposite = face.getOpposite();
 		boolean facingNS = face.getAxis() == Direction.Axis.Z;
 		BlockState ibs = defaultBlockState();
 
-		if (isTruss(pLevel, pPos.above()))
+		if (isTruss(level, pos.above()))
 		{
 			ibs = ibs.setValue(DISPLAY, facingNS ? StateRailroadTruss.MIDDLE_NS : StateRailroadTruss.MIDDLE_EW);
 		}
-		else if (!isTruss(pLevel, pPos.relative(face)) &&
-				(isTruss(pLevel, pPos.relative(face).below(), StateRailroadTrussType.SLANT) || isTruss(pLevel, pPos.relative(face).below(), StateRailroadTrussType.TOP)))
+		else if (!isTruss(level, pos.relative(face)) &&
+				(isTruss(level, pos.relative(face).below(), StateRailroadTrussType.SLANT) || isTruss(level, pos.relative(face).below(), StateRailroadTrussType.TOP)))
 		{
 			ibs = ibs.setValue(DISPLAY, getSlant(face));
 		}
-		else if (!isTruss(pLevel, pPos.relative(faceOpposite)) &&
-				(isTruss(pLevel, pPos.relative(faceOpposite).below(), StateRailroadTrussType.SLANT) || isTruss(pLevel, pPos.relative(faceOpposite).below(), StateRailroadTrussType.TOP)))
+		else if (!isTruss(level, pos.relative(faceOpposite)) &&
+				(isTruss(level, pos.relative(faceOpposite).below(), StateRailroadTrussType.SLANT) || isTruss(level, pos.relative(faceOpposite).below(), StateRailroadTrussType.TOP)))
 		{
 			ibs = ibs.setValue(DISPLAY, getSlant(faceOpposite));
 		}
@@ -133,16 +125,16 @@ public class BlockRailroadTruss extends BaseBlock
 			ibs = ibs.setValue(DISPLAY, StateRailroadTruss.TOP_EW);
 		}
 
-		if (ibs != pState)
+		if (ibs != state)
 		{
-			pLevel.setBlock(pPos, ibs, Block.UPDATE_ALL);
+			level.neighborChanged(ibs, pos, this, null, movedByPiston);
 		}
 	}
 
 	@Override
 	public void updateIndirectNeighbourShapes(BlockState pState, LevelAccessor pLevel, BlockPos pPos, int pFlags, int pRecursionLeft)
 	{
-		pLevel.blockUpdated(pPos.above(), this);
+		pLevel.updateNeighborsAt(pPos.above(), this);
 	}
 
 	@Override

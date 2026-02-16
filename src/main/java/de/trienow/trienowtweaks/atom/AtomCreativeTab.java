@@ -6,18 +6,17 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 import static de.trienow.trienowtweaks.main.TrienowTweaks.MODID;
 
 /**
  * @author trienow 2023
  */
-@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MODID)
 public class AtomCreativeTab
 {
 	private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
@@ -25,11 +24,10 @@ public class AtomCreativeTab
 
 	private static DeferredHolder<CreativeModeTab, CreativeModeTab> registerTrienowtab()
 	{
-		return CreativeModeTab.builder()
-				.icon(() -> new ItemStack(AtomItemBlocks.STREETLAMP_FIRE.))
 		return CREATIVE_MODE_TABS.register("trienowtab", () -> {
 			//noinspection CodeBlock2Expr
 			return CreativeModeTab.builder()
+					.icon(() -> new ItemStack(AtomItemBlocks.STREETLAMP_FIRE.get()))
 					.title(Component.translatable("item_group." + MODID + ".trienowtab"))
 					.build();
 		});

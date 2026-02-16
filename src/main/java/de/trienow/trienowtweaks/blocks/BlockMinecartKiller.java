@@ -9,7 +9,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -27,13 +29,12 @@ public class BlockMinecartKiller extends BaseBlock
 		super(PROPS);
 	}
 
-	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving)
+	@Override protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston)
 	{
-		final AABB checkBox = new AABB(pPos.above());
-		if (!pLevel.isClientSide() && pLevel.getSignal(pPos, Direction.UP) > 0)
+		final AABB checkBox = new AABB(pos.above());
+		if (!level.isClientSide() && level.getSignal(pos, Direction.UP) > 0)
 		{
-			List<Minecart> ents = pLevel.getEntities(EntityTypeTest.forClass(Minecart.class), checkBox, PREDICATE_TRUE);
+			List<Minecart> ents = level.getEntities(EntityTypeTest.forClass(Minecart.class), checkBox, PREDICATE_TRUE);
 
 			for (Entity entity : ents)
 			{

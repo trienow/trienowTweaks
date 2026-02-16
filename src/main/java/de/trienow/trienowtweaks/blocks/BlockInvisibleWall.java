@@ -53,8 +53,7 @@ public class BlockInvisibleWall extends BaseBlock
 		return true; //Determines if this block's collision box should be treated as though it can extend above its block space. Use this to replicate fence and wall behavior.
 	}
 
-	@Override
-	public boolean propagatesSkylightDown(BlockState pState, BlockGetter pLevel, BlockPos pPos)
+	@Override protected boolean propagatesSkylightDown(BlockState state)
 	{
 		return true;
 	}

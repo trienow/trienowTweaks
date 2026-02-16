@@ -10,7 +10,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * @author trienow 2019 - 2023
+ * @author trienow 2019 - 2026
  */
 public class AtomBlocks
 {

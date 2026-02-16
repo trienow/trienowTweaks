@@ -3,13 +3,14 @@ package de.trienow.trienowtweaks.tiles;
 import de.trienow.trienowtweaks.atom.AtomTiles;
 import de.trienow.trienowtweaks.blocks.BlockItemDetector;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -34,12 +35,12 @@ public class TEItemDetector extends BlockEntity
 		checkBox = new AABB(worldPosition.above());
 	}
 
-	@Override
-	public void load(CompoundTag pTag)
+	@Override protected void loadAdditional(ValueInput input)
 	{
-		amt = pTag.getInt("amt");
+		super.loadAdditional(input);
+
+		amt = input.getIntOr("amt", 0);
 		amt = Math.max(amt, 1);
-		super.load(pTag);
 
 		if (checkBox == null)
 		{
@@ -47,11 +48,10 @@ public class TEItemDetector extends BlockEntity
 		}
 	}
 
-	@Override
-	protected void saveAdditional(CompoundTag pTag)
+	@Override protected void saveAdditional(ValueOutput output)
 	{
-		pTag.putInt("amt", amt);
-		super.saveAdditional(pTag);
+		super.saveAdditional(output);
+		output.putInt("amt", amt);
 	}
 
 	public void tickServer()

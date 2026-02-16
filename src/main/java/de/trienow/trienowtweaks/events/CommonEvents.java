@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkSource;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -25,7 +25,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 /**
  * @author trienow 2016 - 2023
  */
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class CommonEvents
 {
 	@SubscribeEvent
