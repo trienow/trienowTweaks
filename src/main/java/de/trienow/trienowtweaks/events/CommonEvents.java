@@ -1,13 +1,9 @@
 package de.trienow.trienowtweaks.events;
 
-import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
-import de.trienow.trienowtweaks.capabilities.PlayerCapabilityProvider;
-import de.trienow.trienowtweaks.config.Config;
+import de.trienow.trienowtweaks.config.ServerConfig;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.network.PacketReqPlayerCaps;
-import de.trienow.trienowtweaks.utils.LevelUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
@@ -18,7 +14,6 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkSource;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
@@ -29,30 +24,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 public class CommonEvents
 {
 	@SubscribeEvent
-	public static void onAttachCapabilitiesEntity(final AttachCapabilitiesEvent<Entity> evt)
-	{
-		if (evt.getObject() instanceof Player)
-		{
-			evt.addCapability(new ResourceLocation(TrienowTweaks.MODID, "player_capability"), new PlayerCapabilityProvider());
-		}
-	}
-
-	@SubscribeEvent
-	public static void onPlayerClone(final PlayerEvent.Clone evt)
-	{
-		if (!evt.getEntity().level().isClientSide())
-		{
-			evt.getOriginal().reviveCaps();
-			//noinspection CodeBlock2Expr
-			evt.getOriginal().getCapability(IPlayerCapability.PLAYER_CAP).ifPresent((pcap0) -> {
-				evt.getEntity().getCapability(IPlayerCapability.PLAYER_CAP)
-						.ifPresent(pcap0::clone);
-			});
-			evt.getOriginal().invalidateCaps();
-		}
-	}
-
-	@SubscribeEvent
 	public static void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent evt)
 	{
 		Player sidedPlayer = evt.getEntity();
@@ -60,17 +31,17 @@ public class CommonEvents
 		if (!level.isClientSide())
 		{
 			// SET EXACT SPAWN POINT
-			if (Config.getServerConfig().exactSpawnpoint.get())
+			if (ServerConfig.CONFIG.exactSpawnpoint.get())
 			{
 				ServerPlayer player = (ServerPlayer) sidedPlayer;
-				final BlockPos respawnPos = player.getRespawnPosition();
-				final BlockPos worldspawnPos = LevelUtils.getSpawn(level);
+				final BlockPos respawnPos = player.getRespawnConfig().pos();
+				final BlockPos worldspawnPos = level.getLevelData().getSpawnPos();
 
 				if (respawnPos == null || worldspawnPos == respawnPos)
 				{
 					player.teleportTo(worldspawnPos.getX() + 0.5f, worldspawnPos.getY() + 0.5f, worldspawnPos.getZ() + 0.5f);
-					player.setRespawnPosition(level.dimension(), worldspawnPos, 0.0F, true, false);
-					TrienowTweaks.LOG.info("Moving " + player.getDisplayName().getString() + " to exact spawnpoint");
+					player.setRespawnPosition(new ServerPlayer.RespawnConfig(level.dimension(), worldspawnPos, 0.0F, true), false);
+					TrienowTweaks.LOG.info("Moving {} to exact spawnpoint", player.getDisplayName().getString());
 				}
 			}
 		}

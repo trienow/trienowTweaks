@@ -14,6 +14,11 @@ public class CommandUtils
 		player.sendSystemMessage(Component.translatable(translationKey, args));
 	}
 
+	public static void sendIm(final CommandSourceStack sender, final String translationKey, final Object... args)
+	{
+		sender.sendSystemMessage(Component.translatable(translationKey, args));
+	}
+
 	public static void sendLoggedIm(final CommandSourceStack cs, final String translationKey, final Object... args)
 	{
 		cs.sendSuccess(() -> Component.translatable(translationKey, args), true);

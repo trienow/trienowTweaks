@@ -4,6 +4,7 @@ import de.trienow.trienowtweaks.atom.*;
 import de.trienow.trienowtweaks.config.Config;
 import de.trienow.trienowtweaks.network.PacketHandler;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
@@ -21,12 +22,13 @@ public class TrienowTweaks
 	/**
 	 * Constructs an object of type TrienowTweaks.java
 	 */
-	public TrienowTweaks()
+	public TrienowTweaks(ModContainer container)
 	{
 		final IEventBus modEventBus = NeoForge.EVENT_BUS;
 
-		Config.init();
+		Config.init(container);
 		AtomDataComponents.init(modEventBus);
+		AtomAttachments.init(modEventBus);
 		AtomBlocks.init(modEventBus);
 		AtomItems.init(modEventBus);
 		AtomItemBlocks.init(modEventBus);

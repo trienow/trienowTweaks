@@ -9,15 +9,13 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 
 /**
- * @param <T> The type of entity to
- * @param <M> the type parameter
- * @author (c) trienow 2022
+ * @author (c) trienow 2022 - 2026
  */
-public class LayerTT<T extends LivingEntity, M extends HumanoidModel<T>> extends RenderLayer<T, M>
+public class LayerTT<T extends HumanoidRenderState, M extends HumanoidModel<T>> extends RenderLayer<T, M>
 {
 	private final ModelKnight<T> MODEL_KNIGHT_HEAD;
 	private final ModelKnight<T> MODEL_KNIGHT_CHEST;
@@ -40,46 +38,39 @@ public class LayerTT<T extends LivingEntity, M extends HumanoidModel<T>> extends
 		this.MODEL_DRTOAST = new ModelDrToast<>(EquipmentSlot.HEAD, bakedDrToast);
 	}
 
-	@Override
-	public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch)
+	@Override public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, T t, float v, float v1)
 	{
-		final String entityName = pLivingEntity.getName().getString();
-		if (RenderSetup.TRIENOW.equals(entityName))
+		LayerTtType layerType = t.getRenderDataOrDefault(RenderSetup.LAYER_TYPE_CTX, LayerTtType.NONE);
+		if (layerType == LayerTtType.NONE)
 		{
-			if (RenderSetup.shouldRenderLayer(pLivingEntity) == LayerTtRenderMode.SHOW)
-			{
-				pMatrixStack.pushPose();
-				M parentModel = this.getParentModel();
+			poseStack.pushPose();
+			M parentModel = this.getParentModel();
 
-				parentModel.copyPropertiesTo(MODEL_KNIGHT_HEAD);
-				coloredCutoutModelCopyLayerRender(parentModel, MODEL_KNIGHT_HEAD, RenderSetup.KNIGHT_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_HEAD);
+			coloredCutoutModelCopyLayerRender(parentModel, RenderSetup.KNIGHT_LAYER_TEXTURE, poseStack, multiBufferSource, packedLight, t, -1);
 
-				parentModel.copyPropertiesTo(MODEL_KNIGHT_CHEST);
-				coloredCutoutModelCopyLayerRender(parentModel, MODEL_KNIGHT_CHEST, RenderSetup.KNIGHT_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_CHEST);
+			coloredCutoutModelCopyLayerRender(parentModel, RenderSetup.KNIGHT_LAYER_TEXTURE, poseStack, multiBufferSource, packedLight, t, -1);
 
-				parentModel.copyPropertiesTo(MODEL_KNIGHT_LEGS);
-				coloredCutoutModelCopyLayerRender(parentModel, MODEL_KNIGHT_LEGS, RenderSetup.KNIGHT_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_LEGS);
+			coloredCutoutModelCopyLayerRender(parentModel, RenderSetup.KNIGHT_LAYER_TEXTURE, poseStack, multiBufferSource, packedLight, t, -1);
 
-				parentModel.copyPropertiesTo(MODEL_KNIGHT_FEET);
-				coloredCutoutModelCopyLayerRender(parentModel, MODEL_KNIGHT_FEET, RenderSetup.KNIGHT_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
+			parentModel.copyPropertiesTo(MODEL_KNIGHT_FEET);
+			coloredCutoutModelCopyLayerRender(parentModel, RenderSetup.KNIGHT_LAYER_TEXTURE, poseStack, multiBufferSource, packedLight, t, -1);
 
-				pMatrixStack.popPose();
-			}
+			poseStack.popPose();
 		}
-		else if (RenderSetup.TOASTY.equals(entityName))
+		else if (layerType == LayerTtType.TOAST)
 		{
-			if (RenderSetup.shouldRenderLayer(pLivingEntity) == LayerTtRenderMode.SHOW)
-			{
-				pMatrixStack.pushPose();
+			poseStack.pushPose();
 
-				M parentModel = this.getParentModel();
+			M parentModel = this.getParentModel();
 
-				parentModel.copyPropertiesTo(MODEL_DRTOAST);
+			parentModel.copyPropertiesTo(MODEL_DRTOAST);
 
-				coloredCutoutModelCopyLayerRender(parentModel, MODEL_DRTOAST, RenderSetup.DRTOAST_LAYER_TEXTURE, pMatrixStack, pBuffer, pPackedLight, pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch, pPartialTicks, 1, 1, 1);
+			coloredCutoutModelCopyLayerRender(parentModel, RenderSetup.DRTOAST_LAYER_TEXTURE, poseStack, multiBufferSource, packedLight, t, -1);
 
-				pMatrixStack.popPose();
-			}
+			poseStack.popPose();
 		}
 	}
 }

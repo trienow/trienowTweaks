@@ -2,7 +2,6 @@ package de.trienow.trienowtweaks.atom;
 
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.tiles.TEItemDetector;
-import de.trienow.trienowtweaks.tiles.compact_crafter.TECompactCrafter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,7 +22,6 @@ public class AtomTiles
 {
 	private static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, TrienowTweaks.MODID);
 
-	public static final Supplier<BlockEntityType<TECompactCrafter>> COMPACT_CRAFTER = register("compact_crafter", TECompactCrafter::new, AtomBlocks.COMPACT_CRAFTER);
 	public static final Supplier<BlockEntityType<TEItemDetector>> ITEM_DETECTOR = register("item_detector", TEItemDetector::new, AtomBlocks.ITEM_DETECTOR);
 
 	public static void init(IEventBus modEventBus)

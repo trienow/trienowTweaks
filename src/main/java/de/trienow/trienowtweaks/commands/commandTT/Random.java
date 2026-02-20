@@ -5,7 +5,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import de.trienow.trienowtweaks.commands.CommandArg;
 import de.trienow.trienowtweaks.commands.CommandUtils;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import de.trienow.trienowtweaks.utils.LevelUtils;
 import de.trienow.trienowtweaks.utils.NumberUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -58,7 +57,7 @@ class Random
 
 		Level level = target.level();
 		WorldBorder border = level.getWorldBorder();
-		BlockPos spawnPoint = LevelUtils.getSpawn(level);
+		BlockPos spawnPoint = level.getLevelData().getSpawnPos();
 		RandomSource rand = level.random;
 		int iterations = 0;
 

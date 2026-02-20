@@ -7,7 +7,8 @@ import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.MinecraftServer;
-import net.neoforged.neoforge.event.TickEvent;
+import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 
 /**
  * @author (c) trienow
@@ -34,24 +35,24 @@ public class CommandTreq
 						.then(CommandArg.PLAYERS.arg()
 								.executes(ctx -> REQUESTS.unblock(ctx.getSource().getPlayerOrException(), CommandArg.PLAYERS.get(ctx)))))
 				.then(Commands.literal("help")
-						.executes(ctx -> help(ctx.getSource())));
+						.executes(ctx -> help(ctx.getSource().getPlayerOrException())));
 	}
 
 	/**
 	 * @param sender The command executor
 	 * @return Something
 	 */
-	private static int help(CommandSourceStack sender)
+	private static int help(ServerPlayer sender)
 	{
 		CommandUtils.sendIm(sender, "cmd." + TrienowTweaks.MODID + ".treq.help");
 		return 1;
 	}
 
-	public static void onLevelTick(TickEvent.LevelTickEvent evt)
+	public static void onLevelTick(LevelTickEvent evt)
 	{
 		if (activeTick >= 0)
 		{
-			MinecraftServer server = evt.level.getServer();
+			MinecraftServer server = evt.getLevel().getServer();
 			if (server != null)
 			{
 				REQUESTS.cleanUpRequests(server.getPlayerList());

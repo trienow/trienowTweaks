@@ -1,26 +1,22 @@
 package de.trienow.trienowtweaks.entity.model;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.decoration.ArmorStand;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * @author (c) trienow 2016 - 2022
  */
-public class ModelKnight<T extends LivingEntity> extends HumanoidModel<T>
+public class ModelKnight<T extends HumanoidRenderState> extends HumanoidModel<T>
 {
 	public static final int TEXTURE_WIDTH = 128;
 	public static final int TEXTURE_HEIGHT = 64;
-
-	private static final Iterable<ModelPart> EMPTY_LIST = ImmutableList.of();
 
 	// Must be the same names as HumanoidModel uses (except for boots, as they don't exist).
 	private static final String HEAD = "head";
@@ -32,8 +28,8 @@ public class ModelKnight<T extends LivingEntity> extends HumanoidModel<T>
 	private static final String BOOT_L = "bootL";
 	private static final String BOOT_R = "bootR";
 
-	private final Iterable<ModelPart> headParts;
-	private final Iterable<ModelPart> bodyParts;
+	private final ModelPart headPart;
+	private final ModelPart bodyPart;
 
 	public ModelKnight(EquipmentSlot modelType, ModelPart part)
 	{
@@ -47,56 +43,67 @@ public class ModelKnight<T extends LivingEntity> extends HumanoidModel<T>
 
 		switch (modelType)
 		{
-			case FEET, LEGS -> {
-				headParts = EMPTY_LIST;
-				bodyParts = ImmutableList.of(legL, legR);
+			case FEET, LEGS ->
+			{
+				headPart = null;
+				bodyPart = null;//ImmutableList.of(legL, legR);
 			}
-			case CHEST -> {
-				headParts = EMPTY_LIST;
-				bodyParts = ImmutableList.of(body, armL, armR);
+			case CHEST ->
+			{
+				headPart = null;
+				bodyPart = null;//ImmutableList.of(body, armL, armR);
 			}
-			case HEAD -> {
-				headParts = ImmutableList.of(head);
-				bodyParts = EMPTY_LIST;
+			case HEAD ->
+			{
+				headPart = head;
+				bodyPart = null;
 			}
-			default -> {
-				headParts = EMPTY_LIST;
-				bodyParts = EMPTY_LIST;
+			default ->
+			{
+				headPart = null;
+				bodyPart = null;
 			}
 		}
 	}
 
-	@Override
-	public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch)
-	{
-		if (pEntity instanceof ArmorStand)
-		{
-			pLimbSwing = 0;
-			pLimbSwingAmount = 0;
-			pAgeInTicks = 42;
-		}
+	//TODO Remove
+	//	@Override
+	//	public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch)
+	//	{
+	//		if (pEntity instanceof ArmorStand)
+	//		{
+	//			pLimbSwing = 0;
+	//			pLimbSwingAmount = 0;
+	//			pAgeInTicks = 42;
+	//		}
+	//
+	//		super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
+	//	}
 
-		super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
+	//	@Override
+	//	protected Iterable<ModelPart> headParts()
+	//	{
+	//		return headParts; //Just for performance
+	//	}
+	//
+	//	@Override
+	//	protected Iterable<ModelPart> bodyParts()
+	//	{
+	//		return bodyParts; //Just for performance
+	//	}
+
+	@Override public ModelPart getHead()
+	{
+		return headPart;
 	}
 
-	@Override
-	protected Iterable<ModelPart> headParts()
-	{
-		return headParts; //Just for performance
-	}
-
-	@Override
-	protected Iterable<ModelPart> bodyParts()
-	{
-		return bodyParts; //Just for performance
-	}
-
-	public static ModelKnight<LivingEntity> makeModel(EquipmentSlot slot)
-	{
-		MeshDefinition meshDef = createMesh(slot);
-		ModelPart modelPart = meshDef.getRoot().bake(TEXTURE_WIDTH, TEXTURE_HEIGHT);
-		return new ModelKnight<>(slot, modelPart);
-	}
+	//TODO Remove
+	//	public static ModelKnight<LivingEntity> makeModel(EquipmentSlot slot)
+	//	{
+	//		MeshDefinition meshDef = createMesh(slot);
+	//		ModelPart modelPart = meshDef.getRoot().bake(TEXTURE_WIDTH, TEXTURE_HEIGHT);
+	//		return new ModelKnight<>(slot, modelPart);
+	//	}
 
 	public static LayerDefinition createLayer()
 	{

@@ -1,17 +1,14 @@
 package de.trienow.trienowtweaks.entity.layer;
 
-/**
- * @author (c) trienow 2022
- */
-public enum LayerTtRenderMode
+public enum LayerTtType
 {
-	SHOW(0),
-	PREFER_ARMOR(1),
-	HIDE(2);
+	NONE(0),
+	TOAST(1),
+	KNIGHT(2);
 
 	private final int id;
 
-	LayerTtRenderMode(int id)
+	LayerTtType(int id)
 	{
 		this.id = id;
 	}
@@ -22,17 +19,17 @@ public enum LayerTtRenderMode
 	}
 
 	@SuppressWarnings("EnhancedSwitchMigration")
-	public static LayerTtRenderMode fromId(int id)
+	public static LayerTtType fromId(int id)
 	{
 		switch (id)
 		{
 			case 1:
-				return PREFER_ARMOR;
+				return TOAST;
 			case 2:
-				return HIDE;
+				return KNIGHT;
 			case 0:
 			default:
-				return SHOW;
+				return NONE;
 		}
 	}
 }

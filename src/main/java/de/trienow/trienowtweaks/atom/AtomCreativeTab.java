@@ -65,11 +65,6 @@ public class AtomCreativeTab
 			evt.accept(AtomItems.WE_WAND.get());
 			evt.accept(AtomItems.AUTO_LIGHT.get());
 			evt.accept(AtomItems.AUTO_FOOD.get());
-			evt.accept(AtomItems.DRTOAST_HEAD.get());
-			evt.accept(AtomItems.KNIGHT_HEAD.get());
-			evt.accept(AtomItems.KNIGHT_CHEST.get());
-			evt.accept(AtomItems.KNIGHT_LEGS.get());
-			evt.accept(AtomItems.KNIGHT_FEET.get());
 		}
 	}
 }

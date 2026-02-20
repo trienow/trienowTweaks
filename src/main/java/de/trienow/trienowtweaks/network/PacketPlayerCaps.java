@@ -1,7 +1,6 @@
 package de.trienow.trienowtweaks.network;
 
 import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
-import de.trienow.trienowtweaks.entity.layer.LayerTtRenderMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;

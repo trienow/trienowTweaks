@@ -4,7 +4,6 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import de.trienow.trienowtweaks.commands.CommandArg;
 import de.trienow.trienowtweaks.commands.CommandUtils;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import de.trienow.trienowtweaks.utils.LevelUtils;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;

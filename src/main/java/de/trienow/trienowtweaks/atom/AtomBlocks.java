@@ -30,7 +30,6 @@ public class AtomBlocks
 
 	public static final DeferredBlock<Block> FAKE_FIRE = BLOCKS.register("fake_fire", BlockFakeFire::new);
 	public static final DeferredBlock<Block> MINECART_KILLER = BLOCKS.register("minecart_killer", BlockMinecartKiller::new);
-	public static final DeferredBlock<Block> COMPACT_CRAFTER = BLOCKS.register("compact_crafter", BlockCompactCrafter::new);
 	public static final DeferredBlock<Block> ITEM_DETECTOR = BLOCKS.register("item_detector", BlockItemDetector::new);
 	public static final DeferredBlock<Block> ENTITY_PROHIBITATOR = BLOCKS.register("entity_prohibitator", BlockEntityProhibitator::new);
 	public static final DeferredBlock<Block> TORCH_SQUARED = BLOCKS.register("torch_squared", BlockTorchSquared::new);

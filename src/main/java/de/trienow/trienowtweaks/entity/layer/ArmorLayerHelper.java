@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.function.Consumer;
  *
  * @author (c) trienow 2023
  */
-@Mod.EventBusSubscriber(modid = TrienowTweaks.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = TrienowTweaks.MODID, value = Dist.CLIENT)
 public class ArmorLayerHelper
 {
 	private static final Map<Entity, Consumer<PlayerRenderer>> parkedArmorRenderers = new ConcurrentHashMap<>();

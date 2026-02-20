@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Relative;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
@@ -26,7 +27,7 @@ class TeleportRequests
 		return player.getName().getString();
 	}
 
-	private boolean newRequestChecks(Player fromPlayer, Player toPlayer)
+	private boolean newRequestChecks(ServerPlayer fromPlayer, ServerPlayer toPlayer)
 	{
 		boolean checksOk = true;
 		final String translation_key = TRANSLATION_KEY + "to.fail.";
@@ -74,7 +75,7 @@ class TeleportRequests
 	 * @param toPlayer   The destination player
 	 * @return 1, because success?
 	 */
-	synchronized int newRequest(Player fromPlayer, Player toPlayer)
+	synchronized int newRequest(ServerPlayer fromPlayer, ServerPlayer toPlayer)
 	{
 		int result = 0;
 
@@ -98,11 +99,11 @@ class TeleportRequests
 	 * @param acceptFromPlayers The players from which teleport requests are allowed
 	 * @return 1, because success?
 	 */
-	synchronized int accept(Player acceptor, Collection<? extends Player> acceptFromPlayers)
+	synchronized int accept(ServerPlayer acceptor, Collection<? extends ServerPlayer> acceptFromPlayers)
 	{
 		String acceptorName = getPlayerName(acceptor);
 		boolean acceptedAtLeastOne = false;
-		for (Player acceptFromPlayer : acceptFromPlayers)
+		for (ServerPlayer acceptFromPlayer : acceptFromPlayers)
 		{
 			String acceptFromPlayerName = getPlayerName(acceptFromPlayer);
 			if (PLAYER_REQUESTS.containsKey(acceptFromPlayerName))
@@ -126,7 +127,7 @@ class TeleportRequests
 		return 1;
 	}
 
-	private boolean preTeleportChecks(@Nullable Player fromPlayer, @Nullable Player toPlayer, String toPlayerName)
+	private boolean preTeleportChecks(@Nullable ServerPlayer fromPlayer, @Nullable ServerPlayer toPlayer, String toPlayerName)
 	{
 		boolean checksOk = true;
 		final String translation_key = TRANSLATION_KEY + "teleport.fail.";
@@ -162,7 +163,7 @@ class TeleportRequests
 			{
 				// Check and see if the player can be teleported
 				String toPlayerName = request.getDestination();
-				Player fromPlayer = onlinePlayers.getPlayerByName(fromPlayerName);
+				ServerPlayer fromPlayer = onlinePlayers.getPlayerByName(fromPlayerName);
 				if (request.shouldExecuteTeleport())
 				{
 					// Let's try to teleport...
@@ -174,14 +175,19 @@ class TeleportRequests
 						CommandUtils.sendIm(toPlayer, TRANSLATION_KEY + "teleport.teleporting");
 						Vec3 pos = toPlayer.position();
 
-						fromPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 60, 255, true, false));
+						fromPlayer.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 60, 255, true, false));
 						if (fromPlayer.level().equals(toPlayer.level()))
 						{
 							fromPlayer.teleportTo(pos.x, pos.y + 0.5, pos.z);
 						}
 						else
 						{
-							fromPlayer.changeDimension(toPlayer.serverLevel(), new XDimTeleporter(pos));
+							fromPlayer.teleportTo(
+									toPlayer.level(),
+									pos.x(),
+									pos.y() + 0.5,
+									pos.z(),
+									EnumSet.noneOf(Relative.class), 0, 0, true);
 						}
 					}
 				}
@@ -205,7 +211,7 @@ class TeleportRequests
 	 * @param targets Players to block
 	 * @return Something
 	 */
-	int block(Player sender, Collection<? extends Player> targets)
+	int block(ServerPlayer sender, Collection<? extends Player> targets)
 	{
 		for (Player target : targets)
 		{
@@ -221,7 +227,7 @@ class TeleportRequests
 	 * @param targets Players to unblock
 	 * @return Something
 	 */
-	int unblock(Player sender, Collection<? extends Player> targets)
+	int unblock(ServerPlayer sender, Collection<? extends Player> targets)
 	{
 		for (Player target : targets)
 		{

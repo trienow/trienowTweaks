@@ -2,15 +2,19 @@ package de.trienow.trienowtweaks.config;
 
 import de.trienow.trienowtweaks.utils.IPredicateObjects;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author (c) trienow 2019 - 2023
+ * @author (c) trienow 2019 - 2026
  */
 public class ServerConfig
 {
+	public static final ServerConfig CONFIG;
+	public static final ModConfigSpec CONFIG_SPEC;
+
 	private static final String FLIGHT_DISABLED_COMMENT = "In these Dimensions, the player will be forced to the ground (not really being able to fly)";
 	private static final List<String> FLIGHT_DISABLED = new ArrayList<>()
 	{
@@ -24,7 +28,7 @@ public class ServerConfig
 	public final ModConfigSpec.ConfigValue<Boolean> exactSpawnpoint;
 
 	public final ModConfigSpec.ConfigValue<List<? extends String>> flightDisabled;
-	@SuppressWarnings({ "FieldCanBeLocal", "MismatchedReadAndWriteOfArray" }) private String[] flightDisabledCached = null;
+	public String[] flightDisabledCached = null;
 
 	public ServerConfig(ModConfigSpec.Builder builder)
 	{
@@ -45,5 +49,12 @@ public class ServerConfig
 		{
 			flightDisabledCached[i] = flightDisabled.get(i);
 		}
+	}
+
+	static
+	{
+		Pair<ServerConfig, ModConfigSpec> pair = new ModConfigSpec.Builder().configure(ServerConfig::new);
+		CONFIG = pair.getLeft();
+		CONFIG_SPEC = pair.getRight();
 	}
 }

@@ -18,7 +18,7 @@ public interface IPredicateObjects
 		{
 			try
 			{
-				new ResourceLocation(s);
+				ResourceLocation.parse(s);
 				return true;
 			}
 			catch (ResourceLocationException ignored)

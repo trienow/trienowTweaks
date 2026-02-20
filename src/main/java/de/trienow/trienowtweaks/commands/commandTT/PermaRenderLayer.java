@@ -1,11 +1,12 @@
 package de.trienow.trienowtweaks.commands.commandTT;
 
 import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
 import de.trienow.trienowtweaks.commands.CommandArg;
 import de.trienow.trienowtweaks.commands.CommandUtils;
-import de.trienow.trienowtweaks.entity.layer.LayerTtRenderMode;
+import de.trienow.trienowtweaks.entity.layer.LayerTtType;
 import de.trienow.trienowtweaks.network.PacketPlayerCaps;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -23,7 +24,17 @@ class PermaRenderLayer
 {
 	public static ArgumentBuilder<CommandSourceStack, ?> register()
 	{
-		return Commands.literal(SubCommands.permaRenderLayer.toString())
+		LiteralArgumentBuilder<CommandSourceStack> literal = Commands.literal(SubCommands.permaRenderLayer.toString());
+
+		for(LayerTtType type : LayerTtType.values())
+		{
+			literal = literal.then(Commands.literal(type.toString())
+					.then(CommandArg.PLAYER.arg().executes(
+							(ctx) -> permaRenderLayer(ctx.getSource(), CommandArg.PLAYER.get(ctx), type)
+					))
+					.executes((ctx) -> permaRenderLayer(ctx.getSource(), null, type)));
+		}
+
 				.then(Commands.literal("show")
 						.then(CommandArg.PLAYERS.arg().executes(ctx -> permaRenderLayer(ctx.getSource(), CommandArg.PLAYERS.get(ctx), LayerTtRenderMode.SHOW)))
 						.executes(ctx -> permaRenderLayer(ctx.getSource(), null, LayerTtRenderMode.SHOW)))
@@ -32,18 +43,15 @@ class PermaRenderLayer
 						.executes(ctx -> permaRenderLayer(ctx.getSource(), null, LayerTtRenderMode.HIDE)));
 	}
 
-	private static int permaRenderLayer(@Nonnull CommandSourceStack source, @Nullable Collection<ServerPlayer> serverPlayers, LayerTtRenderMode renderMode) throws CommandSyntaxException
+	private static int permaRenderLayer(@Nonnull CommandSourceStack source, @Nullable ServerPlayer serverPlayer, LayerTtType renderMode) throws CommandSyntaxException
 	{
-		if (serverPlayers == null)
+		if (serverPlayer == null)
 		{
-			serverPlayers = Collections.singleton(source.getPlayerOrException());
+			serverPlayer = source.getPlayerOrException();
 		}
 
-		for (ServerPlayer serverPlayer : serverPlayers)
-		{
 			serverPlayer.getCapability(IPlayerCapability.PLAYER_CAP).ifPresent(pcap -> pcap.setLayerTtRenderMode(renderMode));
 			new PacketPlayerCaps(renderMode, serverPlayer.getUUID()).sendToAll();
-		}
 
 		CommandUtils.sendIm(source, "cmd.trienowtweaks.tt.permarenderlayer.response", renderMode);
 

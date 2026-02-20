@@ -1,59 +1,42 @@
 package de.trienow.trienowtweaks.entity.model;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * @author (c) trienow 2016 - 2022
  */
-public class ModelDrToast<T extends LivingEntity> extends HumanoidModel<T>
+public class ModelDrToast<T extends HumanoidRenderState> extends HumanoidModel<T>
 {
-	private static final Iterable<ModelPart> EMPTY_LIST = ImmutableList.of();
 	private static final int TEXTURE_WIDTH = 128;
 	private static final int TEXTURE_HEIGHT = 64;
 
 	private static final String HEAD = "head";
-	private final Iterable<ModelPart> headParts;
+	private final ModelPart headPart;
 
 	public ModelDrToast(EquipmentSlot slot, ModelPart part)
 	{
 		super(part);
 		if (slot == EquipmentSlot.HEAD)
 		{
-			ModelPart head = part.getChild(HEAD);
-			headParts = ImmutableList.of(head);
+			headPart = part.getChild(HEAD);
 		}
 		else
 		{
-			headParts = EMPTY_LIST;
+			headPart = null;
 		}
 	}
 
-	@Override
-	protected Iterable<ModelPart> headParts()
+	public ModelPart getHeadPart()
 	{
-		return headParts; //Just for performance
-	}
-
-	@Override
-	protected Iterable<ModelPart> bodyParts()
-	{
-		return EMPTY_LIST; //Just for performance
-	}
-
-	public static ModelDrToast<LivingEntity> makeModel(EquipmentSlot slot)
-	{
-		MeshDefinition meshDef = createMesh(slot);
-		ModelPart modelPart = meshDef.getRoot().bake(TEXTURE_WIDTH, TEXTURE_HEIGHT);
-		return new ModelDrToast<>(slot, modelPart);
+		return headPart;
 	}
 
 	public static LayerDefinition createLayer()

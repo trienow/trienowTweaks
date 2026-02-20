@@ -2,40 +2,29 @@ package de.trienow.trienowtweaks.config;
 
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import org.apache.commons.lang3.tuple.Pair;
 
 import static de.trienow.trienowtweaks.main.TrienowTweaks.LOG;
 
 /**
- * @author (c) trienow 2019 - 2023
+ * @author (c) trienow 2019 - 2026
  */
 @EventBusSubscriber(modid = TrienowTweaks.MODID)
 public class Config
 {
-	private static ServerConfig SERVER;
 
-	public static void init()
+	public static void init(ModContainer container)
 	{
-		final Pair<ServerConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(ServerConfig::new);
-		final ModConfigSpec serverSpec = specPair.getRight();
-		SERVER = specPair.getLeft();
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, serverSpec);
+		container.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC);
 	}
 
 	@SubscribeEvent
-	public static void onLoad(final ModConfigEvent cfgEvt)
+	public static void onLoad(final ModConfigEvent.Loading cfgEvt)
 	{
-		getServerConfig().cacheLoadedValues();
+		ServerConfig.CONFIG.cacheLoadedValues();
 		LOG.info("Config loaded: {}", cfgEvt.getConfig().getModId());
-	}
-
-	public static ServerConfig getServerConfig()
-	{
-		return SERVER;
 	}
 }

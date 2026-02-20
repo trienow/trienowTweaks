@@ -1,76 +1,53 @@
 package de.trienow.trienowtweaks.entity.layer;
 
-import de.trienow.trienowtweaks.capabilities.IPlayerCapability;
+import com.google.common.reflect.TypeToken;
 import de.trienow.trienowtweaks.entity.model.ModelDrToast;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.common.util.LazyOptional;
-
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
+import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
 
 /**
- * @author (c) trienow 2022 - 2023
+ * @author (c) trienow 2022 - 2026
  * Thanks to Gigaherz for your gist explaining how to use layers!
  */
-@Mod.EventBusSubscriber(modid = TrienowTweaks.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TrienowTweaks.MODID, value = Dist.CLIENT)
 public class RenderSetup
 {
 	public static final String TRIENOW = "trienow";
 	public static final String TOASTY = "Sandwichmania";
 
-	public static final ResourceLocation KNIGHT_LAYER_TEXTURE = new ResourceLocation(TrienowTweaks.MODID, "textures/models/armor/knight_layer_1.png");
+	public static final ResourceLocation KNIGHT_LAYER_TEXTURE = ResourceLocation.fromNamespaceAndPath(
+			TrienowTweaks.MODID,
+			"textures/models/armor/knight_layer_1.png");
 	public static final ModelLayerLocation KNIGHT_LAYER_LOCATION = new ModelLayerLocation(KNIGHT_LAYER_TEXTURE, "knight");
 
-	public static final ResourceLocation DRTOAST_LAYER_TEXTURE = new ResourceLocation(TrienowTweaks.MODID, "textures/models/armor/drtoast_layer_1.png");
+	public static final ResourceLocation DRTOAST_LAYER_TEXTURE = ResourceLocation.fromNamespaceAndPath(
+			TrienowTweaks.MODID,
+			"textures/models/armor/drtoast_layer_1.png");
 	public static final ModelLayerLocation DRTOAST_LAYER_LOCATION = new ModelLayerLocation(DRTOAST_LAYER_TEXTURE, "drToast");
 
-	private static final Map<UUID, LazyOptional<IPlayerCapability>> MAP = new TreeMap<>();
+	public static final ContextKey<LayerTtType> LAYER_TYPE_CTX = new ContextKey<>(
+			ResourceLocation.fromNamespaceAndPath(TrienowTweaks.MODID, "layer_type_ctx")
+	);
 
-	public static void clearPcapCache()
+	@SubscribeEvent
+	public static void onRegisterRenderStateModifiers(RegisterRenderStateModifiersEvent evt)
 	{
-		MAP.clear();
-	}
-
-	/**
-	 * Returns the way the layer should be rendered
-	 *
-	 * @param entity The entity on which the layer should be rendered
-	 * @return The way the layer should be rendered
-	 */
-	public static LayerTtRenderMode shouldRenderLayer(Entity entity)
-	{
-		LayerTtRenderMode result = LayerTtRenderMode.SHOW;
-		UUID entityUuid = entity.getUUID();
-		LazyOptional<IPlayerCapability> loPcap = MAP.get(entityUuid);
-
-		if (loPcap == null)
-		{
-			loPcap = entity.getCapability(IPlayerCapability.PLAYER_CAP);
-			loPcap.addListener((deadLo) -> MAP.remove(entityUuid));
-			MAP.put(entityUuid, loPcap);
-		}
-
-		IPlayerCapability pcap = loPcap.orElse(null);
-		if (pcap instanceof IPlayerCapability)
-		{
-			result = pcap.getLayerTtRenderMode();
-		}
-		else
-		{
-			MAP.remove(entityUuid);
-		}
-
-		return result;
+		evt.registerEntityModifier(new TypeToken<LivingEntityRenderer<LivingEntity, LivingEntityRenderState, ?>>()
+								   {
+								   },
+				(entity, state) -> state.setRenderData(LAYER_TYPE_CTX, LayerTtType.NONE));
 	}
 
 	@SubscribeEvent
@@ -84,10 +61,9 @@ public class RenderSetup
 	@SubscribeEvent
 	public static void onEntityAddLayers(final EntityRenderersEvent.AddLayers evt)
 	{
-		for (String skin : evt.getSkins())
+		for (PlayerSkin.Model skin : evt.getSkins())
 		{
-			final LivingEntityRenderer livingEntityRenderer = evt.getSkin(skin);
-			if (livingEntityRenderer instanceof LivingEntityRenderer)
+			if (evt.getSkin(skin) instanceof LivingEntityRenderer livingEntityRenderer)
 			{
 				livingEntityRenderer.addLayer(new LayerTT<>(livingEntityRenderer));
 			}
