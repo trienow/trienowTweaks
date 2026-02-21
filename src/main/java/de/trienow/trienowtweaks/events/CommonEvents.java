@@ -1,8 +1,8 @@
 package de.trienow.trienowtweaks.events;
 
+import de.trienow.trienowtweaks.atom.AtomAttachments;
 import de.trienow.trienowtweaks.config.ServerConfig;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import de.trienow.trienowtweaks.network.PacketReqPlayerCaps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -47,6 +47,15 @@ public class CommonEvents
 		}
 	}
 
+	@SubscribeEvent
+	public static void onClone(final PlayerEvent.Clone evt)
+	{
+		if (evt.isWasDeath() && evt.getOriginal().hasData(AtomAttachments.LAYER_TT))
+		{
+			evt.getEntity().setData(AtomAttachments.LAYER_TT, evt.getOriginal().getData(AtomAttachments.LAYER_TT));
+		}
+	}
+
 	// ENTITY PROHIBITATOR
 	@SubscribeEvent
 	public static void onEntitySpawn(final EntityJoinLevelEvent evt)
@@ -54,14 +63,7 @@ public class CommonEvents
 		// When accessing blocks or chunks while the world is loading (EVEN IF THEY ARE THERE) the loading stalls.
 		Level level = evt.getLevel();
 		Entity ent = evt.getEntity();
-		if (level.isClientSide())
-		{
-			if (ent instanceof Player player)
-			{
-				new PacketReqPlayerCaps(player.getUUID()).sendToServer();
-			}
-		}
-		else
+		if (!level.isClientSide())
 		{
 			if (!(ent instanceof Player) && ent.getClassification(true) == MobCategory.MONSTER)
 			{

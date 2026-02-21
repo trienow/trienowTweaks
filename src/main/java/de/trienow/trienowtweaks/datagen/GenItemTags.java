@@ -1,13 +1,12 @@
 package de.trienow.trienowtweaks.datagen;
 
 import de.trienow.trienowtweaks.atom.AtomTags;
+import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.TagEntry;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -16,18 +15,15 @@ import java.util.concurrent.CompletableFuture;
  */
 public class GenItemTags extends ItemTagsProvider
 {
-	public GenItemTags(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_, CompletableFuture<TagLookup<Block>> p_275322_, String modId, @Nullable ExistingFileHelper existingFileHelper)
+	public GenItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider)
 	{
-		super(p_275343_, p_275729_, p_275322_, modId, existingFileHelper);
+		super(output, lookupProvider, TrienowTweaks.MODID);
 	}
 
 	@Override
-	protected void addTags(HolderLookup.Provider pProvider)
+	protected void addTags(HolderLookup.Provider lookupProvider)
 	{
-		copy(AtomTags.Blocks.COPPER_CUT, AtomTags.Items.COPPER_CUT);
-		copy(AtomTags.Blocks.RAILROAD_TRUSS, AtomTags.Items.RAILROAD_TRUSS);
-
-		tag(AtomTags.Items.MEAT_RAW)
+		this.tag(AtomTags.Items.MEAT_RAW)
 				.add(Items.ROTTEN_FLESH)
 				.add(Items.BEEF)
 				.add(Items.PORKCHOP)
@@ -35,5 +31,19 @@ public class GenItemTags extends ItemTagsProvider
 				.add(Items.MUTTON)
 				.add(Items.RABBIT_FOOT)
 				.add(Items.RABBIT);
+
+		this.tag(AtomTags.Items.COPPER_CUT)
+				.add(TagEntry.optionalTag(AtomTags.Blocks.COPPER_CUT.location()));
+		this.tag(AtomTags.Items.RAILROAD_TRUSS)
+				.add(TagEntry.optionalTag(AtomTags.Blocks.RAILROAD_TRUSS.location()));
+
+		this.tag(AtomTags.Items.SKULLS)
+				.add(Items.CREEPER_HEAD,
+						Items.DRAGON_HEAD,
+						Items.PIGLIN_HEAD,
+						Items.PLAYER_HEAD,
+						Items.ZOMBIE_HEAD,
+						Items.SKELETON_SKULL,
+						Items.WITHER_SKELETON_SKULL);
 	}
 }

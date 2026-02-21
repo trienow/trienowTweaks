@@ -10,18 +10,19 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+
+import java.util.Optional;
 
 import static de.trienow.trienowtweaks.main.TrienowTweaks.LOG;
 
@@ -55,7 +56,7 @@ class Random
 
 		CommandUtils.sendIm(target, TEXT_START);
 
-		Level level = target.level();
+		ServerLevel level = target.level();
 		WorldBorder border = level.getWorldBorder();
 		BlockPos spawnPoint = level.getLevelData().getSpawnPos();
 		RandomSource rand = level.random;
@@ -87,7 +88,7 @@ class Random
 			if (!level.hasChunk(x >> 4, z >> 4))
 			{
 				LOG.warn("[TT] /tt random: GENNING");
-				chunk.postProcessGeneration();
+				chunk.postProcessGeneration(level);
 			}
 
 			BlockPos pos = level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, xz);
@@ -120,22 +121,16 @@ class Random
 			}
 
 			// WE DID IT!
-			final Biome biome = level.getBiome(pos).value();
+			final Holder<Biome> biome = level.getBiome(pos);
 			double tx = pos.getX() + 0.5f;
 			double ty = pos.getY() + 3;
 			double tz = pos.getZ() + 0.5f;
 
 			String biomeName = "<UNKNOWN>";
-
-			Registry<Biome> biomeRegistry = level.registryAccess().registry(ForgeRegistries.BIOMES.getRegistryKey()).orElse(null);
-
-			if (biomeRegistry != null)
+			Optional<ResourceKey<Biome>> biomeResourceKey = biome.unwrapKey();
+			if (biomeResourceKey.isPresent())
 			{
-				ResourceLocation biomeResourceLocation = biomeRegistry.getKey(biome);
-				if (biomeResourceLocation != null)
-				{
-					biomeName = biomeResourceLocation.getPath().replaceAll("_", " ");
-				}
+				biomeName = biomeResourceKey.get().location().getPath().replaceAll("_", " ");
 			}
 
 			LOG.info("[TT] /tt random: Teleporting {} to [{} {} {}] ({}) issued by {}. Tried {} times.",

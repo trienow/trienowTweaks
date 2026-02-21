@@ -1,7 +1,12 @@
 package de.trienow.trienowtweaks.atom;
 
+import de.trienow.trienowtweaks.blocks.BaseBlock;
+import de.trienow.trienowtweaks.blocks.BaseBlockItem;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -28,7 +33,6 @@ public class AtomItemBlocks
 
 	public static final DeferredItem<BlockItem> FAKE_FIRE = register(AtomBlocks.FAKE_FIRE);
 	public static final DeferredItem<BlockItem> MINECART_KILLER = register(AtomBlocks.MINECART_KILLER);
-	public static final DeferredItem<BlockItem> COMPACT_CRAFTER = register(AtomBlocks.COMPACT_CRAFTER);
 	public static final DeferredItem<BlockItem> ITEM_DETECTOR = register(AtomBlocks.ITEM_DETECTOR);
 	public static final DeferredItem<BlockItem> ENTITY_PROHIBITATOR = register(AtomBlocks.ENTITY_PROHIBITATOR);
 	public static final DeferredItem<BlockItem> TORCH_SQUARED = register(AtomBlocks.TORCH_SQUARED);
@@ -40,6 +44,11 @@ public class AtomItemBlocks
 
 	private static DeferredItem<BlockItem> register(DeferredBlock<? extends Block> b)
 	{
-		return ITEMS.registerSimpleBlockItem(b);
+		String path = b.unwrapKey().orElseThrow().location().getPath();
+		return ITEMS.register(path, key -> new BaseBlockItem(
+				(BaseBlock) b.value(),
+				new Item.Properties()
+						.setId(ResourceKey.create(Registries.ITEM, key))
+						.useBlockDescriptionPrefix()));
 	}
 }

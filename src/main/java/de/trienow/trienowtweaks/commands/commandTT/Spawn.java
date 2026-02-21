@@ -43,7 +43,7 @@ class Spawn
 					target.getDisplayName().toString(),
 					sender.getTextName());
 
-			BlockPos spawn = LevelUtils.getSpawn(target.level());
+			BlockPos spawn = target.level().getLevelData().getSpawnPos();
 			target.teleportTo(spawn.getX() + 0.5, spawn.getY() + 0.5, spawn.getZ() + 0.5);
 			CommandUtils.sendIm(sender, TEXT_RESPONSE, target.getDisplayName());
 		}

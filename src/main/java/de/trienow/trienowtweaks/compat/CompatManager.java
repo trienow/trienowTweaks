@@ -6,7 +6,7 @@ import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 
@@ -18,7 +18,7 @@ import java.util.Optional;
  * @author (c) trienow 2020 - 2023
  */
 @SuppressWarnings("WeakerAccess")
-@Mod.EventBusSubscriber(modid = TrienowTweaks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TrienowTweaks.MODID)
 public class CompatManager
 {
 	public static ICuriosProxy curiosProxy;

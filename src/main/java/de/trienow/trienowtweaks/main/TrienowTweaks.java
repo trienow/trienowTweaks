@@ -2,7 +2,6 @@ package de.trienow.trienowtweaks.main;
 
 import de.trienow.trienowtweaks.atom.*;
 import de.trienow.trienowtweaks.config.Config;
-import de.trienow.trienowtweaks.network.PacketHandler;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -35,7 +34,5 @@ public class TrienowTweaks
 		AtomCreativeTab.init(modEventBus);
 		AtomTiles.init(modEventBus);
 		AtomRecipes.init(modEventBus);
-
-		PacketHandler.register();
 	}
 }

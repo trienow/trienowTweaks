@@ -7,9 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -18,9 +16,9 @@ import java.util.concurrent.CompletableFuture;
  */
 public class GenBlockTags extends BlockTagsProvider
 {
-	public GenBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, @Nullable ExistingFileHelper existingFileHelper)
+	public GenBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider)
 	{
-		super(output, lookupProvider, TrienowTweaks.MODID, existingFileHelper);
+		super(output, lookupProvider, TrienowTweaks.MODID);
 	}
 
 	@Override
@@ -29,7 +27,6 @@ public class GenBlockTags extends BlockTagsProvider
 		tag(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(AtomBlocks.ENTITY_PROHIBITATOR.get())
 				.add(AtomBlocks.ITEM_DETECTOR.get())
-				.add(AtomBlocks.COMPACT_CRAFTER.get())
 				.add(AtomBlocks.MINECART_KILLER.get())
 				.add(AtomBlocks.INVISIBLE_WALL.get())
 				.add(AtomBlocks.STREETLAMP_FIRE.get())
