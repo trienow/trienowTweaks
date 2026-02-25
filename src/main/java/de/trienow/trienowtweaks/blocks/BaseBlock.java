@@ -1,5 +1,8 @@
 package de.trienow.trienowtweaks.blocks;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -13,9 +16,9 @@ public abstract class BaseBlock extends Block
 	/**
 	 * Constructs an object of type BaseBlock.java
 	 */
-	@SuppressWarnings("SameParameterValue") BaseBlock(Properties props)
+	@SuppressWarnings("SameParameterValue") BaseBlock(Properties props, ResourceLocation registryName)
 	{
-		super(props);
+		super(props.setId(ResourceKey.create(Registries.BLOCK, registryName)));
 	}
 
 	static Properties defaultProperties()

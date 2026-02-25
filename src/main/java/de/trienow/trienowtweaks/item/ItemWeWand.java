@@ -3,7 +3,10 @@ package de.trienow.trienowtweaks.item;
 import de.trienow.trienowtweaks.config.Globals;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -43,9 +46,9 @@ public class ItemWeWand extends Item
 	private int colorIndex = 0;
 	private int renderCounter = 0;
 
-	public ItemWeWand()
+	public ItemWeWand(ResourceLocation registryName)
 	{
-		super(new Properties().stacksTo(1));
+		super(new Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, registryName)));
 	}
 
 	@Override public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag)

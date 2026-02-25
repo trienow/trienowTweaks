@@ -5,6 +5,7 @@ import de.trienow.trienowtweaks.blocks.states.StateRailroadTruss;
 import de.trienow.trienowtweaks.blocks.states.StateRailroadTrussType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -31,9 +32,9 @@ public class BlockRailroadTruss extends BaseBlock
 			.noOcclusion();
 	private static final EnumProperty<StateRailroadTruss> DISPLAY = EnumProperty.create("display", StateRailroadTruss.class);
 
-	public BlockRailroadTruss(FlavorRailroadTruss flavor)
+	public BlockRailroadTruss(FlavorRailroadTruss flavor, ResourceLocation registryName)
 	{
-		super(PROPS);
+		super(PROPS, registryName);
 		tooltipCount = flavor.getTooltipCount();
 
 		this.registerDefaultState(this.defaultBlockState().setValue(DISPLAY, StateRailroadTruss.TOP_NS));

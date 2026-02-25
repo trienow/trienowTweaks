@@ -2,6 +2,7 @@ package de.trienow.trienowtweaks.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.level.Level;
@@ -24,9 +25,9 @@ public class BlockMinecartKiller extends BaseBlock
 	private static final Properties PROPS = defaultProperties().mapColor(MapColor.METAL);
 	private static final Predicate<Entity> PREDICATE_TRUE = (ent) -> true;
 
-	public BlockMinecartKiller()
+	public BlockMinecartKiller(ResourceLocation registryName)
 	{
-		super(PROPS);
+		super(PROPS, registryName);
 	}
 
 	@Override protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston)

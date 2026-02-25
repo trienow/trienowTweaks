@@ -1,5 +1,6 @@
 package de.trienow.trienowtweaks.blocks;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.MapColor;
 
 /**
@@ -7,9 +8,9 @@ import net.minecraft.world.level.material.MapColor;
  */
 public class BlockEntityProhibitator extends BaseBlock
 {
-	public BlockEntityProhibitator()
+	public BlockEntityProhibitator(ResourceLocation registryName)
 	{
-		super(defaultProperties().mapColor(MapColor.STONE));
+		super(defaultProperties().mapColor(MapColor.STONE), registryName);
 		super.tooltipCount = 4;
 	}
 }

@@ -7,7 +7,10 @@ import de.trienow.trienowtweaks.compat.curios.ICuriosProxy;
 import de.trienow.trienowtweaks.datacomponents.AutoFoodData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -34,12 +37,12 @@ public class ItemAutoFood extends Item
 {
 	byte checkLimiter = -20;
 
-	public ItemAutoFood()
+	public ItemAutoFood(ResourceLocation registryName)
 	{
 		super(new Properties()
 				.stacksTo(1)
 				.durability(500)
-				.component(AtomDataComponents.AUTO_FOOD.get(), new AutoFoodData((byte) 0, (byte) 0))
+				.component(AtomDataComponents.AUTO_FOOD.get(), new AutoFoodData((byte) 0, (byte) 0)).setId(ResourceKey.create(Registries.ITEM, registryName))
 		);
 	}
 
@@ -198,7 +201,7 @@ public class ItemAutoFood extends Item
 			tf = ChatFormatting.DARK_RED;
 
 		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_food.tooltip0"));
-		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_food.tooltip1", tf, uses));
+		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_food.tooltip1", tf.toString(), uses));
 	}
 
 	@Override public InteractionResult use(Level level, Player player, InteractionHand hand)

@@ -2,21 +2,26 @@ package de.trienow.trienowtweaks.datagen;
 
 import de.trienow.trienowtweaks.atom.AtomItemBlocks;
 import de.trienow.trienowtweaks.atom.AtomItems;
-import de.trienow.trienowtweaks.atom.AtomRecipes;
 import de.trienow.trienowtweaks.atom.AtomTags;
+import de.trienow.trienowtweaks.main.TrienowTweaks;
+import de.trienow.trienowtweaks.recipes.RecipeTTCrafting;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import javax.annotation.Nonnull;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author trienow 2023 - 2026
@@ -52,10 +57,10 @@ public class GenRecipes extends RecipeProvider
 				.unlockedBy(getHasName(Items.MAGMA_BLOCK), has(Items.MAGMA_BLOCK))
 				.save(output);
 
-		SpecialRecipeBuilder.special(RecipeCategory.DECORATIONS, AtomRecipes.RECIPE_TT.get())
+		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
 				.save(output, recipeId(AtomItemBlocks.GENERIC_LIGHT));
 
-		SpecialRecipeBuilder.special(RecipeCategory.DECORATIONS, AtomRecipes.RECIPE_TT.get())
+		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
 				.save(output, recipeId(AtomItemBlocks.INVISIBLE_WALL));
 
 		ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, AtomItemBlocks.ITEM_DETECTOR.get())
@@ -130,9 +135,9 @@ public class GenRecipes extends RecipeProvider
 				.pattern(" B ")
 				.save(output);
 
-		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
+		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
 				.save(output, recipeId(AtomItemBlocks.STREETLAMP_FIRE));
-		SpecialRecipeBuilder.special(AtomRecipes.RECIPE_TT.get())
+		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
 				.save(output, recipeId(AtomItemBlocks.STREETLAMP_FLESH));
 
 		ShapedRecipeBuilder.shaped(items, RecipeCategory.DECORATIONS, AtomItemBlocks.STREETLAMP_GLOWSTONE.get())
@@ -182,54 +187,6 @@ public class GenRecipes extends RecipeProvider
 				.pattern(" I ")
 				.pattern(" I ")
 				.save(output);
-
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-						Ingredient.of(Items.GOLDEN_HELMET),
-						Ingredient.of((Items.BREAD)),
-						RecipeCategory.COMBAT,
-						AtomItems.DRTOAST_HEAD.get())
-				.unlocks(getHasName(Items.BREAD), has(Items.BREAD))
-				.unlocks(getHasName(Items.GOLDEN_HELMET), has(Items.GOLDEN_HELMET))
-				.save(output, recipeIdSmithing(AtomItems.DRTOAST_HEAD));
-
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-						Ingredient.of(Items.NETHERITE_HELMET),
-						Ingredient.of(Items.RED_WOOL),
-						RecipeCategory.COMBAT, AtomItems.KNIGHT_HEAD.get())
-				.unlocks(getHasName(Items.NETHERITE_HELMET), has(Items.NETHERITE_HELMET))
-				.unlocks(getHasName(Items.RED_WOOL), has(Items.RED_WOOL))
-				.save(output, recipeIdSmithing(AtomItems.KNIGHT_HEAD));
-
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-						Ingredient.of(Items.NETHERITE_CHESTPLATE),
-						Ingredient.of(Items.LEATHER), RecipeCategory.COMBAT,
-						AtomItems.KNIGHT_CHEST.get())
-				.unlocks(getHasName(Items.NETHERITE_CHESTPLATE), has(Items.NETHERITE_CHESTPLATE))
-				.unlocks(getHasName(Items.LEATHER), has(Items.LEATHER))
-				.save(output, recipeIdSmithing(AtomItems.KNIGHT_CHEST));
-
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-						Ingredient.of(Items.NETHERITE_LEGGINGS),
-						Ingredient.of(Items.QUARTZ),
-						RecipeCategory.COMBAT,
-						AtomItems.KNIGHT_LEGS.get())
-				.unlocks(getHasName(Items.NETHERITE_LEGGINGS), has(Items.NETHERITE_LEGGINGS))
-				.unlocks(getHasName(Items.QUARTZ), has(Items.QUARTZ))
-				.save(output, recipeIdSmithing(AtomItems.KNIGHT_LEGS));
-
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-						Ingredient.of(Items.NETHERITE_BOOTS),
-						Ingredient.of(Items.GOLD_INGOT),
-						RecipeCategory.COMBAT,
-						AtomItems.KNIGHT_FEET.get())
-				.unlocks(getHasName(Items.NETHERITE_BOOTS), has(Items.NETHERITE_BOOTS))
-				.unlocks(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
-				.save(output, recipeIdSmithing(AtomItems.KNIGHT_FEET));
-	}
-
-	private static String recipeIdSmithing(@Nonnull DeferredItem<?> ro)
-	{
-		return ro.getId().toString() + "_smithing";
 	}
 
 	private static String recipeId(@Nonnull DeferredItem<?> ro)
@@ -238,14 +195,37 @@ public class GenRecipes extends RecipeProvider
 	}
 
 	@SuppressWarnings("SameParameterValue")
-	private static ResourceLocation recipeLoc(@Nonnull DeferredItem<?> ro, int index)
+	private static ResourceKey<Recipe<?>> recipeLoc(@Nonnull DeferredItem<?> ro, int index)
 	{
-		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + index);
+		return ResourceKey.create(
+				Registries.RECIPE,
+				ResourceLocation.fromNamespaceAndPath(ro.getId().getNamespace(), ro.getId().getPath() + "_" + index));
 	}
 
 	@SuppressWarnings("SameParameterValue")
-	private static ResourceLocation recipeVariant(@Nonnull DeferredItem<?> ro, String variant)
+	private static ResourceKey<Recipe<?>> recipeVariant(@Nonnull DeferredItem<?> ro, String variant)
 	{
-		return new ResourceLocation(ro.getId().getNamespace(), ro.getId().getPath() + "_" + variant);
+		return ResourceKey.create(
+				Registries.RECIPE,
+				ResourceLocation.fromNamespaceAndPath(ro.getId().getNamespace(), ro.getId().getPath() + "_" + variant));
+	}
+
+	public static class Runner extends RecipeProvider.Runner
+	{
+
+		protected Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries)
+		{
+			super(packOutput, registries);
+		}
+
+		@Override protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput)
+		{
+			return new GenRecipes(provider, recipeOutput);
+		}
+
+		@Override public String getName()
+		{
+			return TrienowTweaks.MODID + "_RECIPE_RUNNER";
+		}
 	}
 }

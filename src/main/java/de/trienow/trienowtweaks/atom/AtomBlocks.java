@@ -41,6 +41,6 @@ public class AtomBlocks
 
 	private static DeferredBlock<BlockRailroadTruss> register(FlavorRailroadTruss flavor)
 	{
-		return BLOCKS.register("railroad_truss_" + flavor, () -> new BlockRailroadTruss(flavor));
+		return BLOCKS.register("railroad_truss_" + flavor, (registryName) -> new BlockRailroadTruss(flavor, registryName));
 	}
 }

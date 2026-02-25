@@ -1,22 +1,17 @@
 package de.trienow.trienowtweaks.entity.layer;
 
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -29,46 +24,55 @@ import java.util.function.Consumer;
 @EventBusSubscriber(modid = TrienowTweaks.MODID, value = Dist.CLIENT)
 public class ArmorLayerHelper
 {
-	private static final Map<Entity, Consumer<PlayerRenderer>> parkedArmorRenderers = new ConcurrentHashMap<>();
+	private static final Map<Integer, Consumer<PlayerRenderer>> parkedArmorRenderers = new ConcurrentHashMap<>();
 
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public static void onRenderPlayerPre(final RenderPlayerEvent.Pre evt)
 	{
-		final Player player = evt.getEntity();
-		final String playerName = player.getName().getString();
-		if (RenderSetup.TRIENOW.equals(playerName) || RenderSetup.TOASTY.equals(playerName))
+		LayerTtType renderDataOrDefault = evt.getRenderState().getRenderDataOrDefault(RenderSetup.LAYER_TYPE_CTX, LayerTtType.NONE);
+		if (renderDataOrDefault != LayerTtType.NONE)
 		{
-			if (RenderSetup.shouldRenderLayer(player) == LayerTtRenderMode.SHOW)
+			for (RenderLayer<PlayerRenderState, PlayerModel> renderLayer : evt.getRenderer().layers)
 			{
-				removeArmorLayer(player, evt.getRenderer().layers);
+				if (renderLayer instanceof HumanoidArmorLayer<?, ?, ?> armorLayer)
+				{
+					parkedArmorRenderers.putIfAbsent(0, (playerRenderer) -> playerRenderer.layers.add(1, renderLayer));
+					evt.getRenderer().layers.remove(renderLayer);
+					break;
+				}
 			}
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	private static <E extends LivingEntity, M extends EntityModel<E>> void removeArmorLayer(Entity renderedEntity, List<RenderLayer<E, M>> renderLayerList)
-	{
-		for (RenderLayer<E, M> renderLayer : renderLayerList)
-		{
-			if (renderLayer instanceof HumanoidArmorLayer<?, ?, ?> armorLayer)
-			{
-				parkedArmorRenderers.putIfAbsent(renderedEntity,
-						(playerRenderer) -> playerRenderer.layers.add(1, (RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>) armorLayer));
-				renderLayerList.remove(renderLayer);
-				break;
-			}
-		}
-	}
+	//	@SuppressWarnings("unchecked")
+	//	private static <E extends LivingEntity, M extends EntityModel<E>> void removeArmorLayer(Entity renderedEntity, List<RenderLayer<E, M>> renderLayerList)
+	//	{
+	//		for (RenderLayer<E, M> renderLayer : renderLayerList)
+	//		{
+	//			if (renderLayer instanceof HumanoidArmorLayer<?, ?, ?> armorLayer)
+	//			{
+	//				parkedArmorRenderers.putIfAbsent(renderedEntity,
+	//						(playerRenderer) -> playerRenderer.layers.add(1, (RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>) armorLayer));
+	//				renderLayerList.remove(renderLayer);
+	//				break;
+	//			}
+	//		}
+	//	}
 
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void onRenderPlayerPost(final RenderPlayerEvent.Post evt)
 	{
-		final Entity renderedEntity = evt.getEntity();
-		final Consumer<PlayerRenderer> parkedArmorRenderer = parkedArmorRenderers.get(renderedEntity);
-		if (parkedArmorRenderer != null)
+		if (parkedArmorRenderers.containsKey(0))
 		{
-			parkedArmorRenderer.accept(evt.getRenderer());
-			parkedArmorRenderers.remove(renderedEntity);
+			parkedArmorRenderers.get(0).accept(evt.getRenderer());
+			parkedArmorRenderers.remove(0);
 		}
+		//		final Entity renderedEntity = evt.getEntity();
+		//		final Consumer<PlayerRenderer> parkedArmorRenderer = parkedArmorRenderers.get(renderedEntity);
+		//		if (parkedArmorRenderer != null)
+		//		{
+		//			parkedArmorRenderer.accept(evt.getRenderer());
+		//			parkedArmorRenderers.remove(renderedEntity);
+		//		}
 	}
 }

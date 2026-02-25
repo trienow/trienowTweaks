@@ -3,6 +3,7 @@ package de.trienow.trienowtweaks.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -33,9 +34,9 @@ public class BlockFakeFire extends BaseBlock
 
 	private static final VoxelShape AABB = Shapes.create(0.02D, 0D, 0.02D, 0.98D, 0.2D, 0.98D);
 
-	public BlockFakeFire()
+	public BlockFakeFire(ResourceLocation registryName)
 	{
-		super(PROPS);
+		super(PROPS, registryName);
 	}
 
 	@Override

@@ -5,7 +5,10 @@ import de.trienow.trienowtweaks.compat.CompatManager;
 import de.trienow.trienowtweaks.compat.curios.ICuriosProxy;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -31,9 +34,9 @@ public class ItemAutoLight extends Item
 {
 	private int activeTick = 0;
 
-	public ItemAutoLight()
+	public ItemAutoLight(ResourceLocation registryName)
 	{
-		super(new Properties().stacksTo(1));
+		super(new Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, registryName)));
 	}
 
 	@Override public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot)

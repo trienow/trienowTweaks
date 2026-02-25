@@ -3,6 +3,7 @@ package de.trienow.trienowtweaks.blocks;
 import de.trienow.trienowtweaks.blocks.states.StateGenericLight;
 import de.trienow.trienowtweaks.config.Globals;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -34,9 +35,9 @@ public class BlockGenericLight extends BaseBlock
 	public static final EnumProperty<StateGenericLight> ANCHOR = EnumProperty.create("anchor", StateGenericLight.class);
 	private static final VoxelShape SHAPE_BB = Shapes.empty();
 
-	public BlockGenericLight()
+	public BlockGenericLight(ResourceLocation registryName)
 	{
-		super(PROPS);
+		super(PROPS, registryName);
 		registerDefaultState(super.defaultBlockState().setValue(ANCHOR, StateGenericLight.NONE));
 	}
 

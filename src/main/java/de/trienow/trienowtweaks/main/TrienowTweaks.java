@@ -5,7 +5,6 @@ import de.trienow.trienowtweaks.config.Config;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +22,12 @@ public class TrienowTweaks
 	 */
 	public TrienowTweaks(ModContainer container)
 	{
-		final IEventBus modEventBus = NeoForge.EVENT_BUS;
+		final IEventBus modEventBus = container.getEventBus();
 
 		Config.init(container);
 		AtomDataComponents.init(modEventBus);
 		AtomAttachments.init(modEventBus);
+
 		AtomBlocks.init(modEventBus);
 		AtomItems.init(modEventBus);
 		AtomItemBlocks.init(modEventBus);

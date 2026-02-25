@@ -4,6 +4,7 @@ import de.trienow.trienowtweaks.atom.AtomBlocks;
 import de.trienow.trienowtweaks.blocks.states.StateGenericLight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -47,9 +48,9 @@ public class BlockTorchSquared extends BaseBlock
 	private static final VoxelShape SHAPE_COLLISION = Shapes.empty();
 	private static final Direction[] FIX_PLACEMENT_TRIES = new Direction[] { Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN };
 
-	public BlockTorchSquared()
+	public BlockTorchSquared(ResourceLocation registryName)
 	{
-		super(PROPS);
+		super(PROPS, registryName);
 		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP));
 		tooltipCount = 3;
 	}

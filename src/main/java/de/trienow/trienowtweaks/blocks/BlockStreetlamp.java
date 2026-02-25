@@ -2,6 +2,7 @@ package de.trienow.trienowtweaks.blocks;
 
 import de.trienow.trienowtweaks.blocks.states.StateStreetlamp;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -40,9 +41,9 @@ public class BlockStreetlamp extends BaseBlock
 	/**
 	 * Constructs a new streetlamp block
 	 */
-	public BlockStreetlamp()
+	public BlockStreetlamp(ResourceLocation registryName)
 	{
-		super(PROPS);
+		super(PROPS, registryName);
 		this.registerDefaultState(this.defaultBlockState().setValue(PLACEMENT, StateStreetlamp.TOP));
 	}
 

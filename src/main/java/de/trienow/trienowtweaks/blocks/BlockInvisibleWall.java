@@ -2,6 +2,7 @@ package de.trienow.trienowtweaks.blocks;
 
 import de.trienow.trienowtweaks.config.Globals;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
@@ -24,9 +25,9 @@ public class BlockInvisibleWall extends BaseBlock
 	private static final VoxelShape SHAPE_COLLISION = Shapes.create(0, 0, 0, 1, 1.5, 1);
 	private static final VoxelShape SHAPE_BB = Shapes.block();
 
-	public BlockInvisibleWall()
+	public BlockInvisibleWall(ResourceLocation registryName)
 	{
-		super(PROPS);
+		super(PROPS, registryName);
 	}
 
 	@Override
