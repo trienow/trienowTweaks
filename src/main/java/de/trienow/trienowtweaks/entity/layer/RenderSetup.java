@@ -1,6 +1,7 @@
 package de.trienow.trienowtweaks.entity.layer;
 
 import com.google.common.reflect.TypeToken;
+import de.trienow.trienowtweaks.atom.AtomAttachments;
 import de.trienow.trienowtweaks.entity.model.ModelDrToast;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
@@ -47,7 +48,8 @@ public class RenderSetup
 		evt.registerEntityModifier(new TypeToken<LivingEntityRenderer<LivingEntity, LivingEntityRenderState, ?>>()
 								   {
 								   },
-				(entity, state) -> state.setRenderData(LAYER_TYPE_CTX, LayerTtType.NONE));
+				(entity, state) -> state.setRenderData(LAYER_TYPE_CTX, LayerTtType.fromId(entity.getData(AtomAttachments.LAYER_TT)))
+		);
 	}
 
 	@SubscribeEvent

@@ -10,6 +10,9 @@ import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.Nullable;
 
+import static net.minecraft.client.model.geom.PartNames.HAT;
+import static net.minecraft.client.model.geom.PartNames.HEAD;
+
 /**
  * @author (c) trienow 2016 - 2022
  */
@@ -18,7 +21,6 @@ public class ModelDrToast<T extends HumanoidRenderState> extends HumanoidModel<T
 	private static final int TEXTURE_WIDTH = 128;
 	private static final int TEXTURE_HEIGHT = 64;
 
-	private static final String HEAD = "head";
 	private final ModelPart headPart;
 
 	public ModelDrToast(EquipmentSlot slot, ModelPart part)
@@ -54,6 +56,8 @@ public class ModelDrToast<T extends HumanoidRenderState> extends HumanoidModel<T
 
 		if (slot == null || slot == EquipmentSlot.HEAD)
 		{
+			partDef.getChild(HEAD).clearChild(HAT);
+
 			PartDefinition headInner = new BoxBuilder()
 					.setTextureOffset(texMainX, 4)
 					.setBoxOffset(5F, 1F, -4F)

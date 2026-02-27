@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 public class TrienowTweaks
 {
 	public static final String MODID = "trienowtweaks";
-	public static final Logger LOG = LogManager.getLogger();
+	public static final Logger LOG = LogManager.getLogger(MODID);
 
 	/**
 	 * Constructs an object of type TrienowTweaks.java

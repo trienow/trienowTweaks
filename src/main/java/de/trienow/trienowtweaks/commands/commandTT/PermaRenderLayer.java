@@ -44,7 +44,7 @@ class PermaRenderLayer
 
 		serverPlayer.setData(AtomAttachments.LAYER_TT, renderMode.getId());
 
-		CommandUtils.sendIm(source, "cmd.trienowtweaks.tt.permarenderlayer.response", renderMode);
+		CommandUtils.sendIm(source, "cmd.trienowtweaks.tt.permarenderlayer.response", renderMode.toString());
 
 		return 1;
 	}

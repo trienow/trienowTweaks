@@ -60,7 +60,7 @@ public class ItemWeWand extends Item
 			{
 				int newColorIndex = colorIndex;
 
-				if (context.level().random != null)
+				if (context.level() != null)
 				{
 					newColorIndex = context.level().random.nextInt(FORMATTERS.length);
 				}

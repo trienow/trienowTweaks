@@ -26,7 +26,7 @@ public class WorldTick
 	private static int antiFlyingTick = 0;
 
 	@SubscribeEvent
-	public static void onWorldTickEvent(LevelTickEvent evt)
+	public static void onWorldTickEvent(LevelTickEvent.Post evt)
 	{
 		if (!evt.getLevel().isClientSide())
 		{

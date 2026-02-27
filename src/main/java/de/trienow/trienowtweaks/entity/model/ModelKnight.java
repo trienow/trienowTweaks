@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.Nullable;
 
+import static net.minecraft.client.model.geom.PartNames.*;
+
 /**
  * @author (c) trienow 2016 - 2022
  */
@@ -18,92 +20,14 @@ public class ModelKnight<T extends HumanoidRenderState> extends HumanoidModel<T>
 	public static final int TEXTURE_WIDTH = 128;
 	public static final int TEXTURE_HEIGHT = 64;
 
-	// Must be the same names as HumanoidModel uses (except for boots, as they don't exist).
-	private static final String HEAD = "head";
-	private static final String BODY = "body";
-	private static final String ARM_L = "left_arm";
-	private static final String ARM_R = "right_arm";
-	private static final String LEG_L = "left_leg";
-	private static final String LEG_R = "right_leg";
+	// The Part Names must be the same names as HumanoidModel uses (except for boots, as they don't exist). That's why we design them here
 	private static final String BOOT_L = "bootL";
 	private static final String BOOT_R = "bootR";
 
-	private final ModelPart headPart;
-	private final ModelPart bodyPart;
-
-	public ModelKnight(EquipmentSlot modelType, ModelPart part)
+	public ModelKnight(@Nullable EquipmentSlot modelType, ModelPart part)
 	{
 		super(part);
-		ModelPart head = part.getChild(HEAD);
-		ModelPart body = part.getChild(BODY);
-		ModelPart armL = part.getChild(ARM_L);
-		ModelPart armR = part.getChild(ARM_R);
-		ModelPart legL = part.getChild(LEG_L);
-		ModelPart legR = part.getChild(LEG_R);
-
-		switch (modelType)
-		{
-			case FEET, LEGS ->
-			{
-				headPart = null;
-				bodyPart = null;//ImmutableList.of(legL, legR);
-			}
-			case CHEST ->
-			{
-				headPart = null;
-				bodyPart = null;//ImmutableList.of(body, armL, armR);
-			}
-			case HEAD ->
-			{
-				headPart = head;
-				bodyPart = null;
-			}
-			default ->
-			{
-				headPart = null;
-				bodyPart = null;
-			}
-		}
 	}
-
-	//TODO Remove
-	//	@Override
-	//	public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch)
-	//	{
-	//		if (pEntity instanceof ArmorStand)
-	//		{
-	//			pLimbSwing = 0;
-	//			pLimbSwingAmount = 0;
-	//			pAgeInTicks = 42;
-	//		}
-	//
-	//		super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-	//	}
-
-	//	@Override
-	//	protected Iterable<ModelPart> headParts()
-	//	{
-	//		return headParts; //Just for performance
-	//	}
-	//
-	//	@Override
-	//	protected Iterable<ModelPart> bodyParts()
-	//	{
-	//		return bodyParts; //Just for performance
-	//	}
-
-	@Override public ModelPart getHead()
-	{
-		return headPart;
-	}
-
-	//TODO Remove
-	//	public static ModelKnight<LivingEntity> makeModel(EquipmentSlot slot)
-	//	{
-	//		MeshDefinition meshDef = createMesh(slot);
-	//		ModelPart modelPart = meshDef.getRoot().bake(TEXTURE_WIDTH, TEXTURE_HEIGHT);
-	//		return new ModelKnight<>(slot, modelPart);
-	//	}
 
 	public static LayerDefinition createLayer()
 	{
@@ -134,29 +58,31 @@ public class ModelKnight<T extends HumanoidRenderState> extends HumanoidModel<T>
 				.setBoxOffset(-1.0F, -2.0F, -2.0F)
 				.setBox(4, 12, 4)
 				.setRotationPoint(5.0F, 2.0F, 0.0F)
-				.build(partDef, ARM_L);
+				.build(partDef, LEFT_ARM);
 		PartDefinition armRInner = new BoxBuilder()
 				.setTextureOffset(112, 0)
 				.setBoxOffset(-3.0F, -2.0F, -2.0F)
 				.setBox(4, 12, 4)
 				.setRotationPoint(-5.0F, 2.0F, 0.0F)
-				.build(partDef, ARM_R);
+				.build(partDef, RIGHT_ARM);
 
 		PartDefinition legLInner = new BoxBuilder()
 				.setTextureOffset(112, 0)
 				.setBoxOffset(-2.0F, 0.0F, -2.0F)
 				.setBox(4, 12, 4)
 				.setRotationPoint(1.9F, 12.0F, 0.0F)
-				.build(partDef, LEG_L);
+				.build(partDef, LEFT_LEG);
 		PartDefinition legRInner = new BoxBuilder()
 				.setTextureOffset(112, 0)
 				.setBoxOffset(-2.0F, 0.0F, -2.0F)
 				.setBox(4, 12, 4)
 				.setRotationPoint(-1.9F, 12.0F, 0.0F)
-				.build(partDef, LEG_R);
+				.build(partDef, RIGHT_LEG);
 
 		if (slot == null || slot == EquipmentSlot.HEAD)
 		{
+			partDef.getChild(HEAD).clearChild(HAT);
+
 			new BoxBuilder()
 					.setTextureOffset(96, 0)
 					.setBoxOffset(-4.0F, -8.0F, -4.0F)
