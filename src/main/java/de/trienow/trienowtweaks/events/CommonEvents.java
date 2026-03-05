@@ -20,7 +20,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 /**
  * @author trienow 2016 - 2023
  */
-@EventBusSubscriber
+@EventBusSubscriber(modid = TrienowTweaks.MODID)
 public class CommonEvents
 {
 	@SubscribeEvent

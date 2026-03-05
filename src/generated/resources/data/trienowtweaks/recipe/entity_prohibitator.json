@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": "minecraft:deepslate_bricks",
+    "H": "#c:items/skulls",
+    "L": "minecraft:deepslate_lapis_ore",
+    "W": "minecraft:deepslate_brick_wall"
+  },
+  "pattern": [
+    "LBL",
+    "WHW",
+    "BLB"
+  ],
+  "result": {
+    "count": 5,
+    "id": "trienowtweaks:entity_prohibitator"
+  }
+}

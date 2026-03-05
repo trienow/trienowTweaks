@@ -2,24 +2,33 @@ package de.trienow.trienowtweaks.blocks;
 
 import de.trienow.trienowtweaks.blocks.states.StateStreetlamp;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author (c) trienow
@@ -29,9 +38,10 @@ public class BlockStreetlamp extends BaseBlock
 	private static final Properties PROPS = BlockBehaviour.Properties.of()
 			.mapColor(MapColor.METAL)
 			.pushReaction(PushReaction.BLOCK)
-			.strength(5)
+			.strength(5f)
 			.lightLevel((blockState) -> 15)
-			.noOcclusion();
+			.noOcclusion()
+			.requiresCorrectToolForDrops();
 
 	private static final EnumProperty<StateStreetlamp> PLACEMENT = EnumProperty.create("placement", StateStreetlamp.class);
 
@@ -89,6 +99,12 @@ public class BlockStreetlamp extends BaseBlock
 		return state;
 	}
 
+	@Override protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random)
+	{
+		return canSurvive(state, level, pos) ? super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random) : Blocks.AIR.defaultBlockState();
+		//return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+	}
+
 	@Override
 	protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
 	{
@@ -106,6 +122,18 @@ public class BlockStreetlamp extends BaseBlock
 
 		}
 		return false;
+	}
+
+	@Override protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params)
+	{
+		if (state.getValue(PLACEMENT) == StateStreetlamp.TOP)
+		{
+			return super.getDrops(state, params);
+		}
+		else
+		{
+			return new ArrayList<>();
+		}
 	}
 
 	//	/**
