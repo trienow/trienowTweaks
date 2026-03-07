@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": "minecraft:dispenser",
+    "M": "minecraft:melon"
+  },
+  "pattern": [
+    "MMM",
+    "MDM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "trienowtweaks:auto_food"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "__comment": "(c) trienow 2016 - 2022",
-  "parent": "trienowtweaks:block/streetlamp_top_fire",
+  "parent": "trienowtweaks:block/streetlamp_fire",
   "textures": {
     "particle": "trienowtweaks:block/flesh",
     "texture": "trienowtweaks:block/flesh"

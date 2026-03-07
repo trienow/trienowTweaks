@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": "#c:blocks/copper_cut",
+    "H": "minecraft:hopper",
+    "O": "minecraft:observer",
+    "P": "minecraft:heavy_weighted_pressure_plate",
+    "R": "minecraft:redstone",
+    "T": "minecraft:tnt"
+  },
+  "pattern": [
+    "COP",
+    "RHC",
+    "CTR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "trienowtweaks:item_detector"
+  }
+}

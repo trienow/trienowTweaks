@@ -1,7 +1,7 @@
 {
     "variants":
     {
-    "placement=top":{ "model": "trienowtweaks:block/streetlamp_top_fire" },
+    "placement=top":{ "model": "trienowtweaks:block/streetlamp_fire" },
     "placement=middle":{ "model": "trienowtweaks:block/streetlamp_middle_metal" },
     "placement=bottom":{ "model": "trienowtweaks:block/streetlamp_bottom_metal" }
     }

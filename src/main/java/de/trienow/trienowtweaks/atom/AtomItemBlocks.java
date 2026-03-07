@@ -13,12 +13,17 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author trienow 2016 - 2023
  */
 public class AtomItemBlocks
 {
 	private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TrienowTweaks.MODID);
+	public static final List<DeferredItem<BlockItem>> ITEMSLIST = new ArrayList<>();
+
 	public static final DeferredItem<BlockItem> GENERIC_LIGHT = register(AtomBlocks.GENERIC_LIGHT);
 	public static final DeferredItem<BlockItem> INVISIBLE_WALL = register(AtomBlocks.INVISIBLE_WALL);
 
@@ -45,10 +50,12 @@ public class AtomItemBlocks
 	private static DeferredItem<BlockItem> register(DeferredBlock<? extends Block> b)
 	{
 		String path = b.unwrapKey().orElseThrow().location().getPath();
-		return ITEMS.register(path, key -> new BaseBlockItem(
+		DeferredItem<BlockItem> registeredItem = ITEMS.register(path, key -> new BaseBlockItem(
 				(BaseBlock) b.value(),
 				new Item.Properties()
 						.setId(ResourceKey.create(Registries.ITEM, key))
 						.useBlockDescriptionPrefix()));
+		ITEMSLIST.add(registeredItem);
+		return registeredItem;
 	}
 }

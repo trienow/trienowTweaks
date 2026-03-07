@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "S": "minecraft:shroomlight"
+  },
+  "pattern": [
+    "GGG",
+    "G G",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "trienowtweaks:auto_light"
+  }
+}

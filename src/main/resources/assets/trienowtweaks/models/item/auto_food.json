@@ -1,7 +1,8 @@
 {
   "__comment": "Designed by Joshua Rienow (c) 2017; Optimization and Conversion by trienow (c) 2017 - 2022",
   "textures": {
-    "mesh_palette": "trienowtweaks:item/auto_food"
+    "mesh_palette": "trienowtweaks:item/auto_food",
+    "particle": "#mesh_palette"
   },
   "elements": [
     {

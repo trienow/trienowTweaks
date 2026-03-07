@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "#c:dyes/black",
+    "F": "#minecraft:wooden_fences",
+    "S": "minecraft:spruce_planks"
+  },
+  "pattern": [
+    "SSS",
+    "FFF",
+    " B "
+  ],
+  "result": {
+    "count": 3,
+    "id": "trienowtweaks:railroad_truss_black"
+  }
+}

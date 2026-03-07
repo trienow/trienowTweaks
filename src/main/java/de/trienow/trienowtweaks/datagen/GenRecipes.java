@@ -1,12 +1,19 @@
 package de.trienow.trienowtweaks.datagen;
 
+import de.trienow.trienowtweaks.atom.AtomBlocks;
 import de.trienow.trienowtweaks.atom.AtomItemBlocks;
 import de.trienow.trienowtweaks.atom.AtomItems;
 import de.trienow.trienowtweaks.atom.AtomTags;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
-import de.trienow.trienowtweaks.recipes.RecipeTTCrafting;
+import de.trienow.trienowtweaks.recipes.RecipeTTBuilder;
+import net.minecraft.advancements.critereon.DataComponentMatchers;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.predicates.DataComponentPredicates;
+import net.minecraft.core.component.predicates.PotionsPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -14,10 +21,16 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import javax.annotation.Nonnull;
@@ -37,7 +50,27 @@ public class GenRecipes extends RecipeProvider
 	@Override protected void buildRecipes()
 	{
 		final HolderGetter<Item> items = this.registries.lookupOrThrow(Registries.ITEM);
+		final HolderGetter<Potion> potions = this.registries.lookupOrThrow(Registries.POTION);
+
 		final Item invisibleLight = AtomItemBlocks.GENERIC_LIGHT.get();
+		final ItemStack potionStack = new ItemStack(Items.POTION);
+		potionStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.INVISIBILITY));
+
+		final HolderSet.Named<Item> GLASS_PANES_COLORLESS = items.getOrThrow(Tags.Items.GLASS_PANES_COLORLESS);
+		final HolderSet.Named<Item> INGOTS = items.getOrThrow(Tags.Items.INGOTS);
+		final HolderSet.Named<Item> MEAT_RAW = items.getOrThrow(AtomTags.Items.MEAT_RAW);
+		final HolderSet.Named<Item> WALLS = items.getOrThrow(ItemTags.WALLS);
+
+		final Ingredient crimsonPressurePlate = Ingredient.of(Items.CRIMSON_PRESSURE_PLATE);
+		final Ingredient flintAndSteel = Ingredient.of(Items.FLINT_AND_STEEL);
+		final Ingredient glassColorless = Ingredient.of(GLASS_PANES_COLORLESS);
+		final Ingredient glowstone = Ingredient.of(Items.GLOWSTONE);
+		final Ingredient heavyWeightedPressurePlate = Ingredient.of(Items.HEAVY_WEIGHTED_PRESSURE_PLATE);
+		final Ingredient ingotsIron = Ingredient.of(INGOTS);
+		final Ingredient netherrack = Ingredient.of(Items.NETHERRACK);
+		final Ingredient meatRaw = Ingredient.of(MEAT_RAW);
+		final Ingredient potionInvisibility = DataComponentIngredient.of(false, potionStack);
+		final Ingredient walls = Ingredient.of(WALLS);
 
 		ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, AtomItemBlocks.ENTITY_PROHIBITATOR.get(), 5)
 				.unlockedBy(getHasName(Items.WITHER_SKELETON_SKULL), has(Items.WITHER_SKELETON_SKULL))
@@ -57,11 +90,21 @@ public class GenRecipes extends RecipeProvider
 				.unlockedBy(getHasName(Items.MAGMA_BLOCK), has(Items.MAGMA_BLOCK))
 				.save(output);
 
-		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
-				.save(output, recipeId(AtomItemBlocks.GENERIC_LIGHT));
+		new RecipeTTBuilder(3, 3, AtomItemBlocks.GENERIC_LIGHT.get(), 16)
+				.addIngredients(0, glowstone, glowstone, glowstone)
+				.addIngredients(1, glowstone, potionInvisibility, glowstone)
+				.addIngredients(2, glowstone, glowstone, glowstone)
+				.setCategories(CraftingBookCategory.BUILDING, RecipeCategory.DECORATIONS)
+				.unlockedBy("has_potion_invisibility", invisibilityPotionCriterion(items, potions))
+				.save(output);
 
-		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
-				.save(output, recipeId(AtomItemBlocks.INVISIBLE_WALL));
+		new RecipeTTBuilder(3, 3, AtomItemBlocks.INVISIBLE_WALL.get(), 8)
+				.addIngredients(0, walls, walls, walls)
+				.addIngredients(1, walls, potionInvisibility, walls)
+				.addIngredients(2, walls, walls, walls)
+				.setCategories(CraftingBookCategory.BUILDING, RecipeCategory.DECORATIONS)
+				.unlockedBy("has_potion_invisibility", invisibilityPotionCriterion(items, potions))
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, AtomItemBlocks.ITEM_DETECTOR.get())
 				.unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
@@ -135,10 +178,23 @@ public class GenRecipes extends RecipeProvider
 				.pattern(" B ")
 				.save(output);
 
-		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
-				.save(output, recipeId(AtomItemBlocks.STREETLAMP_FIRE));
-		SpecialRecipeBuilder.special(RecipeTTCrafting::new)
-				.save(output, recipeId(AtomItemBlocks.STREETLAMP_FLESH));
+		new RecipeTTBuilder(3, 3, AtomItemBlocks.STREETLAMP_FIRE.get(), 1)
+				.addIngredients(0, ingotsIron, heavyWeightedPressurePlate, ingotsIron)
+				.addIngredients(1, glassColorless, flintAndSteel, glassColorless)
+				.addIngredients(2, ingotsIron, netherrack, ingotsIron)
+				.addDamageable(Items.FLINT_AND_STEEL, 1)
+				.setCategories(CraftingBookCategory.BUILDING, RecipeCategory.DECORATIONS)
+				.unlockedBy(getHasName(Items.NETHERRACK), has(Items.NETHERRACK))
+				.save(output);
+
+		new RecipeTTBuilder(3, 3, AtomBlocks.STREETLAMP_FLESH.get(), 1)
+				.addIngredients(0, meatRaw, crimsonPressurePlate, meatRaw)
+				.addIngredients(1, glassColorless, flintAndSteel, glassColorless)
+				.addIngredients(2, meatRaw, netherrack, meatRaw)
+				.addDamageable(Items.FLINT_AND_STEEL, 1)
+				.setCategories(CraftingBookCategory.BUILDING, RecipeCategory.DECORATIONS)
+				.unlockedBy(getHasName(Items.NETHERRACK), has(Items.NETHERRACK))
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(items, RecipeCategory.DECORATIONS, AtomItemBlocks.STREETLAMP_GLOWSTONE.get())
 				.unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE))
@@ -189,11 +245,6 @@ public class GenRecipes extends RecipeProvider
 				.save(output);
 	}
 
-	private static String recipeId(@Nonnull DeferredItem<?> ro)
-	{
-		return ro.getId().toString();
-	}
-
 	@SuppressWarnings("SameParameterValue")
 	private static ResourceKey<Recipe<?>> recipeLoc(@Nonnull DeferredItem<?> ro, int index)
 	{
@@ -210,9 +261,25 @@ public class GenRecipes extends RecipeProvider
 				ResourceLocation.fromNamespaceAndPath(ro.getId().getNamespace(), ro.getId().getPath() + "_" + variant));
 	}
 
+	private net.minecraft.advancements.Criterion<net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance> invisibilityPotionCriterion(HolderGetter<Item> items, HolderGetter<Potion> potions)
+	{
+		return inventoryTrigger(
+				ItemPredicate.Builder.item()
+						.of(items, Items.POTION)
+						.withComponents(
+								DataComponentMatchers.Builder.components()
+										.partial(
+												DataComponentPredicates.POTIONS,
+												(PotionsPredicate) PotionsPredicate.potions(HolderSet.direct(Potions.INVISIBILITY))
+										)
+										.build()
+						)
+						.build()
+		);
+	}
+
 	public static class Runner extends RecipeProvider.Runner
 	{
-
 		protected Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries)
 		{
 			super(packOutput, registries);

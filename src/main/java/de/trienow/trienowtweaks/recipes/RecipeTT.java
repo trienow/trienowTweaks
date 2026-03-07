@@ -1,82 +1,167 @@
 package de.trienow.trienowtweaks.recipes;
 
+import de.trienow.trienowtweaks.atom.AtomRecipes;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.ShapedCraftingRecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
+import net.minecraft.world.level.Level;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author (c) trienow 2022 - 2023
  */
-class RecipeTT
+public class RecipeTT implements CraftingRecipe
 {
 	final int width;
 	final int height;
 	final Ingredient[] ingredients;
-	final ItemLike result;
-	final int resultCount;
-	private final Map<Item, Integer> damageableItems = new HashMap<>();
+	final ItemStack result;
+	final Map<Holder<Item>, Integer> damageableItems = new HashMap<>();
 	CraftingBookCategory category = CraftingBookCategory.MISC;
 
-	RecipeTT(int width, int height, ItemLike result, int resultCount)
+	RecipeTT(int width, int height, Ingredient[] ingredients, ItemStack result)
 	{
 		this.width = width;
 		this.height = height;
+		this.ingredients = ingredients;
 		this.result = result;
-		this.ingredients = new Ingredient[width * height];
-		this.resultCount = resultCount;
 	}
 
-	@SuppressWarnings("SameParameterValue")
-	RecipeTT(int width, int height, ItemLike result)
+	public CraftingBookCategory getCategory()
 	{
-		this(width, height, result, 1);
+		return category;
 	}
 
-	/**
-	 * Add a row of ingredients to the recipe.
-	 *
-	 * @param row The zero-indexed row number for the recipe
-	 * @param i1  The 1st ingredient in the row
-	 * @param i2  The 2nd ingredient in the row, or any other value if it exceeds the width
-	 * @param i3  The 3rd ingredient in the row, or any other value if it exceeds the width
-	 */
-	public RecipeTT addIngredients(int row, Ingredient i1, Ingredient i2, Ingredient i3)
+	public Map<Holder<Item>, Integer> getDamageableItems()
 	{
-		ingredients[row * width] = i1;
+		return damageableItems;
+	}
 
-		if (width > 1)
+	public int getHeight()
+	{
+		return height;
+	}
+
+	public List<Ingredient> getIngredients()
+	{
+		return List.of(ingredients);
+	}
+
+	public int getWidth()
+	{
+		return width;
+	}
+
+	public ItemStack getResult()
+	{
+		return result;
+	}
+
+	@Override public boolean matches(CraftingInput craftingInput, Level level)
+	{
+		boolean match = false;
+		if (craftingInput.size() >= ingredients.length)
 		{
-			ingredients[row * width + 1] = i2;
+			match = true;
+			for (int i = 0; i < ingredients.length && match; i++)
+			{
+				match = ingredients[i].test(craftingInput.getItem(i));
+			}
+		}
+		return match;
+	}
+
+	@Override public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider)
+	{
+		if (this.matches(craftingInput, null))
+		{
+			return new ItemStack(result.getItem(), result.getCount());
+		}
+		else
+		{
+			return ItemStack.EMPTY;
+		}
+	}
+
+	@Override public RecipeSerializer<? extends CraftingRecipe> getSerializer()
+	{
+		return AtomRecipes.RECIPE_TT.get();
+	}
+
+	@Override public PlacementInfo placementInfo()
+	{
+		return PlacementInfo.create(List.of(ingredients));
+	}
+
+	@Override public CraftingBookCategory category()
+	{
+		return this.category;
+	}
+
+	@Override public List<RecipeDisplay> display()
+	{
+		return List.of(
+				new ShapedCraftingRecipeDisplay(
+						this.width,
+						this.height,
+						Arrays.stream(this.ingredients)
+								.map(ingredient ->
+										ingredient == null ? SlotDisplay.Empty.INSTANCE : ingredient.display())
+								.toList(),
+						new SlotDisplay.ItemStackSlotDisplay(this.result),
+						new SlotDisplay.ItemSlotDisplay(Items.CRAFTING_TABLE))
+		);
+	}
+
+	@Override public NonNullList<ItemStack> getRemainingItems(CraftingInput input)
+	{
+		NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
+
+		for (int i = 0; i < input.size(); i++)
+		{
+			ItemStack stack = input.getItem(i);
+			if (stack.isDamageableItem())
+			{
+				int toDamage = damageableItems.getOrDefault(stack.getItemHolder(), 0);
+				if (toDamage > 0)
+				{
+					int newDamage = stack.getDamageValue() + toDamage;
+					if (newDamage < stack.getMaxDamage())
+					{
+						ItemStack damagedItem = stack.copy();
+						damagedItem.setDamageValue(newDamage);
+						remainingItems.set(i, damagedItem);
+					}
+				}
+			}
 		}
 
-		if (width > 2)
-		{
-			ingredients[row * width + 2] = i3;
-		}
-
-		return this;
+		return remainingItems;
 	}
 
-	public RecipeTT setCategory(CraftingBookCategory category)
+	@Override public boolean isSpecial()
+	{
+		return false;
+	}
+
+	public void setCategory(CraftingBookCategory category)
 	{
 		this.category = category;
-		return this;
 	}
 
-	public RecipeTT addDamageable(ItemLike itemLike, int damageToAdd)
+	public void addDamageable(Holder<Item> itemHolder, int damageToAdd)
 	{
-		damageableItems.put(itemLike.asItem(), damageToAdd);
-		return this;
+		damageableItems.putIfAbsent(itemHolder, damageToAdd);
 	}
-
-	public int shouldDamage(ItemStack stack)
-	{
-		return damageableItems.getOrDefault(stack.getItem(), 0);
-	}
-
 }

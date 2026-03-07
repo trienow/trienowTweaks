@@ -1,0 +1,24 @@
+{
+  "type": "trienowtweaks:recipe_tt",
+  "category": "building",
+  "damageableItems": {
+    "minecraft:flint_and_steel": 1
+  },
+  "height": 3,
+  "ingredients": [
+    "#c:items/meat_raw",
+    "minecraft:crimson_pressure_plate",
+    "#c:items/meat_raw",
+    "#c:glass_panes/colorless",
+    "minecraft:flint_and_steel",
+    "#c:glass_panes/colorless",
+    "#c:items/meat_raw",
+    "minecraft:netherrack",
+    "#c:items/meat_raw"
+  ],
+  "result": {
+    "count": 1,
+    "id": "trienowtweaks:streetlamp_flesh"
+  },
+  "width": 3
+}

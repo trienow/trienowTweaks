@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": "#minecraft:stone_bricks",
+    "O": "minecraft:observer",
+    "P": "minecraft:sticky_piston",
+    "R": "minecraft:repeater",
+    "S": "minecraft:diamond_sword"
+  },
+  "pattern": [
+    "BSO",
+    "BPR",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "trienowtweaks:minecart_killer"
+  }
+}

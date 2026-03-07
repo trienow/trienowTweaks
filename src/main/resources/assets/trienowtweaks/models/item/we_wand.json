@@ -1,8 +1,9 @@
 {
-"__comment": "~tr",
+"__comment": "(c) trienow 2014",
 "textures":
 {
-    "texture": "trienowtweaks:item/we_wand"
+    "texture": "trienowtweaks:item/we_wand",
+    "particle": "#texture"
 },
 "elements": [ 
 {

@@ -4,7 +4,7 @@
       "model": "trienowtweaks:block/item_detector_1"
     },
     "enabled=false": {
-      "model": "trienowtweaks:block/item_detector_0"
+      "model": "trienowtweaks:block/item_detector"
     }
   }
 }

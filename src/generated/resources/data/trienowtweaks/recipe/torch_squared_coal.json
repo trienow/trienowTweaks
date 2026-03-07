@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:storage_blocks/coal",
+    "L": "#minecraft:logs"
+  },
+  "pattern": [
+    "C",
+    "L"
+  ],
+  "result": {
+    "count": 8,
+    "id": "trienowtweaks:torch_squared"
+  }
+}
