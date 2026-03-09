@@ -4,7 +4,8 @@ public enum LayerTtType
 {
 	NONE(0),
 	TOAST(1),
-	KNIGHT(2);
+	KNIGHT(2),
+	AMOGUS(3);
 
 	private final int id;
 
@@ -27,6 +28,8 @@ public enum LayerTtType
 				return TOAST;
 			case 2:
 				return KNIGHT;
+			case 3:
+				return AMOGUS;
 			case 0:
 			default:
 				return NONE;

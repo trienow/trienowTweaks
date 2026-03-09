@@ -2,6 +2,7 @@ package de.trienow.trienowtweaks.entity.layer;
 
 import com.google.common.reflect.TypeToken;
 import de.trienow.trienowtweaks.atom.AtomAttachments;
+import de.trienow.trienowtweaks.entity.model.ModelAmogus;
 import de.trienow.trienowtweaks.entity.model.ModelDrToast;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
@@ -25,9 +26,6 @@ import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEve
 @EventBusSubscriber(modid = TrienowTweaks.MODID, value = Dist.CLIENT)
 public class RenderSetup
 {
-	public static final String TRIENOW = "trienow";
-	public static final String TOASTY = "Sandwichmania";
-
 	public static final ResourceLocation KNIGHT_LAYER_TEXTURE = ResourceLocation.fromNamespaceAndPath(
 			TrienowTweaks.MODID,
 			"textures/models/armor/knight_layer_1.png");
@@ -37,6 +35,11 @@ public class RenderSetup
 			TrienowTweaks.MODID,
 			"textures/models/armor/drtoast_layer_1.png");
 	public static final ModelLayerLocation DRTOAST_LAYER_LOCATION = new ModelLayerLocation(DRTOAST_LAYER_TEXTURE, "drToast");
+
+	public static final ResourceLocation AMOGUS_LAYER_TEXTURE = ResourceLocation.fromNamespaceAndPath(
+			TrienowTweaks.MODID,
+			"textures/models/armor/amogus.png");
+	public static final ModelLayerLocation AMOGUS_LAYER_LOCATION = new ModelLayerLocation(DRTOAST_LAYER_TEXTURE, "amogus");
 
 	public static final ContextKey<LayerTtType> LAYER_TYPE_CTX = new ContextKey<>(
 			ResourceLocation.fromNamespaceAndPath(TrienowTweaks.MODID, "layer_type_ctx")
@@ -57,6 +60,7 @@ public class RenderSetup
 	{
 		evt.registerLayerDefinition(KNIGHT_LAYER_LOCATION, ModelKnight::createLayer);
 		evt.registerLayerDefinition(DRTOAST_LAYER_LOCATION, ModelDrToast::createLayer);
+		evt.registerLayerDefinition(AMOGUS_LAYER_LOCATION, ModelAmogus::createLayer);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

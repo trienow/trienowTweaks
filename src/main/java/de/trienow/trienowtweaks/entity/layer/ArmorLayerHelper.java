@@ -44,21 +44,6 @@ public class ArmorLayerHelper
 		}
 	}
 
-	//	@SuppressWarnings("unchecked")
-	//	private static <E extends LivingEntity, M extends EntityModel<E>> void removeArmorLayer(Entity renderedEntity, List<RenderLayer<E, M>> renderLayerList)
-	//	{
-	//		for (RenderLayer<E, M> renderLayer : renderLayerList)
-	//		{
-	//			if (renderLayer instanceof HumanoidArmorLayer<?, ?, ?> armorLayer)
-	//			{
-	//				parkedArmorRenderers.putIfAbsent(renderedEntity,
-	//						(playerRenderer) -> playerRenderer.layers.add(1, (RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>) armorLayer));
-	//				renderLayerList.remove(renderLayer);
-	//				break;
-	//			}
-	//		}
-	//	}
-
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void onRenderPlayerPost(final RenderPlayerEvent.Post evt)
 	{
@@ -67,12 +52,5 @@ public class ArmorLayerHelper
 			parkedArmorRenderers.get(0).accept(evt.getRenderer());
 			parkedArmorRenderers.remove(0);
 		}
-		//		final Entity renderedEntity = evt.getEntity();
-		//		final Consumer<PlayerRenderer> parkedArmorRenderer = parkedArmorRenderers.get(renderedEntity);
-		//		if (parkedArmorRenderer != null)
-		//		{
-		//			parkedArmorRenderer.accept(evt.getRenderer());
-		//			parkedArmorRenderers.remove(renderedEntity);
-		//		}
 	}
 }

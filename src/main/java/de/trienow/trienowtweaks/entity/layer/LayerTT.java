@@ -2,6 +2,7 @@ package de.trienow.trienowtweaks.entity.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import de.trienow.trienowtweaks.entity.model.ModelAmogus;
 import de.trienow.trienowtweaks.entity.model.ModelDrToast;
 import de.trienow.trienowtweaks.entity.model.ModelKnight;
 import net.minecraft.client.Minecraft;
@@ -21,8 +22,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 public class LayerTT<T extends HumanoidRenderState, M extends HumanoidModel<T>> extends RenderLayer<T, M>
 {
 	private final ModelKnight<T> MODEL_KNIGHT;
-
 	private final ModelDrToast<T> MODEL_DRTOAST;
+	private final ModelAmogus<T> MODEL_AMOGUS;
 
 	public LayerTT(RenderLayerParent<T, M> entityRendererOwner)
 	{
@@ -33,6 +34,9 @@ public class LayerTT<T extends HumanoidRenderState, M extends HumanoidModel<T>> 
 
 		final ModelPart bakedDrToast = Minecraft.getInstance().getEntityModels().bakeLayer(RenderSetup.DRTOAST_LAYER_LOCATION);
 		this.MODEL_DRTOAST = new ModelDrToast<>(EquipmentSlot.HEAD, bakedDrToast);
+
+		final ModelPart bakedAmogus = Minecraft.getInstance().getEntityModels().bakeLayer(RenderSetup.AMOGUS_LAYER_LOCATION);
+		this.MODEL_AMOGUS = new ModelAmogus<>(bakedAmogus);
 	}
 
 	@Override public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, T t, float v, float v1)
@@ -57,6 +61,15 @@ public class LayerTT<T extends HumanoidRenderState, M extends HumanoidModel<T>> 
 				int i = LivingEntityRenderer.getOverlayCoords(t, 0.0F);
 				this.getParentModel().getHead().translateAndRotate(poseStack);
 				MODEL_DRTOAST.getHeadPart().render(poseStack, consumer, packedLight, i);
+
+				poseStack.popPose();
+			}
+			else if (layerType == LayerTtType.AMOGUS)
+			{
+				poseStack.pushPose();
+
+				this.getParentModel().copyPropertiesTo(this.MODEL_AMOGUS);
+				coloredCutoutModelCopyLayerRender(MODEL_AMOGUS, RenderSetup.AMOGUS_LAYER_TEXTURE, poseStack, multiBufferSource, packedLight, t, -1);
 
 				poseStack.popPose();
 			}
