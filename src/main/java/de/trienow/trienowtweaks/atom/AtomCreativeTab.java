@@ -28,7 +28,7 @@ public class AtomCreativeTab
 			//noinspection CodeBlock2Expr
 			return CreativeModeTab.builder()
 					.icon(() -> new ItemStack(AtomItemBlocks.STREETLAMP_FIRE.get()))
-					.title(Component.translatable("item_group." + MODID + ".trienowtab"))
+					.title(Component.translatable("item_group.trienowtweaks.trienowtab"))
 					.build();
 		});
 	}

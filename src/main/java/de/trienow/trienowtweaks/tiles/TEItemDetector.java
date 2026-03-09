@@ -32,7 +32,7 @@ public class TEItemDetector extends BlockEntity
 	{
 		super(AtomTiles.ITEM_DETECTOR.get(), pWorldPosition, pBlockState);
 
-		checkBox = new AABB(worldPosition.above());
+		checkBox = new AABB(pWorldPosition.above());
 	}
 
 	@Override protected void loadAdditional(ValueInput input)

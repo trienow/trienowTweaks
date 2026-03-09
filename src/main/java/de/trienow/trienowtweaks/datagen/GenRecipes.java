@@ -1,9 +1,7 @@
 package de.trienow.trienowtweaks.datagen;
 
-import de.trienow.trienowtweaks.atom.AtomBlocks;
-import de.trienow.trienowtweaks.atom.AtomItemBlocks;
-import de.trienow.trienowtweaks.atom.AtomItems;
-import de.trienow.trienowtweaks.atom.AtomTags;
+import de.trienow.trienowtweaks.atom.*;
+import de.trienow.trienowtweaks.datacomponents.AutoFoodData;
 import de.trienow.trienowtweaks.main.TrienowTweaks;
 import de.trienow.trienowtweaks.recipes.RecipeTTBuilder;
 import net.minecraft.advancements.critereon.DataComponentMatchers;
@@ -55,6 +53,10 @@ public class GenRecipes extends RecipeProvider
 		final Item invisibleLight = AtomItemBlocks.GENERIC_LIGHT.get();
 		final ItemStack potionStack = new ItemStack(Items.POTION);
 		potionStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.INVISIBILITY));
+
+		final ItemStack AUTO_FOOD = new ItemStack(AtomItems.AUTO_FOOD.get());
+		AUTO_FOOD.setDamageValue(AUTO_FOOD.getMaxDamage());
+		AUTO_FOOD.set(AtomDataComponents.AUTO_FOOD.get(), new AutoFoodData((byte) 0, (byte) 0));
 
 		final HolderSet.Named<Item> GLASS_PANES_COLORLESS = items.getOrThrow(Tags.Items.GLASS_PANES_COLORLESS);
 		final HolderSet.Named<Item> INGOTS = items.getOrThrow(Tags.Items.INGOTS);
@@ -217,7 +219,7 @@ public class GenRecipes extends RecipeProvider
 				.pattern("L")
 				.save(output, recipeVariant(AtomItemBlocks.TORCH_SQUARED, "coal"));
 
-		ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, AtomItems.AUTO_FOOD.get())
+		ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, AUTO_FOOD)
 				.unlockedBy(getHasName(Items.MELON_SLICE), has(Items.MELON_SLICE))
 				.define('M', Items.MELON)
 				.define('D', Items.DISPENSER)

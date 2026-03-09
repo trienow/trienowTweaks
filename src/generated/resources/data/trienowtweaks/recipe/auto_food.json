@@ -10,6 +10,9 @@
     "MDM"
   ],
   "result": {
+    "components": {
+      "minecraft:damage": 500
+    },
     "count": 1,
     "id": "trienowtweaks:auto_food"
   }

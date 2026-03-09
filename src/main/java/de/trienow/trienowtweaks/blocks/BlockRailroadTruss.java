@@ -3,6 +3,7 @@ package de.trienow.trienowtweaks.blocks;
 import de.trienow.trienowtweaks.blocks.flavors.FlavorRailroadTruss;
 import de.trienow.trienowtweaks.blocks.states.StateRailroadTruss;
 import de.trienow.trienowtweaks.blocks.states.StateRailroadTrussType;
+import de.trienow.trienowtweaks.main.TrienowTweaks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -101,6 +102,7 @@ public class BlockRailroadTruss extends BaseBlock
 		{
 			return;
 		}
+		TrienowTweaks.LOG.warn("Neighbor Changed! {}", pos);
 
 		Direction face = state.getValue(DISPLAY).getFacing();
 		Direction faceOpposite = face.getOpposite();
@@ -128,6 +130,7 @@ public class BlockRailroadTruss extends BaseBlock
 
 		if (ibs != state)
 		{
+			level.setBlockAndUpdate(pos, ibs);
 			level.neighborChanged(ibs, pos, this, null, movedByPiston);
 		}
 	}
@@ -136,6 +139,16 @@ public class BlockRailroadTruss extends BaseBlock
 	public void updateIndirectNeighbourShapes(BlockState pState, LevelAccessor pLevel, BlockPos pPos, int pFlags, int pRecursionLeft)
 	{
 		pLevel.updateNeighborsAt(pPos.above(), this);
+	}
+
+	@Override protected int getLightBlock(BlockState state)
+	{
+		return 0;
+	}
+
+	@Override protected boolean propagatesSkylightDown(BlockState state)
+	{
+		return true;
 	}
 
 	@Override

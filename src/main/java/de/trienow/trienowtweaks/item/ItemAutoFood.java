@@ -42,7 +42,8 @@ public class ItemAutoFood extends Item
 		super(new Properties()
 				.stacksTo(1)
 				.durability(500)
-				.component(AtomDataComponents.AUTO_FOOD.get(), new AutoFoodData((byte) 0, (byte) 0)).setId(ResourceKey.create(Registries.ITEM, registryName))
+				.component(AtomDataComponents.AUTO_FOOD.get(), new AutoFoodData((byte) 0, (byte) 0))
+				.setId(ResourceKey.create(Registries.ITEM, registryName))
 		);
 	}
 
@@ -201,7 +202,10 @@ public class ItemAutoFood extends Item
 			tf = ChatFormatting.DARK_RED;
 
 		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_food.tooltip0"));
-		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_food.tooltip1", tf.toString(), uses));
+		tooltipAdder.accept(Component.translatable("item.trienowtweaks.auto_food.tooltip1",
+				Component.literal(String.valueOf(uses))
+						.withStyle(tf)
+						.withStyle(ChatFormatting.BOLD)));
 	}
 
 	@Override public InteractionResult use(Level level, Player player, InteractionHand hand)

@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.vehicle.Minecart;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +35,7 @@ public class BlockMinecartKiller extends BaseBlock
 		final AABB checkBox = new AABB(pos.above());
 		if (!level.isClientSide() && level.getSignal(pos, Direction.UP) > 0)
 		{
-			List<Minecart> ents = level.getEntities(EntityTypeTest.forClass(Minecart.class), checkBox, PREDICATE_TRUE);
+			List<AbstractMinecart> ents = level.getEntities(EntityTypeTest.forClass(AbstractMinecart.class), checkBox, PREDICATE_TRUE);
 
 			for (Entity entity : ents)
 			{

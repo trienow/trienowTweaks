@@ -1,5 +1,6 @@
 package de.trienow.trienowtweaks.blocks;
 
+import de.trienow.trienowtweaks.atom.AtomBlocks;
 import de.trienow.trienowtweaks.blocks.states.StateGenericLight;
 import de.trienow.trienowtweaks.config.Globals;
 import net.minecraft.core.BlockPos;
@@ -58,9 +59,9 @@ public class BlockGenericLight extends BaseBlock
 	public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom)
 	{
 		BlockPos anchorBlock = pPos.subtract(pState.getValue(ANCHOR).getAnchorOffset());
-		if (!(pLevel.getBlockState(anchorBlock).getBlock() instanceof BlockTorchSquared))
+		if (!pLevel.getBlockState(anchorBlock).is(AtomBlocks.TORCH_SQUARED))
 		{
-			pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_NONE);
+			pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}
 

@@ -5,7 +5,7 @@ import de.trienow.trienowtweaks.blocks.states.StateGenericLight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -113,34 +114,50 @@ public class BlockTorchSquared extends BaseBlock
 		removeTickingGenericLights(pLevel, pPos);
 	}
 
-	@Override protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random)
+	@Override protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston)
 	{
-		BlockState stateOut = state;
-		Direction thisFacing = state.getValue(FACING);
-		Direction anchoredToFace = thisFacing.getOpposite();
+		Direction thisFacing = state.getValue(FACING); //UP = anchored to the bottom block
 
-		// If the torch is pointing up (i.e. anchored to the bottom block) we only want to react to those events
-		if (anchoredToFace == direction && !canBeOnFace(level, pos, thisFacing))
+		if (!canSupportCenter(level, pos.relative(thisFacing.getOpposite()), thisFacing))
 		{
 			// Now that we know, that we can't stay on the currently fixed face, let's find another one!
-			stateOut = Blocks.AIR.defaultBlockState(); // <- Otherwise make it to air.
+			BlockState stateOut = Blocks.AIR.defaultBlockState(); // <- Otherwise make it to air.
 
 			for (Direction thisNewFacing : FIX_PLACEMENT_TRIES)
 			{
-				if (thisFacing != thisNewFacing && canBeOnFace(level, pos, thisNewFacing))
+				if (thisNewFacing != thisFacing)
 				{
-					stateOut = state.setValue(FACING, thisNewFacing);
-					break;
+					boolean sturdy = canSupportCenter(level, pos.relative(thisNewFacing.getOpposite()), thisNewFacing);
+					if (sturdy)
+					{
+						stateOut = state.setValue(FACING, thisNewFacing);
+						break;
+					}
 				}
 			}
-		}
 
-		return stateOut;
+			if (stateOut.is(Blocks.AIR))
+			{
+				dropResources(state, level, pos);
+				removeTickingGenericLights(level, pos);
+				level.setBlockAndUpdate(pos, stateOut);
+			}
+			else if (stateOut != state)
+			{
+				level.setBlockAndUpdate(pos, stateOut);
+			}
+		}
 	}
 
-	private static boolean canBeOnFace(LevelReader level, BlockPos thisPos, Direction thisDirection)
+	@Override public void wasExploded(ServerLevel level, BlockPos pos, Explosion explosion)
 	{
-		return canSupportCenter(level, thisPos, thisDirection.getOpposite());
+		removeTickingGenericLights(level, pos);
+	}
+
+	@Override protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
+	{
+		Direction thisFacing = state.getValue(FACING);
+		return canSupportCenter(level, pos.relative(thisFacing.getOpposite()), thisFacing);
 	}
 
 	private static void removeTickingGenericLights(LevelAccessor world, BlockPos pos)
@@ -151,7 +168,7 @@ public class BlockTorchSquared extends BaseBlock
 			BlockState bState = world.getBlockState(offset);
 			if (bState.hasProperty(BlockGenericLight.ANCHOR) && bState.getValue(BlockGenericLight.ANCHOR) != StateGenericLight.NONE)
 			{
-				world.setBlock(offset, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+				world.setBlock(offset, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
 			}
 		}
 	}

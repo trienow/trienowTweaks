@@ -2,7 +2,9 @@ package de.trienow.trienowtweaks.item;
 
 import de.trienow.trienowtweaks.config.Globals;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -48,7 +50,9 @@ public class ItemWeWand extends Item
 
 	public ItemWeWand(ResourceLocation registryName)
 	{
-		super(new Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, registryName)));
+		super(new Properties()
+				.stacksTo(1)
+				.setId(ResourceKey.create(Registries.ITEM, registryName)));
 	}
 
 	@Override public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag)
@@ -80,7 +84,16 @@ public class ItemWeWand extends Item
 	{
 		if (level.isClientSide())
 		{
-			Globals.setShowInvisibleBlocks(!Globals.showInvisibleBlocks());
+			Minecraft mc = Minecraft.getInstance();
+			boolean newState = !Globals.showInvisibleBlocks();
+			Globals.setShowInvisibleBlocks(newState);
+
+			BlockPos pos = player.blockPosition();
+			int dist = mc.options.getEffectiveRenderDistance() * 16;
+
+			//Y is treated differently by the renderer it seems
+			mc.levelRenderer.setBlocksDirty(pos.getX() - dist, level.getMinY(), pos.getZ() - dist, pos.getX() + dist, level.getMaxY(), pos.getZ() + dist);
+			mc.player.displayClientMessage(Component.translatable(newState ? "item.trienowtweaks.we_wand.hidden_show" : "item.trienowtweaks.we_wand.hidden_hide"), false);
 		}
 		return InteractionResult.SUCCESS;
 	}

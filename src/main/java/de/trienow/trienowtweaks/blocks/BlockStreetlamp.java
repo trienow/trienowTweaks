@@ -102,7 +102,6 @@ public class BlockStreetlamp extends BaseBlock
 	@Override protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random)
 	{
 		return canSurvive(state, level, pos) ? super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random) : Blocks.AIR.defaultBlockState();
-		//return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -135,61 +134,4 @@ public class BlockStreetlamp extends BaseBlock
 			return new ArrayList<>();
 		}
 	}
-
-	//	/**
-	//	 * Checks if a {@link BlockStreetlamp} exists at the given {@link BlockPos}
-	//	 *
-	//	 * @param pLevel The world object to use to check
-	//	 * @param pPos   The position at which a check should be performed
-	//	 * @return Returns <code>true</code> when a {@link BlockStreetlamp} is present
-	//	 */
-	//	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	//	private static boolean isStreetlamp(LevelAccessor pLevel, BlockPos pPos)
-	//	{
-	//		return pLevel.getBlockState(pPos).getBlock() instanceof BlockStreetlamp;
-	//	}
-	//
-	//	/**
-	//	 * Sets AIR at the given {@link BlockPos}
-	//	 *
-	//	 * @param pLevel The world object to edit
-	//	 * @param pPos   The position at which air should be set
-	//	 */
-	//	private static void setAir(LevelAccessor pLevel, BlockPos pPos)
-	//	{
-	//		pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-	//	}
-
-	//	@Override protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random)
-	//	{
-	//		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
-	//	}
-	//
-	//		boolean up = fromPos.equals(pos.above()) && !isStreetlamp(level, pos.above());
-	//		boolean down = fromPos.equals(pos.below()) && !isStreetlamp(level, pos.below());
-	//
-	//		switch (state.getValue(PLACEMENT))
-	//		{
-	//			case BOTTOM:
-	//				if (up)
-	//				{
-	//					setAir(level, pos);
-	//				}
-	//				break;
-	//
-	//			case MIDDLE:
-	//				if (down || up)
-	//				{
-	//					setAir(level, pos);
-	//				}
-	//				break;
-	//
-	//			case TOP:
-	//				if (down)
-	//				{
-	//					setAir(level, pos);
-	//				}
-	//				break;
-	//		}
-	//	}
 }

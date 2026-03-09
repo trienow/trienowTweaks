@@ -1,10 +1,6 @@
 {
   "item_group.trienowtweaks.trienowtab": "trienow's creative tab",
 
-  "block.trienowtweaks.compact_crafter": "Compacting Crafter",
-  "block.trienowtweaks.compact_crafter.tooltip0": "\u00A72Put an inventory on the left and right of this block.",
-  "block.trienowtweaks.compact_crafter.tooltip1": "\u00A7eItems in the left inventory will be crafted in a 2x2",
-  "block.trienowtweaks.compact_crafter.tooltip2": "\u00A7eor 3x3 pattern. \u00A7cThe right inventory is the output.",
   "block.trienowtweaks.entity_prohibitator": "Entity Prohibitator",
   "block.trienowtweaks.entity_prohibitator.tooltip0": "\u00A7aWill prohibit any Monsters from Spawning in a Chunk",
   "block.trienowtweaks.entity_prohibitator.tooltip1": "\u00A72Must be placed at the Chunk's origin at y = 255",
@@ -39,7 +35,7 @@
   "block.trienowtweaks.item_detector.message": "Minimum item entities to detect: %s%s",
   "block.trienowtweaks.minecart_killer": "Minecart Killer",
   "block.trienowtweaks.minecart_killer.tooltip0": "\u00A73Will kill the minecart above it,",
-  "block.trienowtweaks.minecart_killer.tooltip1": "\u00A73when it receives a \u00A7c\u00A7oredstone\u00A7r \u00A73signal.",
+  "block.trienowtweaks.minecart_killer.tooltip1": "\u00A73when it receives a \u00A7c\u00A7oredstone\u00A7r \u00A73signal from above.",
 
   "block.trienowtweaks.streetlamp": "Street Lamp",
   "block.trienowtweaks.streetlamp_fire": "Fiery Street Lamp",
@@ -53,20 +49,16 @@
 
   "item.trienowtweaks.auto_food": "Helmet of Gluttony",
   "item.trienowtweaks.auto_food.tooltip0": "\u00A7o\u00A7cYummy... Watermelon!",
-  "item.trienowtweaks.auto_food.tooltip1": "\u00A77Can feed you %1$s\u00A7l%2$s\u00A7r\u00A77 more times.",
+  "item.trienowtweaks.auto_food.tooltip1": "\u00A77Can feed you %1$s\u00A7r\u00A77 more times.",
   "item.trienowtweaks.auto_food.warning": "\u00A76You might slowly be getting hungry...",
   "item.trienowtweaks.auto_food.danger": "\u00A7cYou have no more food stored!",
   "item.trienowtweaks.we_wand": "WorldEdit Wand",
-  "item.trienowtweaks.we_wand.tooltip0": "Hold it and press F3 + A, to see invisible blocks",
+  "item.trienowtweaks.we_wand.tooltip0": "Right click see or hide invisible trienowTweaks blocks",
+  "item.trienowtweaks.we_wand.hidden_show": "Invisible Blocks: \u00A72Shown",
+  "item.trienowtweaks.we_wand.hidden_hide": "Invisible Blocks: \u00A74Hidden",
   "item.trienowtweaks.auto_light": "Bright Amulet",
   "item.trienowtweaks.auto_light.tooltip0": "\u00A7cPlaces an invisible light source, when it is dark.",
   "item.trienowtweaks.auto_light.tooltip1": "\u00A7eCurrently it has infinite uses.",
-
-  "item.trienowtweaks.knight_helmet": "Knight's Helmet",
-  "item.trienowtweaks.knight_chestplate": "Knight's Breastplate",
-  "item.trienowtweaks.knight_leggings": "Knight's Greaves",
-  "item.trienowtweaks.knight_boots": "Knight's Boots",
-  "item.trienowtweaks.drtoast_helmet": "Sandwichmania",
 
 
   "cmd.trienowtweaks.treq.help": "\n        \u00A7a=== \u00A7cTeleport Requester Subcommands \u00A7a===\n\u00A7cto <Player>\u00A7r\n Send a teleport-request \u00A7oto\u00A7r a specific player\n\u00A7caccept <Player\u00A7ls\u00A7r\u00A7c>\u00A7r\n Accepts a request \u00A7ofrom\u00A7r another player\n\u00A7cblock <Player\u00A7ls\u00A7r\u00A7c>\u00A7r\n Blocks all teleport-requests \u00A7ofrom\u00A7r given players\n\u00A7cunblock <Player\u00A7ls\u00A7r\u00A7c>\u00A7r\n Allows given players to send requests again\n\u00A7a[NOTE]:\u00A7r The \u00A7b@\u00A7r-Selectors work on \u00A7c<Player\u00A7ls\u00A7r\u00A7c>\u00A7r arguments",
